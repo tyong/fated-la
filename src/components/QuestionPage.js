@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { navigate } from 'gatsby'
+import { STORAGE_KEY } from '../data/scores'
 
 const mono    = '"Apercu-Mono", "Apercu Mono", "Courier New", monospace'
 const noir    = '"NOIRetBLANC-Regular", "NOIR et BLANC", "Instrument Serif", Georgia, serif'
@@ -11,8 +12,11 @@ const pink    = '#FFE4F7'
 const bg      = '#F28CEA'
 const cyan    = '#00C0DE'
 
-const ChoiceCard = ({ title, body, to }) => (
-  <Link to={to} style={{ display: 'block', textDecoration: 'none' }}>
+const ChoiceCard = ({ title, body, onChoose }) => (
+  <div
+    onClick={onChoose}
+    style={{ display: 'block', textDecoration: 'none' }}
+  >
     <div style={{
       backgroundColor: pink,
       cursor: 'pointer',
@@ -26,8 +30,15 @@ const ChoiceCard = ({ title, body, to }) => (
         {body}
       </div>
     </div>
-  </Link>
+  </div>
 )
+
+const saveAnswer = (questionNumber, choiceIndex) => {
+  if (typeof window === 'undefined') return
+  const answers = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')
+  answers[questionNumber] = choiceIndex
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(answers))
+}
 
 const QuestionPage = ({ number, total = 10, title, paragraphs, question, choices, nextPath }) => (
   <div style={{
@@ -77,7 +88,15 @@ const QuestionPage = ({ number, total = 10, title, paragraphs, question, choices
     {/* Choice cards */}
     <div style={{ padding: '0 20px 60px' }}>
       {choices.map((c, i) => (
-        <ChoiceCard key={i} title={c.title} body={c.body} to={nextPath} />
+        <ChoiceCard
+          key={i}
+          title={c.title}
+          body={c.body}
+          onChoose={() => {
+            saveAnswer(number, i)
+            navigate(nextPath)
+          }}
+        />
       ))}
     </div>
 

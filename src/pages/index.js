@@ -37,6 +37,18 @@ const candidates = [
     img: 'https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAY29KREV8F0ZSQYVN8EVRM.png',
     left: 324,
   },
+  {
+    name: 'PRATT',
+    arcana: 'THE CHARIOT',
+    img: '',
+    left: 489,
+  },
+  {
+    name: 'MILLER',
+    arcana: 'THE MAGICIAN',
+    img: '',
+    left: 654,
+  },
 ]
 
 const CandidateCard = ({ name, arcana, img, left }) => (
