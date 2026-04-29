@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { navigate } from 'gatsby'
-import { SCORES, CANDIDATES, STORAGE_KEY } from '../data/scores'
+import { SCORES, CANDIDATES, MOON, MOON_THRESHOLD, MILLER_NARROW_THRESHOLD, STORAGE_KEY } from '../data/scores'
 
 export default () => {
   useEffect(() => {
@@ -15,8 +15,20 @@ export default () => {
     }
 
     localStorage.removeItem(STORAGE_KEY)
-    const winnerIdx = totals.indexOf(Math.max(...totals))
-    navigate(CANDIDATES[winnerIdx].route, { replace: true })
+
+    const ranked = totals
+      .map((score, i) => ({ ...CANDIDATES[i], score }))
+      .sort((a, b) => b.score - a.score)
+
+    const gap = ranked[0].score - ranked[1].score
+    const isTooClose = gap <= MOON_THRESHOLD
+    const isMillerNarrow = ranked[0].key === 'miller' && gap <= MILLER_NARROW_THRESHOLD
+
+    if (isTooClose || isMillerNarrow) {
+      navigate(MOON.route, { replace: true })
+    } else {
+      navigate(ranked[0].route, { replace: true })
+    }
   }, [])
   return null
 }

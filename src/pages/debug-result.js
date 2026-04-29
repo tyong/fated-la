@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { navigate } from 'gatsby'
-import { SCORES, CANDIDATES, STORAGE_KEY } from '../data/scores'
+import { SCORES, CANDIDATES, MOON, MOON_THRESHOLD, MILLER_NARROW_THRESHOLD, STORAGE_KEY } from '../data/scores'
 
 const QUESTION_LABELS = {
   1: 'Q1 — The Palisades',
@@ -57,9 +57,13 @@ export default function DebugResult() {
   }
 
   const totals = computeTotals(answers)
-  const maxScore = Math.max(...totals)
-  const winnerIdx = totals.indexOf(maxScore)
   const hasAnyAnswer = Object.keys(answers).length > 0
+
+  const ranked = totals.map((score, i) => ({ ...CANDIDATES[i], score })).sort((a, b) => b.score - a.score)
+  const winnerIdx = totals.indexOf(ranked[0].score)
+  const maxScore = ranked[0].score
+  const gap = hasAnyAnswer ? ranked[0].score - ranked[1].score : null
+  const isMoon = hasAnyAnswer && (gap <= MOON_THRESHOLD || (ranked[0].key === 'miller' && gap <= MILLER_NARROW_THRESHOLD))
 
   const th = { border: '1px solid #ccc', padding: '6px 10px', background: '#eee', fontWeight: 'bold', whiteSpace: 'nowrap' }
   const td = { border: '1px solid #ccc', padding: '6px 10px', textAlign: 'center' }
@@ -169,14 +173,16 @@ export default function DebugResult() {
           </table>
 
           <p style={{ margin: '12px 0 24px' }}>
-            <strong>Winner:</strong>{' '}
+            <strong>Result:</strong>{' '}
             {!hasAnyAnswer
               ? 'No answers recorded yet.'
-              : <span style={{ color: '#1a7a1a' }}>{CANDIDATES[winnerIdx].name} ({maxScore} pts)</span>
+              : isMoon
+                ? <span style={{ color: '#3D3560', fontWeight: 'bold' }}>🌑 The Moon (gap={gap}, threshold={ranked[0].key === 'miller' ? MILLER_NARROW_THRESHOLD : MOON_THRESHOLD})</span>
+                : <span style={{ color: '#1a7a1a' }}>{ranked[0].name} ({maxScore} pts, gap={gap})</span>
             }
             {' '}
             <button onClick={() => navigate('/result')} style={{ marginLeft: '12px', cursor: 'pointer' }}>
-              Go to winner result page
+              Go to result page
             </button>
           </p>
         </div>
@@ -194,6 +200,12 @@ export default function DebugResult() {
             {c.name} ({c.route})
           </button>
         ))}
+        <button
+          onClick={() => navigate(MOON.route)}
+          style={{ cursor: 'pointer', padding: '6px 14px', background: '#3D3560', color: '#fff', border: 'none' }}
+        >
+          🌑 The Moon ({MOON.route})
+        </button>
       </div>
     </div>
   )
