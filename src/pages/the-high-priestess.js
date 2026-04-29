@@ -19,7 +19,7 @@ export default () => (
     shadowArcana="THE MAGICIAN"
     shadowImg=""
     shadowImgLeft={33}
-    shadowText={`[Shadow card text — to be filled in.]`}
+    shadowText={`Closer than you think.\n\nYou both want performance-based budgeting. You both want public dashboards tracking homelessness spending. You both think LAHSA is broken. You both believe the mayor should actually manage the city like a CEO manages a company.\n\nThe difference: you name what the machine should be optimizing for. You have an explicit values framework underneath the operational critique. Miller tends to treat that question as already answered — which is fine, until the data points somewhere uncomfortable.\n\nThe card asks you: When the data conflicts with the community, which one wins?`}
     charge={`You're a policy person. So is your candidate. Don't let the campaign stay at the level of "accountability" and "transparency" — those are vibes, not plans. Push into the specifics. How does the LAHSA transition actually work? What's the timeline? Who gets fired if it doesn't?\n\nDetails are the difference between a policy and a press release.`}
   />
 )
