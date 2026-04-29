@@ -160,8 +160,6 @@ const ResultPage = ({
       <div style={{ color: purple, fontFamily: noir, fontSize: '30px', left: 16, lineHeight: '90px', position: 'absolute', textAlign: 'center', top: -7, zIndex: 1 }}>✴</div>
       <ShareButton />
 
-      <SpreadSectionExternal />
-
       <div style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ color: purple, fontFamily: mono, fontSize: '12px', paddingTop: '39px', textAlign: 'center' }}>
           Your tarot reading
@@ -189,6 +187,8 @@ const ResultPage = ({
           <BodyText>{fullReading}</BodyText>
         </Section>
       </div>
+
+      <SpreadSectionExternal />
 
       {spread.length > 0 && <SpreadSection spread={spread} />}
 
