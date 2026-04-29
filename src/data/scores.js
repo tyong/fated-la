@@ -145,3 +145,17 @@ export const MOON_THRESHOLD = 5
 export const MILLER_NARROW_THRESHOLD = 6
 
 export const STORAGE_KEY = 'quizAnswers'
+export const SPREAD_KEY = 'quizSpread'
+
+export const ISSUE_LABELS = {
+  1: 'Wildfires',
+  2: 'Olympics',
+  3: 'Budget Deficit',
+  4: 'AI',
+  5: 'Homelessness',
+  6: 'ICE Raids',
+  7: 'Labor Unions',
+  8: 'Public Safety',
+  9: 'Mansion Tax',
+  10: 'Housing',
+}

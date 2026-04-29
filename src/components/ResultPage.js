@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import ClientOnlyDithering from './ClientOnlyDithering'
+import SpreadSection from './SpreadSection'
 
 const mono    = '"Apercu-Mono", "Apercu Mono", "Courier New", monospace'
 const monoPro = '"ApercuMonoPro-Regular", "Apercu Mono Pro", "Courier New", monospace'
@@ -114,6 +115,8 @@ const ResultPage = ({
       <Section title="In Plain Terms">
         <BodyText>{inPlainTerms}</BodyText>
       </Section>
+
+      <SpreadSection />
 
       {/* Shadow Card section */}
       <div style={{ padding: '0 33px 48px' }}>

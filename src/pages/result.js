@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { navigate } from 'gatsby'
-import { SCORES, CANDIDATES, MOON, MOON_THRESHOLD, MILLER_NARROW_THRESHOLD, STORAGE_KEY } from '../data/scores'
+import { SCORES, CANDIDATES, MOON, MOON_THRESHOLD, MILLER_NARROW_THRESHOLD, STORAGE_KEY, SPREAD_KEY } from '../data/scores'
 
 export default () => {
   useEffect(() => {
@@ -14,6 +14,7 @@ export default () => {
       }
     }
 
+    localStorage.setItem(SPREAD_KEY, JSON.stringify(answers))
     localStorage.removeItem(STORAGE_KEY)
 
     const ranked = totals
