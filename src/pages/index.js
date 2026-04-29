@@ -63,7 +63,7 @@ const IntroPage = () => (
       position: 'relative',
       WebkitFontSmoothing: 'antialiased',
       width: '393px',
-      minHeight: '1300px',
+      minHeight: '1440px',
       margin: '0 auto',
     }}>
 
