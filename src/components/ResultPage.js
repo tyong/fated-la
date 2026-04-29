@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import { Dithering } from '@paper-design/shaders-react'
+import ClientOnlyDithering from './ClientOnlyDithering'
 
 const mono    = '"Apercu-Mono", "Apercu Mono", "Courier New", monospace'
 const monoPro = '"ApercuMonoPro-Regular", "Apercu Mono Pro", "Courier New", monospace'
@@ -71,7 +71,7 @@ const ResultPage = ({
   }}>
 
     {/* Hero dithering swirl */}
-    <Dithering
+    <ClientOnlyDithering
       speed={0.43}
       shape="swirl"
       type="4x4"
@@ -124,7 +124,7 @@ const ResultPage = ({
         {/* Shadow card with warp dithering */}
         <div style={{ margin: '0 auto', position: 'relative', width: '294px', height: '517px' }}>
           <div style={{ backgroundColor: pink, borderRadius: '6px', height: '100%', outline: `1px solid ${purple}`, position: 'absolute', top: 0, left: 0, width: '100%' }} />
-          <Dithering
+          <ClientOnlyDithering
             speed={0.56}
             shape="warp"
             type="4x4"

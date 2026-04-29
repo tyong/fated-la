@@ -1,7 +1,14 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import Helmet from 'react-helmet'
-import { Dithering } from '@paper-design/shaders-react'
+import ClientOnlyDithering from '../components/ClientOnlyDithering'
+
+export const Head = () => (
+  <>
+    <title>Fated LA</title>
+    <meta name="description" content="Reveal who your soul thinks LA's next mayor should be." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </>
+)
 
 const mono    = '"Apercu-Mono", "Apercu Mono", "Courier New", monospace'
 const monoPro = '"ApercuMonoPro-Regular", "Apercu Mono Pro", "Courier New", monospace'
@@ -47,11 +54,6 @@ const CandidateCard = ({ name, arcana, img, left }) => (
 
 const IntroPage = () => (
   <div>
-    <Helmet>
-      <title>Fated LA</title>
-      <meta name="description" content="Reveal who your soul thinks LA's next mayor should be." />
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
-    </Helmet>
 
     <div style={{
       backgroundColor: '#F28CEA',
@@ -66,7 +68,7 @@ const IntroPage = () => (
     }}>
 
       {/* Animated swirl */}
-      <Dithering
+      <ClientOnlyDithering
         speed={0.43}
         shape="swirl"
         type="4x4"
@@ -110,7 +112,7 @@ const IntroPage = () => (
       {candidates.map(c => <CandidateCard key={c.name} {...c} />)}
 
       {/* Sphere dithering shader behind How It Works */}
-      <Dithering
+      <ClientOnlyDithering
         speed={1}
         shape="sphere"
         type="4x4"
