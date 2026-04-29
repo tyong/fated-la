@@ -5,6 +5,7 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "@paper-design/shaders-react": "^0.0.76",
+    "agentation": "^3.0.2",
     "ajv": "6.12.6",
     "ajv-keywords": "3.5.2",
     "gatsby": "^5.16.1",
