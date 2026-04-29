@@ -2,6 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { navigate } from 'gatsby'
 import { SCORES, CANDIDATES, MOON, MOON_THRESHOLD, MILLER_NARROW_THRESHOLD, STORAGE_KEY } from '../data/scores'
 
+const SHADOWS = {
+  bass:   { name: 'Nithya Raman',  arcana: 'The High Priestess' },
+  raman:  { name: 'Adam Miller',   arcana: 'The Magician'       },
+  huang:  { name: 'Nithya Raman',  arcana: 'The High Priestess' },
+  pratt:  { name: 'Karen Bass',    arcana: 'The Empress'        },
+  miller: { name: 'Nithya Raman',  arcana: 'The High Priestess' },
+}
+
 const QUESTION_LABELS = {
   1: 'Q1 — The Palisades',
   2: 'Q2 — The Olympics',
@@ -172,7 +180,7 @@ export default function DebugResult() {
             </tbody>
           </table>
 
-          <p style={{ margin: '12px 0 24px' }}>
+          <p style={{ margin: '12px 0 4px' }}>
             <strong>Result:</strong>{' '}
             {!hasAnyAnswer
               ? 'No answers recorded yet.'
@@ -185,28 +193,62 @@ export default function DebugResult() {
               Go to result page
             </button>
           </p>
+          {hasAnyAnswer && !isMoon && SHADOWS[ranked[0].key] && (
+            <p style={{ margin: '0 0 24px', color: '#555' }}>
+              <strong>Shadow:</strong>{' '}
+              {SHADOWS[ranked[0].key].name} — {SHADOWS[ranked[0].key].arcana}
+            </p>
+          )}
+          {hasAnyAnswer && isMoon && (
+            <p style={{ margin: '0 0 24px', color: '#555' }}>
+              <strong>Shadow:</strong> none (The Moon has no shadow card)
+            </p>
+          )}
         </div>
 
       </div>
 
       <h3 style={{ marginBottom: '8px' }}>Jump to Result Page</h3>
-      <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-        {CANDIDATES.map((c, i) => (
-          <button
-            key={i}
-            onClick={() => navigate(c.route)}
-            style={{ cursor: 'pointer', padding: '6px 14px' }}
-          >
-            {c.name} ({c.route})
-          </button>
-        ))}
-        <button
-          onClick={() => navigate(MOON.route)}
-          style={{ cursor: 'pointer', padding: '6px 14px', background: '#3D3560', color: '#fff', border: 'none' }}
-        >
-          🌑 The Moon ({MOON.route})
-        </button>
-      </div>
+      <table style={{ borderCollapse: 'collapse' }}>
+        <thead>
+          <tr>
+            <th style={th}>Candidate</th>
+            <th style={th}>Card</th>
+            <th style={th}>Shadow</th>
+            <th style={th}>Shadow Card</th>
+            <th style={th}></th>
+          </tr>
+        </thead>
+        <tbody>
+          {CANDIDATES.map((c, i) => (
+            <tr key={i}>
+              <td style={td}>{c.name}</td>
+              <td style={td}>{c.card}</td>
+              <td style={td}>{SHADOWS[c.key]?.name ?? '—'}</td>
+              <td style={td}>{SHADOWS[c.key]?.arcana ?? '—'}</td>
+              <td style={{ ...td, textAlign: 'left' }}>
+                <button onClick={() => navigate(c.route)} style={{ cursor: 'pointer', padding: '4px 10px' }}>
+                  {c.route}
+                </button>
+              </td>
+            </tr>
+          ))}
+          <tr>
+            <td style={td}>—</td>
+            <td style={td}>The Moon</td>
+            <td style={td}>—</td>
+            <td style={td}>—</td>
+            <td style={{ ...td, textAlign: 'left' }}>
+              <button
+                onClick={() => navigate(MOON.route)}
+                style={{ cursor: 'pointer', padding: '4px 10px', background: '#3D3560', color: '#fff', border: 'none' }}
+              >
+                {MOON.route}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   )
 }
