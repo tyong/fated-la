@@ -37,7 +37,7 @@ const LargeCard = ({ name, arcana, img, imgWidth = 225, imgHeight = 362, imgLeft
 )
 
 const Section = ({ title, children }) => (
-  <div style={{ padding: '0 33px 48px' }}>
+  <div style={{ padding: '24px 33px 48px' }}>
     <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '90px' }}>
       {title}
     </div>
@@ -65,7 +65,7 @@ const ShareButton = ({ title, text }) => {
     <button
       onClick={handleShare}
       aria-label="Share result"
-      style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', position: 'absolute', right: 12, top: 18, touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent', zIndex: 2 }}
+      style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', position: 'absolute', right: 12, top: 31, touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent', zIndex: 2 }}
     >
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path d="M9 6L12 3M12 3L15 6M12 3V13M7.00023 10C6.06835 10 5.60241 10 5.23486 10.1522C4.74481 10.3552 4.35523 10.7448 4.15224 11.2349C4 11.6024 4 12.0681 4 13V17.8C4 18.9201 4 19.4798 4.21799 19.9076C4.40973 20.2839 4.71547 20.5905 5.0918 20.7822C5.5192 21 6.07899 21 7.19691 21H16.8036C17.9215 21 18.4805 21 18.9079 20.7822C19.2842 20.5905 19.5905 20.2839 19.7822 19.9076C20 19.4802 20 18.921 20 17.8031V13C20 12.0681 19.9999 11.6024 19.8477 11.2349C19.6447 10.7448 19.2554 10.3552 18.7654 10.1522C18.3978 10 17.9319 10 17 10" stroke={yellow} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -156,23 +156,23 @@ const ResultPage = ({
         <SpreadSectionExternal />
 
         {shadowTitle && (
-          <div style={{ padding: '48px 33px 48px' }}>
+          <div style={{ overflow: 'hidden', padding: '48px 33px 48px', position: 'relative' }}>
+            <ClientOnlyDithering
+              speed={0.56}
+              shape="warp"
+              type="4x4"
+              size={1.5}
+              scale={0.53}
+              colorBack="#00000000"
+              colorFront="#5E67AA"
+              style={{ height: '696px', left: '-98px', position: 'absolute', top: 0, width: '589px', zIndex: 0 }}
+            />
             <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '42px', paddingBottom: '8px', position: 'relative', whiteSpace: 'pre-wrap', zIndex: 1 }}>
               {shadowTitle}
             </div>
 
-            <div style={{ margin: '0 auto', position: 'relative', width: '294px', height: '517px' }}>
+            <div style={{ margin: '0 auto', position: 'relative', width: '294px', height: '517px', zIndex: 1 }}>
               <div style={{ backgroundColor: pink, borderRadius: '6px', height: '100%', outline: `1px solid ${purple}`, position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 0 }} />
-              <ClientOnlyDithering
-                speed={0.56}
-                shape="warp"
-                type="4x4"
-                size={1.5}
-                scale={0.53}
-                colorBack="#00000000"
-                colorFront="#5E67AA"
-                style={{ height: '696px', left: `${shadowImgLeft - 170}px`, position: 'absolute', top: -152, width: '589px', zIndex: 0 }}
-              />
               <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 27, width: '100%', zIndex: 1 }}>
                 {shadowName}
               </div>
@@ -184,14 +184,14 @@ const ResultPage = ({
               </div>
             </div>
 
-            <div style={{ color: pink, fontFamily: fig, fontSize: '16px', lineHeight: '24px', marginTop: '32px', position: 'relative', whiteSpace: 'pre-wrap', zIndex: 1 }}>
+            <div style={{ color: pink, fontFamily: fig, fontSize: '16px', lineHeight: '24px', marginTop: '24px', position: 'relative', whiteSpace: 'pre-wrap', zIndex: 1 }}>
               {shadowText}
             </div>
           </div>
         )}
 
         <div style={{ backgroundColor: '#3F00D9', height: '0.5px' }} />
-        <div style={{ backgroundColor: dark, padding: '48px 33px 60px' }}>
+        <div style={{ backgroundColor: dark, padding: '24px 33px 60px' }}>
           <div style={{ color: '#F2CACE', fontFamily: noir, fontSize: '30px', lineHeight: '90px' }}>
             Your Charge
           </div>
