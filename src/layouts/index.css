@@ -208,7 +208,7 @@ a {
 
 @media (min-width: 640px) {
   .hero-shell {
-    padding-top: 20px;
+    padding-top: 48px;
     padding-bottom: 24px;
   }
 
@@ -305,6 +305,7 @@ a {
   }
 
   .hero-shell {
+    padding-top: 56px;
     padding-bottom: 80px;
   }
 
