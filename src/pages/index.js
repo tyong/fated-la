@@ -115,7 +115,7 @@ const IntroPage = () => (
       {/* First CTA */}
       <Link to="/question-01" style={{ textDecoration: 'none' }}>
         <div style={{ height: '46px', left: 32, position: 'absolute', top: 432, width: '146px' }}>
-          <div style={{ backgroundColor: purple, height: '46px', left: 0, position: 'absolute', top: 0, width: '121px' }} />
+          <div style={{ backgroundColor: purple, borderRadius: '4px', height: '46px', left: 0, position: 'absolute', top: 0, width: '121px' }} />
           <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', height: '22px', left: 21, lineHeight: '20px', position: 'absolute', top: 12, width: '106px' }}>
             Let's go ➝
           </div>

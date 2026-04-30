@@ -19,6 +19,7 @@ const ChoiceCard = ({ title, body, onChoose }) => (
   >
     <div style={{
       backgroundColor: pink,
+      borderRadius: '4px',
       cursor: 'pointer',
       marginBottom: '7px',
       padding: '20px 17px 22px',
