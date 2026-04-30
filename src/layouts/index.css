@@ -207,7 +207,7 @@ a {
 @media (min-width: 640px) {
   .hero-shell {
     padding-top: 20px;
-    padding-bottom: 0;
+    padding-bottom: 80px;
   }
 
   .reading-panel {
