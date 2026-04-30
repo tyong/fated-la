@@ -173,23 +173,24 @@ const ResultPage = ({
         <SpreadSectionExternal />
 
         {shadowTitle && (
-          <div style={{ padding: '68px 33px 48px' }}>
+          <div style={{ overflow: 'hidden', padding: '68px 33px 48px', position: 'relative' }}>
+            <ClientOnlyDithering
+              speed={0.56}
+              shape="warp"
+              type="4x4"
+              size={1.5}
+              scale={0.53}
+              colorBack="#00000000"
+              colorFront="#5E67AA"
+              style={{ height: '3000px', left: `${shadowImgLeft - 139}px`, position: 'absolute', top: 0, width: '589px', zIndex: 0 }}
+            />
+
             <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '42px', paddingBottom: '32px', position: 'relative', whiteSpace: 'pre-wrap', zIndex: 1 }}>
               {shadowTitle}
             </div>
 
-            <div style={{ margin: '0 auto', position: 'relative', width: '294px', height: '517px' }}>
+            <div style={{ margin: '0 auto', position: 'relative', width: '294px', height: '517px', zIndex: 1 }}>
               <div style={{ backgroundColor: pink, borderRadius: '6px', height: '100%', outline: `1px solid ${purple}`, position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 0 }} />
-              <ClientOnlyDithering
-                speed={0.56}
-                shape="warp"
-                type="4x4"
-                size={1.5}
-                scale={0.53}
-                colorBack="#00000000"
-                colorFront="#5E67AA"
-                style={{ height: '696px', left: `${shadowImgLeft - 170}px`, position: 'absolute', top: -152, width: '589px', zIndex: 0 }}
-              />
               <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 27, width: '100%', zIndex: 1 }}>
                 {shadowName}
               </div>
