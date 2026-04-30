@@ -74,12 +74,12 @@ const SpreadSection = ({ spread }) => (
   </div>
 )
 
-const ShareButton = () => {
+const ShareButton = ({ title, text }) => {
   const handleShare = () => {
     if (typeof navigator === 'undefined') return
     const url = window.location.href
     if (navigator.share) {
-      navigator.share({ url }).catch(() => {})
+      navigator.share({ title, text, url }).catch(() => {})
     } else if (navigator.clipboard) {
       navigator.clipboard.writeText(url).catch(() => {})
     }
@@ -88,10 +88,10 @@ const ShareButton = () => {
     <button
       onClick={handleShare}
       aria-label="Share result"
-      style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, position: 'absolute', right: 20, top: 39, zIndex: 1 }}
+      style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', position: 'absolute', right: 12, top: 18, touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent', zIndex: 2 }}
     >
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path d="M9 12L12 9M12 9L15 12M12 9V19M5 17V19H19V17" stroke={purple} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M9 6L12 3M12 3L15 6M12 3V13M7.00023 10C6.06835 10 5.60241 10 5.23486 10.1522C4.74481 10.3552 4.35523 10.7448 4.15224 11.2349C4 11.6024 4 12.0681 4 13V17.8C4 18.9201 4 19.4798 4.21799 19.9076C4.40973 20.2839 4.71547 20.5905 5.0918 20.7822C5.5192 21 6.07899 21 7.19691 21H16.8036C17.9215 21 18.4805 21 18.9079 20.7822C19.2842 20.5905 19.5905 20.2839 19.7822 19.9076C20 19.4802 20 18.921 20 17.8031V13C20 12.0681 19.9999 11.6024 19.8477 11.2349C19.6447 10.7448 19.2554 10.3552 18.7654 10.1522C18.3978 10 17.9319 10 17 10" stroke={purple} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     </button>
   )
@@ -158,7 +158,7 @@ const ResultPage = ({
       />
 
       <div style={{ color: purple, fontFamily: noir, fontSize: '30px', left: 16, lineHeight: '90px', position: 'absolute', textAlign: 'center', top: -7, zIndex: 1 }}>✴</div>
-      <ShareButton />
+      <ShareButton title={drew?.replace('\n', '')} text={soulCandidate} />
 
       <div style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ color: purple, fontFamily: mono, fontSize: '12px', paddingTop: '39px', textAlign: 'center' }}>
