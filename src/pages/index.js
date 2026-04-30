@@ -178,7 +178,7 @@ const IntroPage = () => {
             <div style={{ color: offPink, fontFamily: noirBold, fontSize: '12px', lineHeight: '20px' }}>Fated  ——— Los Angeles</div>
           </div>
 
-          <div className="desktop-grid-2" style={{ alignItems: 'start', gap: 'clamp(24px, 4vw, 64px)' }}>
+          <div className="desktop-grid-2 hero-grid" style={{ alignItems: 'start', gap: 'clamp(24px, 4vw, 64px)' }}>
             <div className="content-column hero-content-column" style={{ maxWidth: '580px' }}>
               <h1 style={{ color: offPink, fontFamily: noirBold, fontWeight: 400, fontSize: 'calc(clamp(42px, 6vw, 76px) * 0.91)', lineHeight: 1.2, margin: '0 0 24px', letterSpacing: '-0.01em' }}>
                 Which candidate for Mayor of L.A. do you vibe with?

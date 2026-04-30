@@ -236,12 +236,8 @@ a {
     gap: 24px;
   }
 
-  .desktop-only {
-    display: block;
-  }
-
-  .mobile-only {
-    display: none;
+  .hero-grid {
+    grid-template-columns: 1fr;
   }
 
   .reading-grid {
@@ -296,6 +292,10 @@ a {
   }
 
   .desktop-grid-2 { gap: 32px; }
+
+  .hero-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 
   .hero-content-column {
     padding-left: 16px;
