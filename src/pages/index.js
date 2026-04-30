@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Link } from 'gatsby'
 import ClientOnlyDithering from '../components/ClientOnlyDithering'
 
@@ -26,6 +26,8 @@ const pink    = '#FFE4F7'
 const dark    = '#2A009C'
 const yellow  = '#D2D260'
 const offPink = '#F2CACE'
+const heroBodyWeight = 400
+const heroBodyScale = 1
 
 const starPath = "M100.722 2.758C101.021 -0.919 106.405 -0.919 106.703 2.758L112.411 73.151C112.626 75.808 115.942 76.885 117.678 74.862L163.672 21.268C166.074 18.469 170.43 21.633 168.51 24.783L131.752 85.088C130.364 87.364 132.413 90.184 135.007 89.568L203.719 73.244C207.308 72.391 208.972 77.512 205.567 78.932L140.383 106.113C137.922 107.139 137.922 110.625 140.383 111.651L205.567 138.833C208.972 140.252 207.308 145.373 203.719 144.52L135.007 128.196C132.413 127.58 130.364 130.4 131.752 132.676L168.51 192.981C170.43 196.131 166.074 199.296 163.672 196.496L117.678 142.902C115.942 140.879 112.626 141.956 112.411 144.613L106.703 215.007C106.405 218.683 101.021 218.683 100.722 215.007L95.014 144.613C94.799 141.956 91.484 140.879 89.748 142.902L43.753 196.496C41.351 199.296 36.995 196.131 38.915 192.981L75.673 132.676C77.061 130.4 75.012 127.58 72.418 128.196L3.706 144.52C0.117 145.373 -1.546 140.252 1.858 138.833L67.043 111.651C69.503 110.625 69.503 107.139 67.043 106.113L1.858 78.932C-1.546 77.512 0.117 72.391 3.706 73.244L72.418 89.568C75.012 90.184 77.061 87.364 75.673 85.088L38.915 24.783C36.995 21.633 41.351 18.469 43.753 21.268L89.748 74.862C91.484 76.885 94.799 75.808 95.014 73.151L100.722 2.758Z"
 
@@ -75,6 +77,18 @@ const CarouselCard = ({ name, arcana, img }) => (
   </div>
 )
 
+const DesktopCandidateCard = ({ name, arcana, img }) => (
+  <div style={{ backgroundColor: pink, boxShadow: `0 0 0 1px ${purple}`, borderRadius: '6px', position: 'relative', width: '156px', height: '292px', flexShrink: 0 }}>
+    <div style={{ color: purple, fontFamily: monoPro, fontSize: '10px', letterSpacing: '0.05em', lineHeight: '12px', textAlign: 'center', position: 'absolute', left: 'calc(50% + 3px)', top: 13, width: '136px', transform: 'translateX(-50%)' }}>
+      {name}
+    </div>
+    <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundSize: 'cover', borderRadius: '2px', boxShadow: `0 0 0 1px ${purple}`, width: '114px', height: '214px', position: 'absolute', left: 21, top: 37 }} />
+    <div style={{ color: purple, fontFamily: monoPro, fontSize: '10px', letterSpacing: '0.05em', lineHeight: '12px', textAlign: 'center', position: 'absolute', left: '50%', top: 266, width: '136px', transform: 'translateX(-50%)' }}>
+      {arcana}
+    </div>
+  </div>
+)
+
 const YellowButton = ({ to, children, left, top, width }) => {
   const [hovered, setHovered] = useState(false)
   const [pressed, setPressed] = useState(false)
@@ -112,142 +126,214 @@ const YellowButton = ({ to, children, left, top, width }) => {
   )
 }
 
-const IntroPage = () => (
-  <div>
-    <div style={{
-      backgroundColor: '#291543',
-      fontSynthesis: 'none',
-      MozOsxFontSmoothing: 'grayscale',
-      overflow: 'hidden',
-      position: 'relative',
-      WebkitFontSmoothing: 'antialiased',
-      width: '393px',
-      minHeight: '2954px',
-      margin: '0 auto',
-    }}>
-
-      <ClientOnlyDithering
-        speed={1}
-        shape="swirl"
-        type="8x8"
-        size={0.3}
-        scale={1}
-        colorBack="#00000000"
-        colorFront="#264A89"
-        style={{ backgroundColor: '#291543', height: '823px', left: 0, position: 'absolute', top: 0, width: '402px' }}
-      />
-
-      <StarIcon size={24} style={{ left: 24, top: 23, position: 'absolute' }} />
-
-      <div style={{ color: offPink, fontFamily: noirBold, fontSize: '12px', left: 'calc(50% + 86.5px)', lineHeight: '20px', position: 'absolute', textAlign: 'right', top: 23, translate: '-50%', whiteSpace: 'pre', width: '174px' }}>
-        Fated{'  '}——— Los Angeles
-      </div>
-
-      <div style={{ color: offPink, fontFamily: noirBold, fontSize: '42px', left: 'calc(50% + 2px)', lineHeight: '56px', position: 'absolute', top: 127, translate: '-50%', whiteSpace: 'pre-wrap', width: '343px' }}>
-        Which candidate for Mayor of L.A.{'\n'}do you vibe with?
-      </div>
-
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', left: 29, lineHeight: '22px', position: 'absolute', top: 318, whiteSpace: 'pre' }}>
-        10 questions. 5 top mayoral candidates.{'\n'}L.A's primary election on June 2.{'\n'}Learn which candidate shares your views.
-      </div>
-
-      <YellowButton to="/question-01" left={29} top={427} width={121}>Let's go ➝ </YellowButton>
-
-      <div style={{ height: '296px', left: 0, overflow: 'hidden', position: 'absolute', top: 572, width: '393px' }}>
-        <div style={{ animation: 'scrollCards 20s linear infinite', display: 'flex', paddingBottom: '2px', paddingTop: '2px', willChange: 'transform' }}>
-          {[...candidates, ...candidates].map((c, i) => (
-            <CarouselCard key={i} {...c} />
-          ))}
-        </div>
-      </div>
-
-      <ClientOnlyDithering
-        speed={1}
-        shape="wave"
-        type="4x4"
-        size={1}
-        scale={1.2}
-        colorBack="#00000000"
-        colorFront="#291543"
-        style={{ backgroundColor: '#264988', height: '787px', left: 'calc(50% - 1.5px)', position: 'absolute', top: 1315, translate: '-50%', width: '1440px' }}
-      />
-
-      <div style={{ left: 37, position: 'absolute', top: 916, width: '299px' }}>
-        <div style={{ color: offPink, fontFamily: noirBold, fontSize: '32px', lineHeight: '50px' }}>
-          How It Works
-        </div>
-        <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', lineHeight: '22px', marginTop: '11px', whiteSpace: 'pre-wrap', width: '320px' }}>
-          Answer 10 questions revealing your feelings on LA issues. The fires, the tents, the Olympics, AI.{'\n\n'}There are no wrong answers. Just answer how you feel.{'\n\n'}At the end, we'll reveal which candidate matches your answers best.
-        </div>
-      </div>
-
-      <YellowButton to="/question-01" left={37} top={1211} width={131}>I'm ready ➝ </YellowButton>
-
-      <div style={{ left: 35, position: 'absolute', top: 1369 }}>
-        <div style={{ color: offPink, fontFamily: noirBold, fontSize: '32px', lineHeight: '50px' }}>
-          Your Reading
-        </div>
-        <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', lineHeight: '22px', marginTop: '3px' }}>
-          No email silliness required.
-        </div>
-      </div>
-
-      <div style={{ backgroundColor: pink, borderRadius: '2px', height: '118px', left: 35, outline: `1px solid ${purple}`, position: 'absolute', top: 1485, width: '63px' }} />
-      <div style={{ backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAZTMV23XJGYQFMHR3SP8EK.png)', backgroundPosition: 'center', backgroundSize: 'cover', height: '86px', left: 43, outline: `1px solid ${purple}`, position: 'absolute', top: 1500, width: '47px' }} />
-      <div style={{ color: offPink, fontFamily: figBold, fontSize: '16px', fontWeight: 700, left: 123, lineHeight: '22px', position: 'absolute', top: 1492, width: '145px' }}>
-        Your Draw
-      </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', left: 123, lineHeight: '22px', position: 'absolute', top: 1522, width: '242px' }}>
-        The mayoral candidate and archetype that best represents your political soul overall, based on your stated views.
-      </div>
-
-      <div style={{ backgroundColor: pink, borderRadius: '2px', height: '84px', left: 35, outline: `1px solid ${purple}`, position: 'absolute', top: 1653, width: '48px' }} />
-      <div style={{ backgroundColor: pink, borderRadius: '2px', height: '85px', left: 43, outline: `1px solid ${purple}`, position: 'absolute', top: 1659, width: '48px' }} />
-      <div style={{ backgroundColor: pink, borderRadius: '2px', height: '84px', left: 51, outline: `1px solid ${purple}`, position: 'absolute', top: 1667, width: '48px' }} />
-      <div style={{ backgroundColor: '#5E71D6', borderRadius: '2px', height: '71px', left: 56, outline: `1px solid ${purple}`, position: 'absolute', top: 1673, width: '38px' }} />
-      <StarIcon size={20} style={{ position: 'absolute', left: 65, top: 1698 }} />
-      <div style={{ color: offPink, fontFamily: figBold, fontSize: '16px', fontWeight: 700, left: 123, lineHeight: '22px', position: 'absolute', top: 1655, width: '145px' }}>
-        Your Spread
-      </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', left: 123, lineHeight: '22px', position: 'absolute', top: 1685, width: '224px' }}>
-        Where you align with each of the candidates on 10 specific policy issues. You might align with different ones on each.
-      </div>
-
-      <div style={{ backgroundColor: pink, borderRadius: '2px', height: '118px', left: 36, outline: `1px solid ${purple}`, position: 'absolute', top: 1812, width: '63px' }} />
-      <div style={{ backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQDK0J1H933QKYMF0CCX8GAN.png)', backgroundPosition: 'center', backgroundSize: 'cover', height: '86px', left: 44, outline: `1px solid ${purple}`, position: 'absolute', top: 1827, width: '47px' }} />
-      <div style={{ color: offPink, fontFamily: figBold, fontSize: '16px', fontWeight: 700, left: 123, lineHeight: '22px', position: 'absolute', top: 1814, width: '145px' }}>
-        Your Shadow
-      </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', left: 123, lineHeight: '22px', position: 'absolute', top: 1844, width: '224px' }}>
-        The candidate that you may not have expected to align with, but who shares more in common than you think.
-      </div>
-
-      <YellowButton to="/question-01" left={37} top={1989} width={154}>See my fate ➝ </YellowButton>
-
-      <div style={{ backgroundColor: dark, height: '1005px', left: -1, position: 'absolute', top: 2099, width: '396px' }} />
-
-      <div style={{ color: offPink, fontFamily: noirBold, fontSize: '32px', left: 'calc(50% - 8px)', lineHeight: '50px', position: 'absolute', top: 2165, translate: '-50%', width: '299px' }}>
-        About
-      </div>
-      <div style={{ color: '#FFFFFF', fontFamily: figBook, fontSize: '16px', fontWeight: 300, left: 39, lineHeight: '22px', position: 'absolute', top: 2231, whiteSpace: 'pre-wrap', width: '299px' }}>
-        This site was made by Tabitha Yong & Yvonne Leow, nonpartisan citizens of Los Angeles. We wanted a more fun, approachable way to do our civic duty.{'\n\n'}Designed and vibe-coded with Paper, Claude Code & Vercel.{'\n'}
-      </div>
-
-      <div style={{ backgroundColor: '#DDDDDD', height: '0.4px', left: 271, position: 'absolute', top: 2349, width: '45px' }} />
-
-      <div style={{ color: offPink, fontFamily: noirBold, fontSize: '32px', left: 'calc(50% - 8px)', lineHeight: '50px', position: 'absolute', top: 2456, translate: '-50%', width: '299px' }}>
-        Methodology
-      </div>
-      <div style={{ color: '#FFFFFF', fontFamily: figBook, fontSize: '16px', fontWeight: 300, left: 39, lineHeight: '22px', position: 'absolute', top: 2528, whiteSpace: 'pre-wrap', width: '328px' }}>
-        For simplicity, the candidate list is limited to credible candidates who have been officially endorsed. For the full list of candidates, go here ➝{'\n\n'}Candidate policy positions were sourced with Claude, based on whatever information they've publicly shared in their campaigns. They might change.{'\n\n'}Questions? Comments? Recs for your favorite LA spot? Email us ➝{'\n'}
-      </div>
-
-      <div style={{ color: offPink, fontFamily: fig, fontSize: '12px', left: 42, lineHeight: '20px', position: 'absolute', top: 2901, whiteSpace: 'pre-wrap', width: '294px' }}>
-        Last updated{'  '}———{'  '}30 April 2026
-      </div>
-
+const ReadingItem = ({ title, body, children }) => (
+  <div className="reading-item">
+    <div className="reading-item-media">{children}</div>
+    <div className="reading-item-content">
+      <h3
+        style={{
+          color: offPink,
+          fontFamily: noirBold,
+          fontSize: 'clamp(28px, 2.2vw, 36px)',
+          fontWeight: 500,
+          letterSpacing: '0.015em',
+          lineHeight: 1.1,
+          margin: '0 0 10px',
+        }}
+      >
+        {title}
+      </h3>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-md)', lineHeight: 1.5, maxWidth: '342px' }}>{body}</div>
     </div>
   </div>
 )
+
+const IntroPage = () => {
+  const cardRail = useMemo(() => [...candidates, ...candidates], [])
+  const h2Style = {
+    color: offPink,
+    fontFamily: noirBold,
+    fontWeight: 400,
+    fontSize: 'calc(clamp(34px, 4.2vw, 53px) * 0.8)',
+    lineHeight: 1.04,
+    letterSpacing: '0em',
+    margin: '0 0 16px',
+  }
+  return (
+    <div style={{ backgroundColor: '#291543', color: '#FFFFFF', overflowX: 'hidden', WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale', textRendering: 'auto' }}>
+      <section className="hero-shell">
+        <ClientOnlyDithering
+          speed={1}
+          shape="swirl"
+          type="8x8"
+          size={0.3}
+          scale={1}
+          colorBack="#00000000"
+          colorFront="#264A89"
+          style={{ backgroundColor: '#291543', position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '-80px', width: '100vw', height: '760px', zIndex: 0 }}
+        />
+        <div className="page-shell" style={{ position: 'relative', zIndex: 1 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'clamp(38px, 5vw, 74px)' }}>
+            <StarIcon size={48} />
+            <div style={{ color: offPink, fontFamily: noirBold, fontSize: '12px', lineHeight: '20px' }}>Fated  ——— Los Angeles</div>
+          </div>
+
+          <div className="desktop-grid-2 hero-grid" style={{ alignItems: 'start', gap: 'clamp(24px, 4vw, 64px)' }}>
+            <div className="content-column hero-content-column" style={{ maxWidth: '580px' }}>
+              <h1 style={{ color: offPink, fontFamily: noirBold, fontWeight: 400, fontSize: 'calc(clamp(42px, 6vw, 76px) * 0.91)', lineHeight: 1.2, margin: '0 0 24px', letterSpacing: '-0.01em' }}>
+                Which candidate for Mayor of L.A. do you vibe with?
+              </h1>
+              <div style={{ color: '#FFFFFF', fontFamily: fig, fontWeight: heroBodyWeight, fontSize: `calc(clamp(16px, 1.45vw, 24px) * ${heroBodyScale})`, lineHeight: 1.4, margin: '0 0 30px', maxWidth: '430px' }}>
+                <p style={{ margin: '0 0 16px' }}>10 questions. 5 top mayoral candidates.</p>
+                <p style={{ margin: '0 0 16px' }}>L.A's primary election on June 2.</p>
+                <p style={{ margin: 0 }}>Learn which candidate shares your views.</p>
+              </div>
+              <Link to="/question-01" style={{ display: 'inline-block', backgroundColor: yellow, color: '#000403', borderRadius: '4px', fontFamily: fig, fontSize: '16px', lineHeight: '46px', padding: '0 22px' }}>
+                Let's go ➝
+              </Link>
+            </div>
+
+            <div
+              className="mobile-only"
+              style={{
+                overflow: 'hidden',
+                marginTop: '8px',
+                width: 'calc(100% + (var(--page-gutter) * 2))',
+                marginLeft: 'calc(var(--page-gutter) * -1)',
+              }}
+            >
+              <div style={{ animation: 'scrollCards 20s linear infinite', display: 'flex', width: 'fit-content' }}>
+                {cardRail.map((c, i) => <CarouselCard key={i} {...c} />)}
+              </div>
+            </div>
+            <div className="desktop-only" style={{ overflow: 'visible' }}>
+              <div style={{ display: 'grid', gap: '14px', width: '490px', flexShrink: 0, marginLeft: 'auto' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 156px)', gap: '11px', justifyContent: 'end' }}>
+                  {candidates.slice(0, 3).map((c) => <DesktopCandidateCard key={c.name} {...c} />)}
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 156px)', gap: '11px', justifyContent: 'center', width: '490px' }}>
+                  {candidates.slice(3).map((c) => <DesktopCandidateCard key={c.name} {...c} />)}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="page-shell intro-how-it-works-shell" style={{ paddingBottom: 'clamp(40px, 6vw, 80px)' }}>
+        <div className="desktop-grid-2" style={{ alignItems: 'center', gap: 'clamp(24px, 4vw, 64px)' }}>
+          <div className="city-image-block" style={{ display: 'flex', justifyContent: 'center' }}>
+            <div
+              className="city-image-inner"
+              style={{
+                width: '100%',
+                maxWidth: '629px',
+              }}
+            >
+              <div
+                className="city-image-art"
+                style={{
+                  width: '100%',
+                  aspectRatio: '629 / 446',
+                  backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQDWX0Q1H665G5WFBEDK8PQF.png)',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
+            </div>
+          </div>
+          <div className="content-column" style={{ maxWidth: '510px' }}>
+            <h2 style={h2Style}>How It Works</h2>
+            <p style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-md)', lineHeight: 1.5, whiteSpace: 'pre-wrap' }}>
+              Answer 10 questions revealing your feelings on LA issues. The fires, the tents, the Olympics, AI.{'\n\n'}
+              There are no wrong answers. Just answer how you feel.{'\n\n'}
+              At the end, we'll reveal which candidate matches your answers best.
+            </p>
+            <Link to="/question-01" style={{ display: 'inline-block', marginTop: '16px', backgroundColor: yellow, color: '#000403', borderRadius: '4px', fontFamily: fig, fontSize: '16px', lineHeight: '46px', padding: '0 22px' }}>
+              I'm ready ➝
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="page-shell" style={{ paddingBottom: 0 }}>
+        <div className="reading-panel" style={{ backgroundColor: '#264988', borderRadius: 0, position: 'relative', overflow: 'hidden', width: 'calc(100% + (var(--page-gutter) * 2))', marginLeft: 'calc(var(--page-gutter) * -1)' }}>
+          <ClientOnlyDithering
+            speed={1}
+            shape="wave"
+            type="4x4"
+            size={1}
+            scale={1.2}
+            colorBack="#00000000"
+            colorFront="#291543"
+            style={{ position: 'absolute', inset: 0, zIndex: 0 }}
+          />
+          <div style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
+            <h2 style={h2Style}>Your Reading</h2>
+            <p className="reading-intro-copy" style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-lg)', lineHeight: 1.45, maxWidth: '620px', marginLeft: 'auto', marginRight: 'auto' }}>
+              After you answer 10 questions, you get your result. No email required.
+            </p>
+            <div className="reading-grid">
+              <ReadingItem
+                title="Your Draw"
+                body="The mayoral candidate and archetype that best represents your political soul overall, based on your stated views."
+              >
+                <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '81.9px', height: '152.75px', position: 'relative' }}>
+                  <div style={{ backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAZTMV23XJGYQFMHR3SP8EK.png)', backgroundPosition: 'center', backgroundSize: 'cover', width: '61.1px', height: '129.35px', position: 'absolute', left: '10.4px', top: '12.13px', outline: `1px solid ${purple}` }} />
+                </div>
+              </ReadingItem>
+              <ReadingItem
+                title="Your Spread"
+                body="Where you align with each of the candidates on 10 specific policy issues. You might align with different ones on each."
+              >
+                <div style={{ width: '81.9px', height: '152.75px', position: 'relative' }}>
+                  <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '74.1px', height: '131.95px', position: 'absolute', left: 0, top: 0 }} />
+                  <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '74.1px', height: '133.25px', position: 'absolute', left: 4.33, top: 9.53 }} />
+                  <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '74.1px', height: '132.6px', position: 'absolute', left: 7.8, top: 19.93 }} />
+                  <div style={{ backgroundColor: '#5E71D6', borderRadius: '2px', outline: `1px solid ${purple}`, width: '59.8px', height: '115.7px', position: 'absolute', left: 14.73, top: 27.73 }} />
+                  <StarIcon size={29.9} style={{ position: 'absolute', left: 29.47, top: 68.47 }} />
+                </div>
+              </ReadingItem>
+              <ReadingItem
+                title="Your Shadow"
+                body="The candidate that you may not have expected to align with, but who shares more in common than you think."
+              >
+                <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '81.9px', height: '152.75px', position: 'relative' }}>
+                  <div style={{ backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQE2XM03E3BPB1JDF571WARY.png)', backgroundPosition: 'center', backgroundSize: 'cover', width: '61.1px', height: '129.35px', position: 'absolute', left: '10.4px', top: '12.13px', outline: `1px solid ${purple}` }} />
+                </div>
+              </ReadingItem>
+            </div>
+            <Link className="reading-cta" to="/question-01" style={{ display: 'inline-block', backgroundColor: yellow, color: '#000403', borderRadius: '4px', fontFamily: fig, fontSize: '16px', lineHeight: '46px', padding: '0 22px' }}>
+              See my fate ➝
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section style={{ backgroundColor: dark, padding: 'var(--section-space) 0' }}>
+        <div className="page-shell desktop-grid-2">
+          <div className="content-column">
+            <h2 style={h2Style}>About</h2>
+            <p style={{ color: '#FFFFFF', fontFamily: figBook, fontSize: 'var(--body-md)', lineHeight: 1.5, whiteSpace: 'pre-wrap' }}>
+              This site was made by Tabitha Yong & Yvonne Leow, nonpartisan citizens of Los Angeles. We wanted a more fun, approachable way to do our civic duty.{'\n\n'}
+              Designed and vibe-coded with Paper, Claude Code & Vercel.
+            </p>
+          </div>
+          <div className="content-column">
+            <h2 style={h2Style}>Methodology</h2>
+            <p style={{ color: '#FFFFFF', fontFamily: figBook, fontSize: 'var(--body-md)', lineHeight: 1.5, whiteSpace: 'pre-wrap' }}>
+              For simplicity, the candidate list is limited to credible candidates who have been officially endorsed. For the full list of candidates, go here ➝{'\n\n'}
+              Candidate policy positions were sourced with Claude, based on whatever information they've publicly shared in their campaigns. They might change.{'\n\n'}
+              Questions? Comments? Recs for your favorite LA spot? Email us ➝
+            </p>
+          </div>
+        </div>
+        <div className="page-shell" style={{ marginTop: '24px', color: offPink, fontFamily: fig, fontSize: '12px', lineHeight: '20px' }}>
+          Last updated  ———  30 April 2026
+        </div>
+      </section>
+    </div>
+  )
+}
 
 export default IntroPage

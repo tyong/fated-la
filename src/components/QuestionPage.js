@@ -67,8 +67,11 @@ const QuestionPage = ({ number, total = 10, title, paragraphs, question, choices
     MozOsxFontSmoothing: 'grayscale',
     position: 'relative',
     WebkitFontSmoothing: 'antialiased',
-    width: '393px',
+    width: '100%',
+    maxWidth: '1440px',
+    padding: '0 clamp(16px, 3vw, 32px)',
   }}>
+    <div style={{ width: '100%', maxWidth: '760px', margin: '0 auto' }}>
 
     <div style={{ height: '5px', left: 0, position: 'absolute', top: 0, width: '100%' }}>
       <div style={{ backgroundColor: purple, height: '5px', width: '100%' }} />
@@ -82,19 +85,19 @@ const QuestionPage = ({ number, total = 10, title, paragraphs, question, choices
       </div>
     </div>
 
-    <div style={{ color: pink, fontFamily: noirBold, fontSize: '40px', lineHeight: '50px', padding: '24px 20px 0' }}>
+    <div style={{ color: pink, fontFamily: noirBold, fontSize: 'clamp(40px, 6vw, 68px)', lineHeight: 1.1, padding: '24px 20px 0' }}>
       {title}
     </div>
 
     <div style={{ padding: '20px 20px 0' }}>
       {paragraphs.map((p, i) => (
-        <div key={i} style={{ color: pink, fontFamily: fig, fontSize: '16px', lineHeight: '22px', marginBottom: '16px' }}>
+        <div key={i} style={{ color: pink, fontFamily: fig, fontSize: 'clamp(16px, 1.5vw, 20px)', lineHeight: 1.45, marginBottom: '16px' }}>
           {p}
         </div>
       ))}
     </div>
 
-    <div style={{ color: pink, fontFamily: fig, fontSize: '16px', lineHeight: '22px', padding: '0 20px 24px' }}>
+    <div style={{ color: pink, fontFamily: fig, fontSize: 'clamp(16px, 1.4vw, 20px)', lineHeight: 1.45, padding: '0 20px 24px' }}>
       {question}
     </div>
 
@@ -112,6 +115,7 @@ const QuestionPage = ({ number, total = 10, title, paragraphs, question, choices
       ))}
     </div>
 
+    </div>
   </div>
 )
 

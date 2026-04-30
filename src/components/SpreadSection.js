@@ -35,7 +35,7 @@ export default function SpreadSection() {
   if (!rows || rows.length === 0) return null
 
   return (
-    <div style={{ backgroundColor: purple, padding: '0 33px 48px' }}>
+    <div style={{ backgroundColor: purple, padding: '0 clamp(20px, 4vw, 33px) 48px' }}>
       <div style={{ color: cyan, fontFamily: noirBold, fontSize: '30px', lineHeight: '90px' }}>
         Your Spread
       </div>
@@ -49,9 +49,9 @@ export default function SpreadSection() {
       </div>
 
       {rows.map(({ issue, candidate }, i) => (
-        <div key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.2)', display: 'flex', justifyContent: 'space-between', padding: '20px 0' }}>
-          <div style={{ color: white, fontFamily: fig, fontSize: '16px' }}>{issue}</div>
-          <div style={{ color: white, fontFamily: fig, fontSize: '16px' }}>{candidate}</div>
+        <div key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.2)', display: 'grid', gridTemplateColumns: 'minmax(150px, 1fr) minmax(120px, 220px)', gap: '16px', padding: '20px 0', alignItems: 'start' }}>
+          <div style={{ color: white, fontFamily: fig, fontSize: '16px', lineHeight: '22px' }}>{issue}</div>
+          <div style={{ color: white, fontFamily: fig, fontSize: '16px', lineHeight: '22px', textAlign: 'right' }}>{candidate}</div>
         </div>
       ))}
     </div>
