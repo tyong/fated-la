@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'gatsby'
 import ClientOnlyDithering from './ClientOnlyDithering'
-import { SCORES, CANDIDATES, STORAGE_KEY } from '../data/scores'
+import { SPREAD_KEY } from '../data/scores'
+
+const starPath = "M100.722 2.758C101.021 -0.919 106.405 -0.919 106.703 2.758L112.411 73.151C112.626 75.808 115.942 76.885 117.678 74.862L163.672 21.268C166.074 18.469 170.43 21.633 168.51 24.783L131.752 85.088C130.364 87.364 132.413 90.184 135.007 89.568L203.719 73.244C207.308 72.391 208.972 77.512 205.567 78.932L140.383 106.113C137.922 107.139 137.922 110.625 140.383 111.651L205.567 138.833C208.972 140.252 207.308 145.373 203.719 144.52L135.007 128.196C132.413 127.58 130.364 130.4 131.752 132.676L168.51 192.981C170.43 196.131 166.074 199.296 163.672 196.496L117.678 142.902C115.942 140.879 112.626 141.956 112.411 144.613L106.703 215.007C106.405 218.683 101.021 218.683 100.722 215.007L95.014 144.613C94.799 141.956 91.484 140.879 89.748 142.902L43.753 196.496C41.351 199.296 36.995 196.131 38.915 192.981L75.673 132.676C77.061 130.4 75.012 127.58 72.418 128.196L3.706 144.52C0.117 145.373 -1.546 140.252 1.858 138.833L67.043 111.651C69.503 110.625 69.503 107.139 67.043 106.113L1.858 78.932C-1.546 77.512 0.117 72.391 3.706 73.244L72.418 89.568C75.012 90.184 77.061 87.364 75.673 85.088L38.915 24.783C36.995 21.633 41.351 18.469 43.753 21.268L89.748 74.862C91.484 76.885 94.799 75.808 95.014 73.151L100.722 2.758Z"
+
+const StarIcon = ({ size = 24 }) => (
+  <svg width="208" height="218" viewBox="0 0 208 218" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ width: size, height: size }}>
+    <path d={starPath} fill={yellow} />
+  </svg>
+)
 
 const mono    = '"Apercu-Mono", "Apercu Mono", "Courier New", monospace'
 const monoPro = '"ApercuMonoPro-Regular", "Apercu Mono Pro", "Courier New", monospace'
@@ -11,25 +19,20 @@ const fig     = '"FigGrotesk0.3Trial-Regular", "FigGrotesk 0.3 Trial", system-ui
 const purple  = '#3F00DB'
 const pink    = '#FFE4F7'
 const dark    = '#2A009C'
-const lightBlue = '#58B3E1'
+const cyan    = '#05B6D7'
+const yellow  = '#D2D260'
 
-const SPREAD_ORDER = [5, 8, 2, 1, 3, 4, 6, 9, 10, 7]
-const ISSUE_LABELS = {
-  1: 'Wildfires', 2: 'Olympics', 3: 'Budget Deficit', 4: 'AI',
-  5: 'Homelessness', 6: 'ICE Raids', 7: 'Labor Unions', 8: 'Housing',
-  9: 'Mansion Tax', 10: 'Rent Increases',
-}
 
 const LargeCard = ({ name, arcana, img, imgWidth = 225, imgHeight = 362, imgLeft = 33, imgTop = 70 }) => (
   <div style={{ margin: '32px auto 0', position: 'relative', width: '294px', height: '517px' }}>
     <div style={{ backgroundColor: pink, borderRadius: '6px', height: '100%', outline: `1px solid ${purple}`, position: 'absolute', top: 0, left: 0, width: '100%' }} />
-    <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 27, width: '100%' }}>
+    <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 27, width: '100%', zIndex: 1 }}>
       {name}
     </div>
     {img && (
-      <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundSize: 'cover', borderRadius: '4px', height: `${imgHeight}px`, left: `${imgLeft}px`, outline: `1px solid ${purple}`, position: 'absolute', top: `${imgTop}px`, width: `${imgWidth}px` }} />
+      <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundSize: 'cover', borderRadius: '4px', height: `${imgHeight}px`, left: `${imgLeft}px`, outline: `1px solid ${purple}`, position: 'absolute', top: `${imgTop}px`, width: `${imgWidth}px`, zIndex: 1 }} />
     )}
-    <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 461, width: '100%' }}>
+    <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 461, width: '100%', zIndex: 1 }}>
       {arcana}
     </div>
   </div>
@@ -37,7 +40,7 @@ const LargeCard = ({ name, arcana, img, imgWidth = 225, imgHeight = 362, imgLeft
 
 const Section = ({ title, children }) => (
   <div style={{ padding: '0 33px 48px' }}>
-    <div style={{ color: purple, fontFamily: noirBold, fontSize: '30px', lineHeight: '90px' }}>
+    <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '90px' }}>
       {title}
     </div>
     {children}
@@ -45,26 +48,26 @@ const Section = ({ title, children }) => (
 )
 
 const BodyText = ({ children }) => (
-  <div style={{ color: purple, fontFamily: fig, fontSize: '16px', lineHeight: '24px', whiteSpace: 'pre-wrap' }}>
+  <div style={{ color: pink, fontFamily: fig, fontSize: '16px', lineHeight: '24px', whiteSpace: 'pre-wrap' }}>
     {children}
   </div>
 )
 
 const SpreadSection = ({ spread }) => (
   <div style={{ backgroundColor: dark, padding: '40px 33px 56px' }}>
-    <div style={{ color: lightBlue, fontFamily: noirBold, fontSize: '30px', lineHeight: '90px' }}>
+    <div style={{ color: cyan, fontFamily: noirBold, fontSize: '30px', lineHeight: '90px' }}>
       Your Spread
     </div>
-    <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', lineHeight: '22px', marginBottom: '28px', opacity: 0.7 }}>
+    <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', lineHeight: '22px', marginBottom: '28px' }}>
       Here's where your choice aligned with each candidate's position, per issue.
     </div>
     <div>
-      <div style={{ borderBottom: '1px solid rgba(255,255,255,0.25)', display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', marginBottom: '2px' }}>
-        <div style={{ color: '#FFFFFF', fontFamily: monoPro, fontSize: '11px', letterSpacing: '0.05em', opacity: 0.5 }}>Issue</div>
-        <div style={{ color: '#FFFFFF', fontFamily: monoPro, fontSize: '11px', letterSpacing: '0.05em', opacity: 0.5 }}>Your choice</div>
+      <div style={{ borderBottom: `0.5px solid ${cyan}`, display: 'flex', justifyContent: 'space-between', paddingBottom: '10px', marginBottom: '2px' }}>
+        <div style={{ color: cyan, fontFamily: monoPro, fontSize: '11px', letterSpacing: '0.05em' }}>Issue</div>
+        <div style={{ color: cyan, fontFamily: monoPro, fontSize: '11px', letterSpacing: '0.05em' }}>Your choice</div>
       </div>
       {spread.map(({ issue, candidate }, i) => (
-        <div key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'space-between', padding: '10px 0' }}>
+        <div key={i} style={{ borderBottom: `0.5px solid rgba(5,182,215,0.4)`, display: 'flex', justifyContent: 'space-between', padding: '10px 0' }}>
           <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', lineHeight: '22px' }}>{issue}</div>
           <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', lineHeight: '22px', textAlign: 'right' }}>{candidate}</div>
         </div>
@@ -87,10 +90,10 @@ const ShareButton = () => {
     <button
       onClick={handleShare}
       aria-label="Share result"
-      style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, position: 'absolute', right: 20, top: 39, zIndex: 1 }}
+      style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0, position: 'absolute', right: 20, top: 39 }}
     >
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-        <path d="M9 12L12 9M12 9L15 12M12 9V19M5 17V19H19V17" stroke={purple} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M9 12L12 9M12 9L15 12M12 9V19M5 17V19H19V17" stroke={yellow} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
       </svg>
     </button>
   )
@@ -119,23 +122,15 @@ const ResultPage = ({
   const [spread, setSpread] = useState([])
 
   useEffect(() => {
-    const answers = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')
-    const computed = SPREAD_ORDER.map(qNum => {
-      const answerIdx = answers[qNum]
-      if (answerIdx === undefined) return null
-      const scores = SCORES[qNum][answerIdx]
-      const maxScore = Math.max(...scores)
-      const candidateIdx = scores.indexOf(maxScore)
-      return { issue: ISSUE_LABELS[qNum], candidate: CANDIDATES[candidateIdx].name }
-    }).filter(Boolean)
-    setSpread(computed)
+    const saved = JSON.parse(localStorage.getItem(SPREAD_KEY) || '[]')
+    setSpread(saved)
   }, [])
 
   const fullReading = inPlainTerms ? `${tarotReading}\n\n${inPlainTerms}` : tarotReading
 
   return (
     <div style={{
-      backgroundColor: '#F28CEA',
+      backgroundColor: '#291543',
       fontSynthesis: 'none',
       margin: '0 auto',
       MozOsxFontSmoothing: 'grayscale',
@@ -145,59 +140,71 @@ const ResultPage = ({
       width: '393px',
     }}>
 
+      {/* Page dithering — lowest layer, nothing else goes here */}
       <ClientOnlyDithering
-        speed={0.43}
+        speed={1}
         shape="swirl"
-        type="4x4"
-        size={0.7}
-        scale={0.26}
+        type="8x8"
+        size={0.3}
+        scale={1}
         colorBack="#00000000"
-        colorFront="#00BCDE"
-        style={{ height: '809px', left: -117, position: 'absolute', top: -35, width: '589px', zIndex: 0 }}
+        colorFront="#264A89"
+        style={{ backgroundColor: '#291543', height: '823px', left: 0, position: 'absolute', top: 0, width: '402px', zIndex: 0 }}
       />
 
-      <div style={{ color: purple, fontFamily: noir, fontSize: '30px', left: 16, lineHeight: '90px', position: 'absolute', textAlign: 'center', top: -7, zIndex: 1 }}>✴</div>
-      <ShareButton />
-
+      {/* All page content above the dithering */}
       <div style={{ position: 'relative', zIndex: 1 }}>
-        <div style={{ color: purple, fontFamily: mono, fontSize: '12px', paddingTop: '39px', textAlign: 'center' }}>
+
+        {/* Nav row */}
+        <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'space-between', padding: '39px 20px 0 16px' }}>
+          <StarIcon size={24} />
+          <ShareButton />
+        </div>
+
+        {/* Header */}
+        <div style={{ color: yellow, fontFamily: mono, fontSize: '12px', marginTop: '-16px', textAlign: 'center' }}>
           Your tarot reading
         </div>
-        <div style={{ color: purple, fontFamily: noirBold, fontSize: '30px', lineHeight: '40px', marginTop: '16px', textAlign: 'center', whiteSpace: 'pre-wrap' }}>
+        <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '40px', marginTop: '16px', textAlign: 'center', whiteSpace: 'pre-wrap' }}>
           {drew}
         </div>
-        <div style={{ color: purple, fontFamily: fig, fontSize: '16px', lineHeight: '20px', marginTop: '12px', textAlign: 'center' }}>
+        <div style={{ color: pink, fontFamily: fig, fontSize: '16px', lineHeight: '20px', marginTop: '12px', textAlign: 'center' }}>
           {soulCandidate}
         </div>
-      </div>
 
-      <LargeCard
-        name={heroName}
-        arcana={heroArcana}
-        img={heroImg}
-        imgWidth={heroImgWidth}
-        imgHeight={heroImgHeight}
-        imgLeft={heroImgLeft}
-        imgTop={heroImgTop}
-      />
+        {/* Hero card */}
+        <LargeCard
+          name={heroName}
+          arcana={heroArcana}
+          img={heroImg}
+          imgWidth={heroImgWidth}
+          imgHeight={heroImgHeight}
+          imgLeft={heroImgLeft}
+          imgTop={heroImgTop}
+        />
 
-      <div style={{ marginTop: '56px' }}>
-        <Section title="Your Tarot Reading">
-          <BodyText>{fullReading}</BodyText>
-        </Section>
-      </div>
+        {/* Tarot reading */}
+        <div style={{ marginTop: '76px' }}>
+          <Section title="Your Tarot Reading">
+            <BodyText>{fullReading}</BodyText>
+          </Section>
+        </div>
 
-      {spread.length > 0 && <SpreadSection spread={spread} />}
+        {/* Spread */}
+        {spread.length > 0 && <SpreadSection spread={spread} />}
 
-      <div style={{ marginTop: spread.length > 0 ? '0' : '0' }}>
+        {/* Shadow card */}
         {shadowTitle && (
           <div style={{ padding: '48px 33px 48px' }}>
-            <div style={{ color: purple, fontFamily: noirBold, fontSize: '30px', lineHeight: '42px', paddingBottom: '8px', whiteSpace: 'pre-wrap' }}>
+            {/* Title sits above the dithering */}
+            <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '42px', paddingBottom: '8px', position: 'relative', whiteSpace: 'pre-wrap', zIndex: 1 }}>
               {shadowTitle}
             </div>
 
+            {/* Card container — no overflow clip so dithering bleeds full-width */}
             <div style={{ margin: '0 auto', position: 'relative', width: '294px', height: '517px' }}>
-              <div style={{ backgroundColor: pink, borderRadius: '6px', height: '100%', outline: `1px solid ${purple}`, position: 'absolute', top: 0, left: 0, width: '100%' }} />
+              <div style={{ backgroundColor: pink, borderRadius: '6px', height: '100%', outline: `1px solid ${purple}`, position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 0 }} />
+              {/* Dithering full-bleed behind card and surrounding text */}
               <ClientOnlyDithering
                 speed={0.56}
                 shape="warp"
@@ -205,38 +212,48 @@ const ResultPage = ({
                 size={1.5}
                 scale={0.53}
                 colorBack="#00000000"
-                colorFront="#02BCDE"
-                style={{ height: '696px', left: `${shadowImgLeft - 170}px`, position: 'absolute', top: -152, width: '589px' }}
+                colorFront="#5E67AA"
+                style={{ height: '696px', left: `${shadowImgLeft - 170}px`, position: 'absolute', top: -152, width: '589px', zIndex: 0 }}
               />
-              <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 27, width: '100%' }}>
+              {/* Card content above dithering */}
+              <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 27, width: '100%', zIndex: 1 }}>
                 {shadowName}
               </div>
               {shadowImg && (
-                <div style={{ backgroundImage: `url(${shadowImg})`, backgroundPosition: 'center', backgroundSize: 'cover', height: '350px', left: '41px', outline: `1px solid ${purple}`, position: 'absolute', top: 80, width: '212px' }} />
+                <div style={{ backgroundImage: `url(${shadowImg})`, backgroundPosition: 'center', backgroundSize: 'cover', height: '350px', left: '41px', outline: `1px solid ${purple}`, position: 'absolute', top: 80, width: '212px', zIndex: 1 }} />
               )}
-              <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 461, width: '100%' }}>
+              <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 461, width: '100%', zIndex: 1 }}>
                 {shadowArcana}
               </div>
             </div>
 
-            <div style={{ color: purple, fontFamily: fig, fontSize: '16px', lineHeight: '24px', marginTop: '32px', whiteSpace: 'pre-wrap' }}>
+            {/* Shadow text sits above the dithering */}
+            <div style={{ color: pink, fontFamily: fig, fontSize: '16px', lineHeight: '24px', marginTop: '32px', position: 'relative', whiteSpace: 'pre-wrap', zIndex: 1 }}>
               {shadowText}
             </div>
           </div>
         )}
 
-        <Section title="Your Charge">
-          <BodyText>{charge}</BodyText>
-        </Section>
-      </div>
-
-      <div style={{ borderTop: `1px solid ${purple}`, margin: '0 33px', paddingBottom: '60px', paddingTop: '32px', textAlign: 'center' }}>
-        <Link to="/" style={{ textDecoration: 'none' }}>
-          <div style={{ backgroundColor: purple, color: pink, cursor: 'pointer', display: 'inline-block', fontFamily: fig, fontSize: '16px', padding: '12px 28px' }}>
-            Start over ↺
+        {/* Charge section */}
+        <div style={{ backgroundColor: '#3F00D9', height: '0.5px' }} />
+        <div style={{ backgroundColor: dark, padding: '48px 33px 60px' }}>
+          <div style={{ color: '#F2CACE', fontFamily: noir, fontSize: '30px', lineHeight: '90px' }}>
+            Your Charge
           </div>
-        </Link>
-      </div>
+          <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', lineHeight: '24px', whiteSpace: 'pre-wrap' }}>
+            {charge}
+          </div>
+
+          <div style={{ borderTop: '1px solid rgba(255,228,247,0.2)', marginTop: '48px', paddingTop: '32px', textAlign: 'center' }}>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <div style={{ backgroundColor: pink, color: purple, cursor: 'pointer', display: 'inline-block', fontFamily: fig, fontSize: '16px', padding: '12px 28px' }}>
+                Start over ↺
+              </div>
+            </Link>
+          </div>
+        </div>
+
+      </div>{/* end content wrapper */}
 
     </div>
   )

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { navigate } from 'gatsby'
-import { SCORES, CANDIDATES, MOON, MOON_THRESHOLD, MILLER_NARROW_THRESHOLD, STORAGE_KEY } from '../data/scores'
+import { SCORES, CANDIDATES, MOON, MOON_THRESHOLD, MILLER_NARROW_THRESHOLD, STORAGE_KEY, SPREAD_KEY, SPREAD_ORDER, ISSUE_LABELS } from '../data/scores'
 
 export default () => {
   useEffect(() => {
@@ -13,6 +13,16 @@ export default () => {
         SCORES[q][choice].forEach((pts, i) => { totals[i] += pts })
       }
     }
+
+    const spread = SPREAD_ORDER.map(qNum => {
+      const answerIdx = answers[qNum]
+      if (answerIdx === undefined) return null
+      const scores = SCORES[qNum][answerIdx]
+      const maxScore = Math.max(...scores)
+      const candidateIdx = scores.indexOf(maxScore)
+      return { issue: ISSUE_LABELS[qNum], candidate: CANDIDATES[candidateIdx].name }
+    }).filter(Boolean)
+    localStorage.setItem(SPREAD_KEY, JSON.stringify(spread))
 
     localStorage.removeItem(STORAGE_KEY)
 

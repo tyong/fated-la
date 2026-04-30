@@ -1,5 +1,68 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
 
+@font-face {
+  font-family: 'Apercu-Mono';
+  src: url('/fonts/ApercuMonoProRegular/font.woff2') format('woff2'),
+       url('/fonts/ApercuMonoProRegular/font.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'ApercuMonoPro-Regular';
+  src: url('/fonts/ApercuMonoProRegular/font.woff2') format('woff2'),
+       url('/fonts/ApercuMonoProRegular/font.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NOIRetBLANC-Regular';
+  src: url('/fonts/NoirEnBlanc/noiretblanc-webfont.woff2') format('woff2'),
+       url('/fonts/NoirEnBlanc/noiretblanc-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NOIRetBLANCMediumBold';
+  src: url('/fonts/NoirEnBlanc/noiretblanc_medium_bold-webfont.woff2') format('woff2'),
+       url('/fonts/NoirEnBlanc/noiretblanc_medium_bold-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FigGrotesk0.3Trial-Regular';
+  src: url('/fonts/FigGrotesk/FigGrotesk-Regular.woff2') format('woff2'),
+       url('/fonts/FigGrotesk/FigGrotesk-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FigGrotesk0.3Trial-Bold';
+  src: url('/fonts/FigGrotesk/FigGrotesk-Bold.woff2') format('woff2'),
+       url('/fonts/FigGrotesk/FigGrotesk-Bold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FigGrotesk0.3Trial-Book';
+  src: url('/fonts/FigGrotesk/FigGrotesk-Book.woff2') format('woff2'),
+       url('/fonts/FigGrotesk/FigGrotesk-Book.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   box-sizing: border-box;
 }

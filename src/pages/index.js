@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'gatsby'
 import ClientOnlyDithering from '../components/ClientOnlyDithering'
 
@@ -10,9 +10,7 @@ export const Head = () => (
   </>
 )
 
-const mono    = '"Apercu-Mono", "Apercu Mono", "Courier New", monospace'
 const monoPro = '"ApercuMonoPro-Regular", "Apercu Mono Pro", "Courier New", monospace'
-const noir    = '"NOIRetBLANC-Regular", "NOIR et BLANC", "Instrument Serif", Georgia, serif'
 const noirBold= '"NOIRetBLANCMediumBold", "NOIR et BLANC Medium Bold", "Instrument Serif", Georgia, serif'
 const figBook = '"FigGrotesk0.3Trial-Book", "FigGrotesk 0.3 Trial", system-ui, sans-serif'
 const fig     = '"FigGrotesk0.3Trial-Regular", "FigGrotesk 0.3 Trial", system-ui, sans-serif'
@@ -20,7 +18,16 @@ const figBold = '"FigGrotesk0.3Trial-Bold", "FigGrotesk 0.3 Trial", system-ui, s
 const purple  = '#3F00DB'
 const pink    = '#FFE4F7'
 const dark    = '#2A009C'
-const lightBlue = '#58B3E1'
+const yellow  = '#D2D260'
+const offPink = '#F2CACE'
+
+const starPath = "M100.722 2.758C101.021 -0.919 106.405 -0.919 106.703 2.758L112.411 73.151C112.626 75.808 115.942 76.885 117.678 74.862L163.672 21.268C166.074 18.469 170.43 21.633 168.51 24.783L131.752 85.088C130.364 87.364 132.413 90.184 135.007 89.568L203.719 73.244C207.308 72.391 208.972 77.512 205.567 78.932L140.383 106.113C137.922 107.139 137.922 110.625 140.383 111.651L205.567 138.833C208.972 140.252 207.308 145.373 203.719 144.52L135.007 128.196C132.413 127.58 130.364 130.4 131.752 132.676L168.51 192.981C170.43 196.131 166.074 199.296 163.672 196.496L117.678 142.902C115.942 140.879 112.626 141.956 112.411 144.613L106.703 215.007C106.405 218.683 101.021 218.683 100.722 215.007L95.014 144.613C94.799 141.956 91.484 140.879 89.748 142.902L43.753 196.496C41.351 199.296 36.995 196.131 38.915 192.981L75.673 132.676C77.061 130.4 75.012 127.58 72.418 128.196L3.706 144.52C0.117 145.373 -1.546 140.252 1.858 138.833L67.043 111.651C69.503 110.625 69.503 107.139 67.043 106.113L1.858 78.932C-1.546 77.512 0.117 72.391 3.706 73.244L72.418 89.568C75.012 90.184 77.061 87.364 75.673 85.088L38.915 24.783C36.995 21.633 41.351 18.469 43.753 21.268L89.748 74.862C91.484 76.885 94.799 75.808 95.014 73.151L100.722 2.758Z"
+
+const StarIcon = ({ size = 24, fill = yellow, style = {} }) => (
+  <svg width="208" height="218" viewBox="0 0 208 218" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ width: size, height: size, ...style }}>
+    <path d={starPath} fill={fill} />
+  </svg>
+)
 
 const candidates = [
   {
@@ -44,187 +51,223 @@ const candidates = [
   {
     name: 'SPENCER PRATT',
     arcana: 'THE TOWER',
-    img: '',
+    img: 'https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/29JHBW539RVE383B3F38JV0MRY.png',
     left: 489,
   },
   {
     name: 'ADAM MILLER',
     arcana: 'THE MAGICIAN',
-    img: '',
+    img: 'https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/0HT1SJ5VECDZ7BJP0VS9TQ9XTP.png',
     left: 654,
   },
 ]
 
-const CandidateCard = ({ name, arcana, img, left }) => (
-  <div style={{ height: '292px', left, position: 'absolute', top: 540, width: '155px' }}>
-    <div style={{ backgroundColor: pink, borderRadius: '6px', height: '292px', left: 0, outline: `1px solid ${purple}`, position: 'absolute', top: 0, width: '155px' }} />
-    <div style={{ color: purple, fontFamily: monoPro, fontSize: '10px', height: '14px', left: 'calc(50% + 2.5px)', letterSpacing: '0.05em', lineHeight: '12px', position: 'absolute', textAlign: 'center', top: 12, translate: '-50%', width: '136px' }}>
+const CARD_WIDTH = 155
+const CARD_GAP = 10
+const TRACK_WIDTH = candidates.length * (CARD_WIDTH + CARD_GAP)
+
+const MarqueeCard = ({ name, arcana, img }) => (
+  <div style={{ flexShrink: 0, height: '292px', marginRight: `${CARD_GAP}px`, position: 'relative', width: `${CARD_WIDTH}px` }}>
+    <div style={{ backgroundColor: pink, borderRadius: '6px', height: '100%', left: 0, outline: `1px solid ${purple}`, position: 'absolute', top: 0, width: '100%' }} />
+    <div style={{ color: purple, fontFamily: monoPro, fontSize: '10px', left: 0, letterSpacing: '0.05em', lineHeight: '12px', position: 'absolute', textAlign: 'center', top: 12, width: '100%' }}>
       {name}
     </div>
     {img && <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundSize: 'cover', height: '214px', left: 21, outline: `1px solid ${purple}`, position: 'absolute', top: 37, width: '114px' }} />}
-    <div style={{ color: purple, fontFamily: monoPro, fontSize: '10px', height: '14px', left: 'calc(50% + 2.5px)', letterSpacing: '0.05em', lineHeight: '12px', position: 'absolute', textAlign: 'center', top: 266, translate: '-50%', width: '136px' }}>
+    <div style={{ color: purple, fontFamily: monoPro, fontSize: '10px', left: 0, letterSpacing: '0.05em', lineHeight: '12px', position: 'absolute', textAlign: 'center', top: 266, width: '100%' }}>
       {arcana}
     </div>
   </div>
 )
 
+const YellowButton = ({ to, children, left, top, width }) => {
+  const [hovered, setHovered] = useState(false)
+  const [pressed, setPressed] = useState(false)
+  const bg = pressed ? '#AAAA3A' : hovered ? '#C2C24E' : yellow
+  return (
+    <Link to={to} style={{ textDecoration: 'none' }}>
+      <div
+        style={{
+          backgroundColor: bg,
+          borderRadius: '4px',
+          color: '#000403',
+          cursor: 'pointer',
+          fontFamily: fig,
+          fontSize: '16px',
+          height: '46px',
+          left,
+          lineHeight: '46px',
+          paddingLeft: '21px',
+          position: 'absolute',
+          top,
+          transition: 'background-color 0.15s ease',
+          userSelect: 'none',
+          width,
+        }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => { setHovered(false); setPressed(false) }}
+        onMouseDown={() => setPressed(true)}
+        onMouseUp={() => setPressed(false)}
+        onTouchStart={() => setPressed(true)}
+        onTouchEnd={() => setPressed(false)}
+      >
+        {children}
+      </div>
+    </Link>
+  )
+}
+
 const IntroPage = () => (
   <div>
     <div style={{
-      backgroundColor: '#F28CEA',
+      backgroundColor: '#291543',
       fontSynthesis: 'none',
       MozOsxFontSmoothing: 'grayscale',
       overflow: 'hidden',
       position: 'relative',
       WebkitFontSmoothing: 'antialiased',
       width: '393px',
-      minHeight: '2793px',
+      minHeight: '2954px',
       margin: '0 auto',
     }}>
 
       {/* Swirl dithering */}
       <ClientOnlyDithering
-        speed={0.43}
+        speed={1}
         shape="swirl"
-        type="4x4"
-        size={0.7}
-        scale={0.26}
+        type="8x8"
+        size={0.3}
+        scale={1}
         colorBack="#00000000"
-        colorFront="#00BCDE"
-        style={{ height: '853px', left: -117, position: 'absolute', top: -35, width: '589px' }}
+        colorFront="#264A89"
+        style={{ backgroundColor: '#291543', height: '823px', left: 0, position: 'absolute', top: 0, width: '402px' }}
       />
 
       {/* Star ornament */}
-      <div style={{ color: purple, fontFamily: noir, fontSize: '20px', left: 27, lineHeight: '20px', position: 'absolute', textAlign: 'center', top: 24 }}>✴</div>
+      <StarIcon size={24} style={{ left: 24, top: 23, position: 'absolute' }} />
 
       {/* Fated — Los Angeles */}
-      <div style={{ color: purple, fontFamily: noirBold, fontSize: '12px', left: 'calc(50% + 108px)', lineHeight: '20px', position: 'absolute', textAlign: 'right', top: 23, translate: '-50%', whiteSpace: 'pre', width: '131px' }}>
-        Fated{'          '}Los Angeles
+      <div style={{ color: offPink, fontFamily: noirBold, fontSize: '12px', left: 'calc(50% + 86.5px)', lineHeight: '20px', position: 'absolute', textAlign: 'right', top: 23, translate: '-50%', whiteSpace: 'pre', width: '174px' }}>
+        Fated{'  '}——— Los Angeles
       </div>
 
       {/* Headline */}
-      <div style={{ color: purple, fontFamily: noirBold, fontSize: '50px', height: '245px', left: 'calc(50% + 2px)', lineHeight: '56px', position: 'absolute', top: 98, translate: '-50%', whiteSpace: 'pre-wrap', width: '343px' }}>
-        Which candidate for{'\n'}LA Mayor vibes best with you?
+      <div style={{ color: offPink, fontFamily: noirBold, fontSize: '42px', left: 'calc(50% + 2px)', lineHeight: '56px', position: 'absolute', top: 127, translate: '-50%', whiteSpace: 'pre-wrap', width: '343px' }}>
+        Which candidate for Mayor of L.A.{'\n'}do you vibe with?
       </div>
 
       {/* Subtitle */}
-      <div style={{ color: purple, fontFamily: fig, fontSize: '16px', left: 27, lineHeight: '22px', position: 'absolute', top: 342, whiteSpace: 'pre' }}>
-        10 questions. 5 top mayoral candidates.{'\n'}LA's primary election on June 2.{'\n'}Learn which candidate shares your vibes.
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', left: 29, lineHeight: '22px', position: 'absolute', top: 318, whiteSpace: 'pre' }}>
+        10 questions. 5 top mayoral candidates.{'\n'}L.A's primary election on June 2.{'\n'}Learn which candidate shares your views.
       </div>
 
       {/* First CTA */}
-      <Link to="/question-01" style={{ textDecoration: 'none' }}>
-        <div style={{ height: '46px', left: 32, position: 'absolute', top: 432, width: '146px' }}>
-          <div style={{ backgroundColor: purple, height: '46px', left: 0, position: 'absolute', top: 0, width: '121px' }} />
-          <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', height: '22px', left: 21, lineHeight: '20px', position: 'absolute', top: 12, width: '106px' }}>
-            Let's go ➝
-          </div>
+      <YellowButton to="/question-01" left={29} top={427} width={121}>Let's go ➝ </YellowButton>
+
+      {/* Candidate cards — marquee scroll */}
+      <style>{`
+        @keyframes card-marquee {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-${TRACK_WIDTH}px); }
+        }
+      `}</style>
+      <div style={{ height: '292px', left: 0, overflow: 'hidden', position: 'absolute', top: 572, width: '100%' }}>
+        <div style={{ animation: `card-marquee 22s linear infinite`, display: 'flex', width: `${TRACK_WIDTH * 2}px` }}>
+          {[...candidates, ...candidates].map((c, i) => <MarqueeCard key={i} name={c.name} arcana={c.arcana} img={c.img} />)}
         </div>
-      </Link>
+      </div>
 
-      {/* Candidate cards */}
-      {candidates.map(c => <CandidateCard key={c.name} {...c} />)}
-
-      {/* Wave dithering — transition to dark section */}
+      {/* Wave dithering — dark-to-blue transition */}
       <ClientOnlyDithering
-        speed={0.53}
+        speed={1}
         shape="wave"
         type="4x4"
-        size={1.7}
-        scale={1.37}
+        size={1}
+        scale={1.2}
         colorBack="#00000000"
-        colorFront="#F18CEA"
-        style={{ backgroundColor: '#F18CEA', backgroundImage: 'linear-gradient(#06BECC)', height: '670px', left: -26, position: 'absolute', top: 1279, width: '589px' }}
+        colorFront="#291543"
+        style={{ backgroundColor: '#264988', height: '787px', left: 'calc(50% - 1.5px)', position: 'absolute', top: 1315, translate: '-50%', width: '1440px' }}
       />
 
       {/* How It Works */}
-      <div style={{ height: '348px', left: 37, position: 'absolute', top: 901, width: '299px' }}>
-        <div style={{ color: purple, fontFamily: noirBold, fontSize: '40px', height: '53px', left: '50%', lineHeight: '50px', position: 'absolute', top: 0, translate: '-50%', width: '299px' }}>
+      <div style={{ left: 37, position: 'absolute', top: 916, width: '299px' }}>
+        <div style={{ color: offPink, fontFamily: noirBold, fontSize: '32px', lineHeight: '50px' }}>
           How It Works
         </div>
-        <div style={{ color: purple, fontFamily: fig, fontSize: '16px', left: 0, lineHeight: '22px', position: 'absolute', top: 68, width: '320px' }}>
-          Answer 10 questions revealing your feelings on LA. The fires, the tents, the Olympics, AI. We've got all the big ones.
+        <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', lineHeight: '22px', marginTop: '11px', whiteSpace: 'pre-wrap', width: '320px' }}>
+          Answer 10 questions revealing your feelings on LA issues. The fires, the tents, the Olympics, AI.{'\n\n'}There are no wrong answers. Just answer how you feel.{'\n\n'}At the end, we'll reveal which candidate matches your answers best.
         </div>
-        <div style={{ color: '#3F00DA', fontFamily: fig, fontSize: '16px', height: '92px', left: 0, lineHeight: '20px', position: 'absolute', top: 156, whiteSpace: 'pre-wrap', width: '299px' }}>
-          At the end, we'll reveal which candidate matches your answers.{'\n\n'}Ready?
-        </div>
-        <Link to="/question-01" style={{ textDecoration: 'none' }}>
-          <div style={{ height: '46px', left: 0, position: 'absolute', top: 263, width: '131px' }}>
-            <div style={{ backgroundColor: purple, height: '46px', position: 'absolute', top: 0, left: 0, width: '131px' }} />
-            <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', height: '22px', left: 23, lineHeight: '20px', position: 'absolute', top: 12, width: '84px' }}>
-              Let's go ➝
-            </div>
-          </div>
-        </Link>
       </div>
 
-      {/* What You'll Get */}
-      <div style={{ height: '105px', left: 35, position: 'absolute', top: 1337, width: '299px' }}>
-        <div style={{ color: purple, fontFamily: noirBold, fontSize: '40px', height: '53px', left: '50%', lineHeight: '50px', position: 'absolute', top: -4, translate: '-50%', width: '299px' }}>
-          What You'll Get
+      {/* I'm ready CTA */}
+      <YellowButton to="/question-01" left={37} top={1211} width={131}>I'm ready ➝ </YellowButton>
+
+      {/* Your Reading */}
+      <div style={{ left: 35, position: 'absolute', top: 1369 }}>
+        <div style={{ color: offPink, fontFamily: noirBold, fontSize: '32px', lineHeight: '50px' }}>
+          Your Reading
         </div>
-        <div style={{ color: purple, fontFamily: fig, fontSize: '16px', left: 0, lineHeight: '22px', position: 'absolute', top: 61, width: '328px' }}>
-          After answering all 10 questions, you get a results page. We don't need your email.
+        <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', lineHeight: '22px', marginTop: '3px' }}>
+          No email silliness required.
         </div>
       </div>
 
       {/* Your Draw item */}
-      <div style={{ backgroundColor: pink, borderRadius: '2px', height: '118px', left: 35, outline: `1px solid ${purple}`, position: 'absolute', top: 1476, width: '63px' }} />
-      <div style={{ backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAZTMV23XJGYQFMHR3SP8EK.png)', backgroundPosition: 'center', backgroundSize: 'cover', height: '86px', left: 43, outline: `1px solid ${purple}`, position: 'absolute', top: 1491, width: '47px' }} />
-      <div style={{ color: purple, fontFamily: figBold, fontSize: '16px', fontWeight: 700, left: 123, lineHeight: '22px', position: 'absolute', top: 1483, width: '145px' }}>
+      <div style={{ backgroundColor: pink, borderRadius: '2px', height: '118px', left: 35, outline: `1px solid ${purple}`, position: 'absolute', top: 1485, width: '63px' }} />
+      <div style={{ backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAZTMV23XJGYQFMHR3SP8EK.png)', backgroundPosition: 'center', backgroundSize: 'cover', height: '86px', left: 43, outline: `1px solid ${purple}`, position: 'absolute', top: 1500, width: '47px' }} />
+      <div style={{ color: offPink, fontFamily: figBold, fontSize: '16px', fontWeight: 700, left: 123, lineHeight: '22px', position: 'absolute', top: 1492, width: '145px' }}>
         Your Draw
       </div>
-      <div style={{ color: purple, fontFamily: fig, fontSize: '16px', left: 123, lineHeight: '22px', position: 'absolute', top: 1513, width: '242px' }}>
-        The mayoral candidate and archetype that best represents you, based on your views.
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', left: 123, lineHeight: '22px', position: 'absolute', top: 1522, width: '242px' }}>
+        The mayoral candidate and archetype that best represents your political soul overall, based on your stated views.
       </div>
 
       {/* Your Spread item — stacked cards with star */}
-      <div style={{ backgroundColor: pink, borderRadius: '2px', height: '84px', left: 35, outline: `1px solid ${purple}`, position: 'absolute', top: 1621, width: '48px' }} />
-      <div style={{ backgroundColor: pink, borderRadius: '2px', height: '85px', left: 43, outline: `1px solid ${purple}`, position: 'absolute', top: 1627, width: '48px' }} />
-      <div style={{ backgroundColor: pink, borderRadius: '2px', height: '84px', left: 51, outline: `1px solid ${purple}`, position: 'absolute', top: 1635, width: '48px' }} />
-      <div style={{ color: purple, fontFamily: noir, fontSize: '40px', height: '56px', left: 55, lineHeight: '90px', position: 'absolute', textAlign: 'center', top: 1634, width: '40px' }}>✴</div>
-      <div style={{ color: purple, fontFamily: figBold, fontSize: '16px', fontWeight: 700, left: 123, lineHeight: '22px', position: 'absolute', top: 1623, width: '145px' }}>
+      <div style={{ backgroundColor: pink, borderRadius: '2px', height: '84px', left: 35, outline: `1px solid ${purple}`, position: 'absolute', top: 1653, width: '48px' }} />
+      <div style={{ backgroundColor: pink, borderRadius: '2px', height: '85px', left: 43, outline: `1px solid ${purple}`, position: 'absolute', top: 1659, width: '48px' }} />
+      <div style={{ backgroundColor: pink, borderRadius: '2px', height: '84px', left: 51, outline: `1px solid ${purple}`, position: 'absolute', top: 1667, width: '48px' }} />
+      <div style={{ backgroundColor: '#5E71D6', borderRadius: '2px', height: '71px', left: 56, outline: `1px solid ${purple}`, position: 'absolute', top: 1673, width: '38px' }} />
+      <StarIcon size={20} style={{ position: 'absolute', left: 65, top: 1698 }} />
+      <div style={{ color: offPink, fontFamily: figBold, fontSize: '16px', fontWeight: 700, left: 123, lineHeight: '22px', position: 'absolute', top: 1655, width: '145px' }}>
         Your Spread
       </div>
-      <div style={{ color: purple, fontFamily: fig, fontSize: '16px', left: 123, lineHeight: '22px', position: 'absolute', top: 1653, width: '224px' }}>
-        Where you align with each of the candidates on 10 specific policy issues.
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', left: 123, lineHeight: '22px', position: 'absolute', top: 1685, width: '224px' }}>
+        Where you align with each of the candidates on 10 specific policy issues. You might align with different ones on each.
       </div>
 
       {/* Your Shadow item */}
-      <div style={{ backgroundColor: pink, borderRadius: '2px', height: '118px', left: 36, outline: `1px solid ${purple}`, position: 'absolute', top: 1760, width: '63px' }} />
-      <div style={{ backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQDK0J1H933QKYMF0CCX8GAN.png)', backgroundPosition: 'center', backgroundSize: 'cover', height: '86px', left: 44, outline: `1px solid ${purple}`, position: 'absolute', top: 1775, width: '47px' }} />
-      <div style={{ color: purple, fontFamily: figBold, fontSize: '16px', fontWeight: 700, left: 123, lineHeight: '22px', position: 'absolute', top: 1757, width: '145px' }}>
+      <div style={{ backgroundColor: pink, borderRadius: '2px', height: '118px', left: 36, outline: `1px solid ${purple}`, position: 'absolute', top: 1812, width: '63px' }} />
+      <div style={{ backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQDK0J1H933QKYMF0CCX8GAN.png)', backgroundPosition: 'center', backgroundSize: 'cover', height: '86px', left: 44, outline: `1px solid ${purple}`, position: 'absolute', top: 1827, width: '47px' }} />
+      <div style={{ color: offPink, fontFamily: figBold, fontSize: '16px', fontWeight: 700, left: 123, lineHeight: '22px', position: 'absolute', top: 1814, width: '145px' }}>
         Your Shadow
       </div>
-      <div style={{ color: purple, fontFamily: fig, fontSize: '16px', left: 123, lineHeight: '22px', position: 'absolute', top: 1787, width: '224px' }}>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', left: 123, lineHeight: '22px', position: 'absolute', top: 1844, width: '224px' }}>
         The candidate that you may not have expected to align with, but who shares more in common than you think.
       </div>
 
       {/* See my fate CTA */}
-      <Link to="/question-01" style={{ textDecoration: 'none' }}>
-        <div style={{ height: '46px', left: 32, position: 'absolute', top: 1933, width: '154px' }}>
-          <div style={{ backgroundColor: purple, height: '46px', left: 0, position: 'absolute', top: 0, width: '154px' }} />
-          <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', height: '22px', left: 23, lineHeight: '20px', position: 'absolute', top: 12, width: '114px' }}>
-            See my fate ➝
-          </div>
-        </div>
-      </Link>
+      <YellowButton to="/question-01" left={37} top={1989} width={154}>See my fate ➝ </YellowButton>
 
       {/* Dark About section */}
-      <div style={{ backgroundColor: dark, height: '749px', left: -1, position: 'absolute', top: 2054, width: '396px' }} />
+      <div style={{ backgroundColor: dark, height: '1005px', left: -1, position: 'absolute', top: 2099, width: '396px' }} />
 
-      <div style={{ color: lightBlue, fontFamily: noirBold, fontSize: '32px', height: '53px', left: 'calc(50% - 9px)', lineHeight: '50px', position: 'absolute', top: 2118, translate: '-50%', width: '299px' }}>
+      <div style={{ color: offPink, fontFamily: noirBold, fontSize: '32px', left: 'calc(50% - 8px)', lineHeight: '50px', position: 'absolute', top: 2165, translate: '-50%', width: '299px' }}>
         About
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: figBook, fontSize: '16px', fontWeight: 300, left: 38, lineHeight: '22px', position: 'absolute', top: 2184, whiteSpace: 'pre-wrap', width: '299px' }}>
+      <div style={{ color: '#FFFFFF', fontFamily: figBook, fontSize: '16px', fontWeight: 300, left: 39, lineHeight: '22px', position: 'absolute', top: 2231, whiteSpace: 'pre-wrap', width: '299px' }}>
         This site was made by Tabitha Yong & Yvonne Leow, nonpartisan citizens of Los Angeles. We wanted a more fun, approachable way to do our civic duty.{'\n\n'}Designed and vibe-coded with Paper, Claude Code & Vercel.{'\n'}
       </div>
 
-      <div style={{ color: lightBlue, fontFamily: noirBold, fontSize: '32px', height: '53px', left: 'calc(50% - 9px)', lineHeight: '50px', position: 'absolute', top: 2389, translate: '-50%', width: '299px' }}>
+      <div style={{ backgroundColor: '#DDDDDD', height: '0.4px', left: 271, position: 'absolute', top: 2349, width: '45px' }} />
+
+      <div style={{ color: offPink, fontFamily: noirBold, fontSize: '32px', left: 'calc(50% - 8px)', lineHeight: '50px', position: 'absolute', top: 2456, translate: '-50%', width: '299px' }}>
         Methodology
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: figBook, fontSize: '16px', fontWeight: 300, left: 38, lineHeight: '22px', position: 'absolute', top: 2461, whiteSpace: 'pre-wrap', width: '328px' }}>
+      <div style={{ color: '#FFFFFF', fontFamily: figBook, fontSize: '16px', fontWeight: 300, left: 39, lineHeight: '22px', position: 'absolute', top: 2528, whiteSpace: 'pre-wrap', width: '328px' }}>
         For simplicity, the candidate list is limited to credible candidates who have been officially endorsed. For the full list of candidates, go here ➝{'\n\n'}Candidate policy positions were sourced with Claude, based on whatever information they've publicly shared in their campaigns. They might change.{'\n\n'}Questions? Comments? Recs for your favorite LA spot? Email us ➝{'\n'}
+      </div>
+
+      <div style={{ color: offPink, fontFamily: fig, fontSize: '12px', left: 42, lineHeight: '20px', position: 'absolute', top: 2901, whiteSpace: 'pre-wrap', width: '294px' }}>
+        Last updated{'  '}———{'  '}29 April 2026
       </div>
 
     </div>
