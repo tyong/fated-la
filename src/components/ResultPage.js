@@ -147,10 +147,7 @@ const ResultPage = ({
           <ShareButton title={drew?.replace('\n', '')} text={soulCandidate} />
         </div>
 
-        <div style={{ color: yellow, fontFamily: mono, fontSize: '12px', marginTop: '-16px', textAlign: 'center' }}>
-          Your tarot reading
-        </div>
-        <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '40px', marginTop: '40px', textAlign: 'center', whiteSpace: 'pre-wrap' }}>
+        <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '40px', marginTop: '16px', textAlign: 'center', whiteSpace: 'pre-wrap' }}>
           {drew}
         </div>
         <div style={{ color: pink, fontFamily: fig, fontSize: '16px', lineHeight: '20px', marginTop: '12px', textAlign: 'center' }}>
