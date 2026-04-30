@@ -22,15 +22,15 @@ const StarIcon = ({ size = 24 }) => (
 )
 
 const LargeCard = ({ name, arcana, img, imgWidth = 225, imgHeight = 362, imgLeft = 33, imgTop = 70 }) => (
-  <div style={{ margin: '32px auto 0', position: 'relative', width: '294px', height: '517px' }}>
+  <div style={{ margin: '32px auto 0', position: 'relative', width: 'min(100%, 420px)', aspectRatio: '294 / 517' }}>
     <div style={{ backgroundColor: pink, borderRadius: '6px', height: '100%', outline: `1px solid ${purple}`, position: 'absolute', top: 0, left: 0, width: '100%' }} />
-    <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 27, width: '100%', zIndex: 1 }}>
+      <div style={{ color: purple, fontFamily: monoPro, fontSize: 'clamp(16px, 2vw, 20px)', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: '5.2%', width: '100%', zIndex: 1 }}>
       {name}
     </div>
     {img && (
       <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundSize: 'cover', borderRadius: '4px', height: `${imgHeight}px`, left: `${imgLeft}px`, outline: `1px solid ${purple}`, position: 'absolute', top: `${imgTop}px`, width: `${imgWidth}px`, zIndex: 1 }} />
     )}
-    <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 461, width: '100%', zIndex: 1 }}>
+      <div style={{ color: purple, fontFamily: monoPro, fontSize: 'clamp(16px, 2vw, 20px)', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: '89.2%', width: '100%', zIndex: 1 }}>
       {arcana}
     </div>
   </div>
@@ -105,8 +105,11 @@ const ResultPage = ({
       overflow: 'hidden',
       position: 'relative',
       WebkitFontSmoothing: 'antialiased',
-      width: '393px',
+      width: '100%',
+      maxWidth: '1440px',
+      padding: '0 clamp(16px, 3vw, 32px)',
     }}>
+      <div style={{ width: '100%', maxWidth: '820px', margin: '0 auto', position: 'relative' }}>
 
       <ClientOnlyDithering
         speed={1}
@@ -147,7 +150,7 @@ const ResultPage = ({
           imgTop={heroImgTop}
         />
 
-        <div style={{ marginTop: '76px' }}>
+        <div style={{ marginTop: 'clamp(56px, 7vw, 92px)' }}>
           <Section title="Your Tarot Reading">
             <BodyText>{fullReading}</BodyText>
           </Section>
@@ -171,15 +174,15 @@ const ResultPage = ({
               {shadowTitle}
             </div>
 
-            <div style={{ margin: '0 auto', position: 'relative', width: '294px', height: '517px', zIndex: 1 }}>
+            <div style={{ margin: '0 auto', position: 'relative', width: 'min(100%, 420px)', aspectRatio: '294 / 517', zIndex: 1 }}>
               <div style={{ backgroundColor: pink, borderRadius: '6px', height: '100%', outline: `1px solid ${purple}`, position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 0 }} />
-              <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 27, width: '100%', zIndex: 1 }}>
+              <div style={{ color: purple, fontFamily: monoPro, fontSize: 'clamp(16px, 2vw, 20px)', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: '5.2%', width: '100%', zIndex: 1 }}>
                 {shadowName}
               </div>
               {shadowImg && (
                 <div style={{ backgroundImage: `url(${shadowImg})`, backgroundPosition: 'center', backgroundSize: 'cover', height: '350px', left: '41px', outline: `1px solid ${purple}`, position: 'absolute', top: 80, width: '212px', zIndex: 1 }} />
               )}
-              <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 461, width: '100%', zIndex: 1 }}>
+              <div style={{ color: purple, fontFamily: monoPro, fontSize: 'clamp(16px, 2vw, 20px)', left: 0, letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: '89.2%', width: '100%', zIndex: 1 }}>
                 {shadowArcana}
               </div>
             </div>
@@ -210,6 +213,7 @@ const ResultPage = ({
 
       </div>
 
+      </div>
     </div>
   )
 }
