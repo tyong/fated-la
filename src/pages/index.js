@@ -7,6 +7,12 @@ export const Head = () => (
     <title>Fated LA</title>
     <meta name="description" content="Which candidate for LA Mayor vibes best with you? 10 questions. Find out." />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>{`
+      @keyframes scrollCards {
+        from { transform: translateX(0); }
+        to { transform: translateX(-825px); }
+      }
+    `}</style>
   </>
 )
 
@@ -27,41 +33,35 @@ const candidates = [
     name: 'KAREN BASS',
     arcana: 'THE EMPRESS',
     img: 'https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAZTMV23XJGYQFMHR3SP8EK.png',
-    left: -6,
   },
   {
     name: 'NITHYA RAMAN',
     arcana: 'THE HIGH PRIESTESS',
     img: 'https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAZTW3WNKPAVTQQY3QWWEXK.png',
-    left: 159,
   },
   {
     name: 'RAE HUANG',
     arcana: 'THE STAR',
     img: 'https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAY29KREV8F0ZSQYVN8EVRM.png',
-    left: 324,
   },
   {
     name: 'SPENCER PRATT',
     arcana: 'THE TOWER',
-    img: '',
-    left: 489,
+    img: 'https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQB04KNZBKPHBTP0A70KEHZ7.png',
   },
   {
     name: 'ADAM MILLER',
     arcana: 'THE MAGICIAN',
-    img: '',
-    left: 654,
+    img: 'https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQB0P3CE16AJN0Q8T1NE95M9.png',
   },
 ]
 
-const CandidateCard = ({ name, arcana, img, left }) => (
-  <div style={{ height: '292px', left, position: 'absolute', top: 540, width: '155px' }}>
-    <div style={{ backgroundColor: pink, borderRadius: '6px', height: '292px', left: 0, outline: `1px solid ${purple}`, position: 'absolute', top: 0, width: '155px' }} />
+const CarouselCard = ({ name, arcana, img }) => (
+  <div style={{ boxShadow: `0 0 0 1px ${purple}`, borderRadius: '6px', flexShrink: 0, height: '292px', marginRight: '10px', position: 'relative', width: '155px', backgroundColor: pink }}>
     <div style={{ color: purple, fontFamily: monoPro, fontSize: '10px', height: '14px', left: 'calc(50% + 2.5px)', letterSpacing: '0.05em', lineHeight: '12px', position: 'absolute', textAlign: 'center', top: 12, translate: '-50%', width: '136px' }}>
       {name}
     </div>
-    {img && <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundSize: 'cover', height: '214px', left: 21, outline: `1px solid ${purple}`, position: 'absolute', top: 37, width: '114px' }} />}
+    {img && <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundSize: 'cover', borderRadius: '2px', boxShadow: `0 0 0 1px ${purple}`, height: '214px', left: 21, position: 'absolute', top: 37, width: '114px' }} />}
     <div style={{ color: purple, fontFamily: monoPro, fontSize: '10px', height: '14px', left: 'calc(50% + 2.5px)', letterSpacing: '0.05em', lineHeight: '12px', position: 'absolute', textAlign: 'center', top: 266, translate: '-50%', width: '136px' }}>
       {arcana}
     </div>
@@ -122,8 +122,14 @@ const IntroPage = () => (
         </div>
       </Link>
 
-      {/* Candidate cards */}
-      {candidates.map(c => <CandidateCard key={c.name} {...c} />)}
+      {/* Candidate cards carousel */}
+      <div style={{ height: '296px', left: 0, overflow: 'hidden', position: 'absolute', top: 538, width: '393px' }}>
+        <div style={{ animation: 'scrollCards 20s linear infinite', display: 'flex', paddingBottom: '2px', paddingTop: '2px', willChange: 'transform' }}>
+          {[...candidates, ...candidates].map((c, i) => (
+            <CarouselCard key={i} {...c} />
+          ))}
+        </div>
+      </div>
 
       {/* Wave dithering — transition to dark section */}
       <ClientOnlyDithering
