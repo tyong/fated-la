@@ -235,7 +235,7 @@ const ResultPage = ({
 
       <div style={{ borderTop: `1px solid ${purple}`, margin: '0 33px', paddingBottom: '60px', paddingTop: '32px', textAlign: 'center' }}>
         <Link to="/" style={{ textDecoration: 'none' }}>
-          <div style={{ backgroundColor: purple, color: pink, cursor: 'pointer', display: 'inline-block', fontFamily: fig, fontSize: '16px', padding: '12px 28px' }}>
+          <div style={{ backgroundColor: purple, borderRadius: '4px', color: pink, cursor: 'pointer', display: 'inline-block', fontFamily: fig, fontSize: '16px', padding: '12px 28px' }}>
             Start over ↺
           </div>
         </Link>
