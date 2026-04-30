@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'gatsby'
 import ClientOnlyDithering from './ClientOnlyDithering'
 import SpreadSectionExternal from './SpreadSection'
@@ -74,6 +74,27 @@ const ShareButton = ({ title, text }) => {
   )
 }
 
+const StartOverButton = () => {
+  const [hovered, setHovered] = useState(false)
+  const [pressed, setPressed] = useState(false)
+  const bg = pressed ? '#D8C1D2' : hovered ? '#EBD2E3' : pink
+  return (
+    <Link to="/" style={{ textDecoration: 'none' }}>
+      <div
+        style={{ backgroundColor: bg, borderRadius: '4px', color: purple, cursor: 'pointer', display: 'inline-block', fontFamily: fig, fontSize: '16px', padding: '12px 28px', transition: 'background-color 0.15s ease', userSelect: 'none' }}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => { setHovered(false); setPressed(false) }}
+        onMouseDown={() => setPressed(true)}
+        onMouseUp={() => setPressed(false)}
+        onTouchStart={() => setPressed(true)}
+        onTouchEnd={() => setPressed(false)}
+      >
+        Start over ↺
+      </div>
+    </Link>
+  )
+}
+
 const ResultPage = ({
   drew,
   soulCandidate,
@@ -130,7 +151,7 @@ const ResultPage = ({
         <div style={{ color: yellow, fontFamily: mono, fontSize: '12px', marginTop: '-16px', textAlign: 'center' }}>
           Your tarot reading
         </div>
-        <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '40px', marginTop: '16px', textAlign: 'center', whiteSpace: 'pre-wrap' }}>
+        <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '40px', marginTop: '40px', textAlign: 'center', whiteSpace: 'pre-wrap' }}>
           {drew}
         </div>
         <div style={{ color: pink, fontFamily: fig, fontSize: '16px', lineHeight: '20px', marginTop: '12px', textAlign: 'center' }}>
@@ -157,7 +178,7 @@ const ResultPage = ({
 
         {shadowTitle && (
           <div style={{ padding: '48px 33px 48px' }}>
-            <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '42px', paddingBottom: '8px', position: 'relative', whiteSpace: 'pre-wrap', zIndex: 1 }}>
+            <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '42px', paddingBottom: '32px', position: 'relative', whiteSpace: 'pre-wrap', zIndex: 1 }}>
               {shadowTitle}
             </div>
 
@@ -184,7 +205,7 @@ const ResultPage = ({
               </div>
             </div>
 
-            <div style={{ color: pink, fontFamily: fig, fontSize: '16px', lineHeight: '24px', marginTop: '32px', position: 'relative', whiteSpace: 'pre-wrap', zIndex: 1 }}>
+            <div style={{ color: pink, fontFamily: fig, fontSize: '16px', lineHeight: '24px', marginTop: '56px', position: 'relative', whiteSpace: 'pre-wrap', zIndex: 1 }}>
               {shadowText}
             </div>
           </div>
@@ -200,11 +221,7 @@ const ResultPage = ({
           </div>
 
           <div style={{ borderTop: '1px solid rgba(255,228,247,0.2)', marginTop: '48px', paddingTop: '32px', textAlign: 'center' }}>
-            <Link to="/" style={{ textDecoration: 'none' }}>
-              <div style={{ backgroundColor: pink, borderRadius: '4px', color: purple, cursor: 'pointer', display: 'inline-block', fontFamily: fig, fontSize: '16px', padding: '12px 28px' }}>
-                Start over ↺
-              </div>
-            </Link>
+            <StartOverButton />
           </div>
         </div>
 
