@@ -1,7 +1,7 @@
 import React from 'react'
 import ResultPage from '../components/ResultPage'
 
-export default () => (
+const TheMoon = () => (
   <ResultPage
     drew={"You drew \nThe Moon."}
     soulCandidate="No one candidate speaks to you."
@@ -23,3 +23,5 @@ export default () => (
     charge={`Before June 2, do one thing: attend a candidate event — in person, not on a screen. Not a debate. Something smaller, where you can see how they handle a question they weren't expecting. The Moon card resolves in proximity, not in more information.`}
   />
 )
+
+export default TheMoon
