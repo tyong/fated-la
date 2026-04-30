@@ -165,6 +165,8 @@ const IntroPage = () => {
         <ClientOnlyDithering
           speed={1}
           shape="swirl"
+          revealVariant="swirl"
+          revealDuration={560}
           type="8x8"
           size={0.3}
           scale={1}
