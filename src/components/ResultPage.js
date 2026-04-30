@@ -177,7 +177,7 @@ const ResultPage = ({
         <SpreadSectionExternal />
 
         {shadowTitle && (
-          <div style={{ padding: '48px 33px 48px' }}>
+          <div style={{ padding: '68px 33px 48px' }}>
             <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '42px', paddingBottom: '32px', position: 'relative', whiteSpace: 'pre-wrap', zIndex: 1 }}>
               {shadowTitle}
             </div>
