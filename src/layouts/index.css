@@ -141,6 +141,127 @@ a {
   order: 2;
 }
 
+.city-image-inner {
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.intro-how-it-works-shell {
+  padding-top: 10vw;
+}
+
+.reading-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.reading-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 24px;
+  text-align: left;
+}
+
+.reading-item-media {
+  width: 81.9px;
+  height: 152.75px;
+  overflow: hidden;
+}
+
+.reading-item-media > div {
+  transform: none;
+}
+
+.reading-item-content {
+  min-height: 152.75px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reading-item-content h3 {
+  font-size: 22px !important;
+}
+
+.reading-intro-copy {
+  margin: 0 0 32px;
+}
+
+.reading-cta {
+  margin-top: 35px;
+}
+
+.reading-panel {
+  padding: 56px 36px;
+}
+
+@media (min-width: 640px) {
+  .reading-panel {
+    padding: 58px 36px 90px;
+  }
+
+  .city-image-inner {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .reading-intro-copy {
+    margin: 0 0 64px;
+  }
+
+  .reading-cta {
+    margin-top: 70px;
+  }
+
+  .reading-item-content h3 {
+    font-size: clamp(28px, 2.2vw, 36px) !important;
+  }
+
+  .desktop-grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .desktop-only {
+    display: block;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+
+  .reading-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  .reading-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .reading-item-media {
+    width: auto;
+    height: auto;
+    margin-bottom: 28px;
+    display: block;
+  }
+
+  .reading-item-media > div {
+    transform: none;
+  }
+
+  .reading-item-content {
+    min-height: 0;
+    display: block;
+  }
+}
+
 @media (min-width: 768px) {
   :root {
     --page-gutter: 24px;
@@ -154,10 +275,7 @@ a {
     --section-space: 80px;
   }
 
-  .desktop-grid-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px;
-  }
+  .desktop-grid-2 { gap: 32px; }
 
   .hero-content-column {
     padding-left: 16px;
@@ -179,4 +297,15 @@ a {
   .city-image-block {
     order: -1;
   }
+
+  .intro-how-it-works-shell {
+    padding-top: 5vw;
+  }
+
+  .reading-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 42px;
+  }
+
+  .reading-item { gap: 42px; }
 }

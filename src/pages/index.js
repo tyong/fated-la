@@ -127,22 +127,24 @@ const YellowButton = ({ to, children, left, top, width }) => {
 }
 
 const ReadingItem = ({ title, body, children }) => (
-  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-    <div style={{ marginBottom: '28px' }}>{children}</div>
-    <h3
-      style={{
-        color: offPink,
-        fontFamily: noirBold,
-        fontSize: 'clamp(28px, 2.2vw, 36px)',
-        fontWeight: 500,
-        letterSpacing: '0.015em',
-        lineHeight: 1.1,
-        margin: '0 0 10px',
-      }}
-    >
-      {title}
-    </h3>
-    <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-md)', lineHeight: 1.5, maxWidth: '342px' }}>{body}</div>
+  <div className="reading-item">
+    <div className="reading-item-media">{children}</div>
+    <div className="reading-item-content">
+      <h3
+        style={{
+          color: offPink,
+          fontFamily: noirBold,
+          fontSize: 'clamp(28px, 2.2vw, 36px)',
+          fontWeight: 500,
+          letterSpacing: '0.015em',
+          lineHeight: 1.1,
+          margin: '0 0 10px',
+        }}
+      >
+        {title}
+      </h3>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-md)', lineHeight: 1.5, maxWidth: '342px' }}>{body}</div>
+    </div>
   </div>
 )
 
@@ -177,15 +179,15 @@ const IntroPage = () => {
           </div>
 
           <div className="desktop-grid-2" style={{ alignItems: 'start', gap: 'clamp(24px, 4vw, 64px)' }}>
-            <div className="content-column hero-content-column" style={{ maxWidth: '580px', paddingLeft: '32px' }}>
+            <div className="content-column hero-content-column" style={{ maxWidth: '580px' }}>
               <h1 style={{ color: offPink, fontFamily: noirBold, fontWeight: 400, fontSize: 'calc(clamp(42px, 6vw, 76px) * 0.91)', lineHeight: 1.2, margin: '0 0 24px', letterSpacing: '-0.01em' }}>
                 Which candidate for Mayor of L.A. do you vibe with?
               </h1>
-              <p style={{ color: '#FFFFFF', fontFamily: fig, fontWeight: heroBodyWeight, fontSize: `calc(clamp(16px, 1.45vw, 24px) * ${heroBodyScale})`, lineHeight: 1.4, margin: '0 0 30px', whiteSpace: 'pre-wrap', maxWidth: '430px' }}>
-                10 questions. 5 top mayoral candidates.{'\n'}
-                L.A's primary election on June 2.{'\n'}
-                Learn which candidate shares your views.
-              </p>
+              <div style={{ color: '#FFFFFF', fontFamily: fig, fontWeight: heroBodyWeight, fontSize: `calc(clamp(16px, 1.45vw, 24px) * ${heroBodyScale})`, lineHeight: 1.4, margin: '0 0 30px', maxWidth: '430px' }}>
+                <p style={{ margin: '0 0 16px' }}>10 questions. 5 top mayoral candidates.</p>
+                <p style={{ margin: '0 0 16px' }}>L.A's primary election on June 2.</p>
+                <p style={{ margin: 0 }}>Learn which candidate shares your views.</p>
+              </div>
               <Link to="/question-01" style={{ display: 'inline-block', backgroundColor: yellow, color: '#000403', borderRadius: '4px', fontFamily: fig, fontSize: '16px', lineHeight: '46px', padding: '0 22px' }}>
                 Let's go ➝
               </Link>
@@ -218,19 +220,27 @@ const IntroPage = () => {
         </div>
       </section>
 
-      <section className="page-shell" style={{ paddingTop: '5vw', paddingBottom: 'clamp(40px, 6vw, 80px)' }}>
+      <section className="page-shell intro-how-it-works-shell" style={{ paddingBottom: 'clamp(40px, 6vw, 80px)' }}>
         <div className="desktop-grid-2" style={{ alignItems: 'center', gap: 'clamp(24px, 4vw, 64px)' }}>
           <div className="city-image-block" style={{ display: 'flex', justifyContent: 'center' }}>
             <div
+              className="city-image-inner"
               style={{
                 width: '100%',
                 maxWidth: '629px',
-                aspectRatio: '629 / 446',
-                backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQDWX0Q1H665G5WFBEDK8PQF.png)',
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
               }}
-            />
+            >
+              <div
+                className="city-image-art"
+                style={{
+                  width: '100%',
+                  aspectRatio: '629 / 446',
+                  backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQDWX0Q1H665G5WFBEDK8PQF.png)',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
+            </div>
           </div>
           <div className="content-column" style={{ maxWidth: '510px' }}>
             <h2 style={h2Style}>How It Works</h2>
@@ -247,7 +257,7 @@ const IntroPage = () => {
       </section>
 
       <section className="page-shell" style={{ paddingBottom: 0 }}>
-        <div style={{ backgroundColor: '#264988', borderRadius: 0, padding: '58px 36px 90px', position: 'relative', overflow: 'hidden', width: 'calc(100% + (var(--page-gutter) * 2))', marginLeft: 'calc(var(--page-gutter) * -1)' }}>
+        <div className="reading-panel" style={{ backgroundColor: '#264988', borderRadius: 0, position: 'relative', overflow: 'hidden', width: 'calc(100% + (var(--page-gutter) * 2))', marginLeft: 'calc(var(--page-gutter) * -1)' }}>
           <ClientOnlyDithering
             speed={1}
             shape="wave"
@@ -260,40 +270,40 @@ const IntroPage = () => {
           />
           <div style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
             <h2 style={h2Style}>Your Reading</h2>
-            <p style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-lg)', lineHeight: 1.45, margin: '0 0 64px', maxWidth: '620px', marginLeft: 'auto', marginRight: 'auto' }}>
+            <p className="reading-intro-copy" style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-lg)', lineHeight: 1.45, maxWidth: '620px', marginLeft: 'auto', marginRight: 'auto' }}>
               After you answer 10 questions, you get your result. No email required.
             </p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '42px', alignItems: 'start' }}>
+            <div className="reading-grid">
               <ReadingItem
                 title="Your Draw"
                 body="The mayoral candidate and archetype that best represents your political soul overall, based on your stated views."
               >
-                <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '126px', height: '235px', position: 'relative' }}>
-                  <div style={{ backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAZTMV23XJGYQFMHR3SP8EK.png)', backgroundPosition: 'center', backgroundSize: 'cover', width: '94px', height: '199px', position: 'absolute', left: '16px', top: '18px', outline: `1px solid ${purple}` }} />
+                <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '81.9px', height: '152.75px', position: 'relative' }}>
+                  <div style={{ backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAZTMV23XJGYQFMHR3SP8EK.png)', backgroundPosition: 'center', backgroundSize: 'cover', width: '61.1px', height: '129.35px', position: 'absolute', left: '10.4px', top: '12.13px', outline: `1px solid ${purple}` }} />
                 </div>
               </ReadingItem>
               <ReadingItem
                 title="Your Spread"
                 body="Where you align with each of the candidates on 10 specific policy issues. You might align with different ones on each."
               >
-                <div style={{ width: '140px', height: '235px', position: 'relative' }}>
-                  <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '116px', height: '203px', position: 'absolute', left: 0, top: 0 }} />
-                  <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '116px', height: '205px', position: 'absolute', left: 12, top: 15 }} />
-                  <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '116px', height: '204px', position: 'absolute', left: 24, top: 31 }} />
-                  <div style={{ backgroundColor: '#5E71D6', borderRadius: '2px', outline: `1px solid ${purple}`, width: '93px', height: '178px', position: 'absolute', left: 35, top: 42 }} />
-                  <StarIcon size={48} style={{ position: 'absolute', left: 56, top: 102 }} />
+                <div style={{ width: '81.9px', height: '152.75px', position: 'relative' }}>
+                  <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '74.1px', height: '131.95px', position: 'absolute', left: 0, top: 0 }} />
+                  <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '74.1px', height: '133.25px', position: 'absolute', left: 4.33, top: 9.53 }} />
+                  <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '74.1px', height: '132.6px', position: 'absolute', left: 7.8, top: 19.93 }} />
+                  <div style={{ backgroundColor: '#5E71D6', borderRadius: '2px', outline: `1px solid ${purple}`, width: '59.8px', height: '115.7px', position: 'absolute', left: 14.73, top: 27.73 }} />
+                  <StarIcon size={29.9} style={{ position: 'absolute', left: 29.47, top: 68.47 }} />
                 </div>
               </ReadingItem>
               <ReadingItem
                 title="Your Shadow"
                 body="The candidate that you may not have expected to align with, but who shares more in common than you think."
               >
-                <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '126px', height: '235px', position: 'relative' }}>
-                  <div style={{ backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQE2XM03E3BPB1JDF571WARY.png)', backgroundPosition: 'center', backgroundSize: 'cover', width: '94px', height: '199px', position: 'absolute', left: '16px', top: '18px', outline: `1px solid ${purple}` }} />
+                <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '81.9px', height: '152.75px', position: 'relative' }}>
+                  <div style={{ backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQE2XM03E3BPB1JDF571WARY.png)', backgroundPosition: 'center', backgroundSize: 'cover', width: '61.1px', height: '129.35px', position: 'absolute', left: '10.4px', top: '12.13px', outline: `1px solid ${purple}` }} />
                 </div>
               </ReadingItem>
             </div>
-            <Link to="/question-01" style={{ display: 'inline-block', marginTop: '70px', backgroundColor: yellow, color: '#000403', borderRadius: '4px', fontFamily: fig, fontSize: '16px', lineHeight: '46px', padding: '0 22px' }}>
+            <Link className="reading-cta" to="/question-01" style={{ display: 'inline-block', backgroundColor: yellow, color: '#000403', borderRadius: '4px', fontFamily: fig, fontSize: '16px', lineHeight: '46px', padding: '0 22px' }}>
               See my fate ➝
             </Link>
           </div>
