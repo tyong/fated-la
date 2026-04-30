@@ -161,7 +161,7 @@ const IntroPage = () => {
   }
   return (
     <div style={{ backgroundColor: '#291543', color: '#FFFFFF', overflowX: 'hidden', WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale', textRendering: 'auto' }}>
-      <section style={{ paddingTop: '20px', position: 'relative' }}>
+      <section className="hero-shell">
         <ClientOnlyDithering
           speed={1}
           shape="swirl"
