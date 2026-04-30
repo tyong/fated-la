@@ -12,6 +12,10 @@ export const Head = () => (
         from { transform: translateX(0); }
         to { transform: translateX(-825px); }
       }
+      @keyframes spinStar {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
     `}</style>
   </>
 )
@@ -176,7 +180,7 @@ const IntroPage = () => {
         />
         <div className="page-shell" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'clamp(38px, 5vw, 74px)' }}>
-            <StarIcon size={48} />
+            <StarIcon size={48} style={{ animation: 'spinStar 10s linear infinite', transformOrigin: '50% 50%' }} />
             <div style={{ color: offPink, fontFamily: noirBold, fontSize: '12px', lineHeight: '20px' }}>Fated  ——— Los Angeles</div>
           </div>
 
@@ -187,7 +191,7 @@ const IntroPage = () => {
               </h1>
               <div style={{ color: '#FFFFFF', fontFamily: fig, fontWeight: heroBodyWeight, fontSize: `calc(clamp(16px, 1.45vw, 24px) * ${heroBodyScale})`, lineHeight: 1.4, margin: '0 0 30px', maxWidth: '430px' }}>
                 <p style={{ margin: '0 0 16px' }}>10 questions. 5 top mayoral candidates.</p>
-                <p style={{ margin: '0 0 16px' }}>L.A's primary election on June 2.</p>
+                <p style={{ margin: '0 0 16px' }}>L.A.'s primary election is June 2, 2026.</p>
                 <p style={{ margin: 0 }}>Learn which candidate shares your views.</p>
               </div>
               <Link to="/question-01" style={{ display: 'inline-block', backgroundColor: yellow, color: '#000403', borderRadius: '4px', fontFamily: fig, fontSize: '16px', lineHeight: '46px', padding: '0 22px' }}>
