@@ -96,6 +96,7 @@ a {
   --h2: clamp(28px, 4.4vw, 52px);
   --body-lg: clamp(17px, 1.5vw, 22px);
   --body-md: clamp(15px, 1.2vw, 18px);
+  --hero-dither-top: 0px;
 }
 
 .page-shell {
@@ -113,6 +114,7 @@ a {
 
 .hero-content-column {
   padding-left: 0;
+  padding-top: 24px;
 }
 
 .desktop-grid-2,
@@ -152,8 +154,8 @@ a {
 
 .hero-shell {
   position: relative;
-  padding-top: 56px;
-  padding-bottom: 56px;
+  padding-top: 24px;
+  padding-bottom: 24px;
 }
 
 .reading-grid {
@@ -207,7 +209,7 @@ a {
 @media (min-width: 640px) {
   .hero-shell {
     padding-top: 20px;
-    padding-bottom: 80px;
+    padding-bottom: 24px;
   }
 
   .reading-panel {
@@ -299,6 +301,11 @@ a {
 
   .hero-content-column {
     padding-left: 16px;
+    padding-top: 72px;
+  }
+
+  .hero-shell {
+    padding-bottom: 80px;
   }
 
   .desktop-grid-3 {

@@ -176,16 +176,16 @@ const IntroPage = () => {
           scale={1}
           colorBack="#00000000"
           colorFront="#264A89"
-          style={{ backgroundColor: '#291543', position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '0', width: '100vw', height: '760px', zIndex: 0 }}
+          style={{ backgroundColor: '#291543', position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 'var(--hero-dither-top, 0px)', width: '100vw', height: '760px', zIndex: 0 }}
         />
         <div className="page-shell" style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '96px', marginTop: '28px', marginBottom: '24px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '96px', marginTop: 0, marginBottom: '24px' }}>
             <StarIcon size={48} style={{ animation: 'spinStar 10s linear infinite', transformOrigin: '50% 50%' }} />
             <div style={{ color: offPink, fontFamily: noirBold, fontSize: '14px', lineHeight: '20px', marginLeft: 'auto' }}>Fated  ——— Los Angeles</div>
           </div>
 
           <div className="desktop-grid-2 hero-grid" style={{ alignItems: 'start', gap: '24px' }}>
-            <div className="content-column hero-content-column" style={{ maxWidth: '580px', paddingTop: '72px' }}>
+            <div className="content-column hero-content-column" style={{ maxWidth: '580px' }}>
               <h1 style={{ color: offPink, fontFamily: noirBold, fontWeight: 400, fontSize: 'calc(clamp(42px, 6vw, 76px) * 0.91)', lineHeight: 1.2, margin: '0 0 24px', letterSpacing: '-0.01em' }}>
                 Which candidate for Mayor of L.A. do you vibe with?
               </h1>
