@@ -65,7 +65,7 @@ const ShareButton = ({ title, text }) => {
     <button
       onClick={handleShare}
       aria-label="Share result"
-      style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', position: 'absolute', right: 12, top: 18, touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent', zIndex: 2 }}
+      style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '8px', touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
     >
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
         <path d="M9 6L12 3M12 3L15 6M12 3V13M7.00023 10C6.06835 10 5.60241 10 5.23486 10.1522C4.74481 10.3552 4.35523 10.7448 4.15224 11.2349C4 11.6024 4 12.0681 4 13V17.8C4 18.9201 4 19.4798 4.21799 19.9076C4.40973 20.2839 4.71547 20.5905 5.0918 20.7822C5.5192 21 6.07899 21 7.19691 21H16.8036C17.9215 21 18.4805 21 18.9079 20.7822C19.2842 20.5905 19.5905 20.2839 19.7822 19.9076C20 19.4802 20 18.921 20 17.8031V13C20 12.0681 19.9999 11.6024 19.8477 11.2349C19.6447 10.7448 19.2554 10.3552 18.7654 10.1522C18.3978 10 17.9319 10 17 10" stroke={yellow} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -140,12 +140,11 @@ const ResultPage = ({
         style={{ backgroundColor: '#291543', height: '823px', left: 0, position: 'absolute', top: 0, width: '402px', zIndex: 0 }}
       />
 
-      <ShareButton title={drew?.replace('\n', '')} text={soulCandidate} />
-
       <div style={{ position: 'relative', zIndex: 1 }}>
 
-        <div style={{ alignItems: 'center', display: 'flex', padding: '39px 20px 0 16px' }}>
+        <div style={{ alignItems: 'center', display: 'flex', justifyContent: 'space-between', padding: '39px 16px 0' }}>
           <StarIcon size={24} />
+          <ShareButton title={drew?.replace('\n', '')} text={soulCandidate} />
         </div>
 
         <div style={{ color: yellow, fontFamily: mono, fontSize: '12px', marginTop: '-16px', textAlign: 'center' }}>
