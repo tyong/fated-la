@@ -1,13 +1,16 @@
 import React from 'react'
 import ResultPage from '../components/ResultPage'
+import { createResultHead, defaultLinkPreviewImage } from '../utils/shareMeta'
 
 export default () => (
   <ResultPage
     drew={"You drew \nThe Empress."}
     soulCandidate="Your soul candidate is Karen Bass."
+    shareText="My soul candidate for the LA Election 2026 is Karen Bass, The Empress."
     heroName="KAREN BASS"
     heroArcana="THE EMPRESS"
     heroImg="https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAZVEJXFGAPD34MG25X4KD9.png"
+    shareImage="/share/bass-the-empress.png"
     heroImgWidth={225}
     heroImgHeight={362}
     heroImgLeft={33}
@@ -23,3 +26,11 @@ export default () => (
     charge={`The Empress's power is in stewardship.\n\nPick one thing Bass promised. One program, one budget line, one goal.\n\nBookmark it. Check it in six months. That's how you make "continuity" and "accountability" mean something.`}
   />
 )
+
+export const Head = () =>
+  createResultHead({
+    pageTitle: 'I drew The Empress — Fated LA',
+    description: 'My soul candidate for the LA Election 2026 is Karen Bass, The Empress.',
+    imageUrl: defaultLinkPreviewImage,
+    path: '/bass-the-empress/',
+  })

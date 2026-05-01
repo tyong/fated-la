@@ -1,13 +1,16 @@
 import React from 'react'
 import ResultPage from '../components/ResultPage'
+import { createResultHead, defaultLinkPreviewImage } from '../utils/shareMeta'
 
 export default () => (
   <ResultPage
     drew={"You drew \nThe Star."}
     soulCandidate="Your soul candidate is Rae Huang."
+    shareText="My soul candidate for the LA Election 2026 is Rae Huang, The Star."
     heroName="RAE HUANG"
     heroArcana="THE STAR"
     heroImg="https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAY29KREV8F0ZSQYVN8EVRM.png"
+    shareImage="/share/huang-the-star.png"
     heroImgWidth={225}
     heroImgHeight={362}
     heroImgLeft={33}
@@ -23,3 +26,11 @@ export default () => (
     charge={`Your candidate runs on possibility. That's a well that dries up fast if wins don't follow. When she makes a specific commitment — the public bank, the free transit pilot, the housing targets — hold her to it out loud. That accountability is part of the platform.`}
   />
 )
+
+export const Head = () =>
+  createResultHead({
+    pageTitle: 'I drew The Star — Fated LA',
+    description: 'My soul candidate for the LA Election 2026 is Rae Huang, The Star.',
+    imageUrl: defaultLinkPreviewImage,
+    path: '/huang-the-star/',
+  })

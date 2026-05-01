@@ -1,13 +1,16 @@
 import React from 'react'
 import ResultPage from '../components/ResultPage'
+import { createResultHead, defaultLinkPreviewImage } from '../utils/shareMeta'
 
 const TheMoon = () => (
   <ResultPage
     drew={"You drew \nThe Moon."}
     soulCandidate="No one candidate speaks to you."
+    shareText="My soul candidate for the LA Election 2026 is no one candidate, The Moon."
     heroName="IN CONFLICT"
     heroArcana="THE MOON"
     heroImg="https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQDNHM92DH4PAHRSQD9Y7QAE.png"
+    shareImage="/share/the-moon.png"
     heroImgWidth={213}
     heroImgHeight={358}
     heroImgLeft={40}
@@ -25,3 +28,11 @@ const TheMoon = () => (
 )
 
 export default TheMoon
+
+export const Head = () =>
+  createResultHead({
+    pageTitle: 'I drew The Moon — Fated LA',
+    description: 'My soul candidate for the LA Election 2026 is no one candidate, The Moon.',
+    imageUrl: defaultLinkPreviewImage,
+    path: '/the-moon/',
+  })

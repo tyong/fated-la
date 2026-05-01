@@ -1,0 +1,33 @@
+# Optional: regenerate static/share PNGs against a live HTTPS URL (e.g. production).
+# Default pipeline runs capture inside `npm run build` against local `public/` — no certs.
+name: Capture share images (HTTPS)
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: Site origin (no trailing slash), e.g. https://fated-la.vercel.app
+        required: true
+        type: string
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - run: PLAYWRIGHT_BROWSERS_PATH=0 npx playwright install chromium
+        env:
+          PLAYWRIGHT_BROWSERS_PATH: '0'
+      - run: npm run capture:share
+        env:
+          SHARE_CAPTURE_BASE_URL: ${{ inputs.base_url }}
+          PLAYWRIGHT_BROWSERS_PATH: '0'
+      - uses: actions/upload-artifact@v4
+        with:
+          name: share-pngs
+          path: static/share/*.png

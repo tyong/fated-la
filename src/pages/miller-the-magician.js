@@ -1,13 +1,16 @@
 import React from 'react'
 import ResultPage from '../components/ResultPage'
+import { createResultHead, defaultLinkPreviewImage } from '../utils/shareMeta'
 
 export default () => (
   <ResultPage
     drew={"You drew \nThe Magician."}
     soulCandidate="Your soul candidate is Adam Miller."
+    shareText="My soul candidate for the LA Election 2026 is Adam Miller, The Magician."
     heroName="ADAM MILLER"
     heroArcana="THE MAGICIAN"
     heroImg="https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQB0P3CE16AJN0Q8T1NE95M9.png"
+    shareImage="/share/miller-the-magician.png"
     heroImgWidth={225}
     heroImgHeight={362}
     heroImgLeft={33}
@@ -23,3 +26,11 @@ export default () => (
     charge={`You believe in doing the homework. So do the homework. Pick one broken city function — permits, potholes, 911 dispatch — and trace exactly why it's broken. Then check whether Miller's diagnosis matches what you find. That's the due diligence this candidacy needs from you.`}
   />
 )
+
+export const Head = () =>
+  createResultHead({
+    pageTitle: 'I drew The Magician — Fated LA',
+    description: 'My soul candidate for the LA Election 2026 is Adam Miller, The Magician.',
+    imageUrl: defaultLinkPreviewImage,
+    path: '/miller-the-magician/',
+  })

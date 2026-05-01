@@ -1,13 +1,16 @@
 import React from 'react'
 import ResultPage from '../components/ResultPage'
+import { createResultHead, defaultLinkPreviewImage } from '../utils/shareMeta'
 
 export default () => (
   <ResultPage
     drew={"You drew \nThe Tower."}
     soulCandidate="Your soul candidate is Spencer Pratt."
+    shareText="My soul candidate for the LA Election 2026 is Spencer Pratt, The Tower."
     heroName="SPENCER PRATT"
     heroArcana="THE TOWER"
     heroImg="https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQB04KNZBKPHBTP0A70KEHZ7.png"
+    shareImage="/share/pratt-the-tower.png"
     heroImgWidth={225}
     heroImgHeight={362}
     heroImgLeft={33}
@@ -23,3 +26,11 @@ export default () => (
     charge={`Outrage without policy is just noise. Outrage with a specific alternative is a movement. Find one concrete commitment from your candidate — one program to cut, one metric to hit, one hire to make in year one. Hold it. That's the difference between disruption and demolition.`}
   />
 )
+
+export const Head = () =>
+  createResultHead({
+    pageTitle: 'I drew The Tower — Fated LA',
+    description: 'My soul candidate for the LA Election 2026 is Spencer Pratt, The Tower.',
+    imageUrl: defaultLinkPreviewImage,
+    path: '/pratt-the-tower/',
+  })

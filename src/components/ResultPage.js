@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'gatsby'
 import ClientOnlyDithering from './ClientOnlyDithering'
 import SpreadSectionExternal from './SpreadSection'
@@ -18,6 +18,8 @@ const dark    = '#2A009C'
 const yellow  = '#D2D260'
 const offPink = '#F2CACE'
 const largeCardShadow = '0 18px 32px 8px rgba(29, 13, 50, 0.8)'
+const mobileTopControlOffset = 39
+const mobileSideControlOffset = 16
 
 // Tablet and up use the Paper “Result — Desktop” layout; phones stay narrow.
 const DESKTOP_MIN = 768
@@ -180,46 +182,144 @@ const BodyText = ({ children, desktop }) => (
   </div>
 )
 
-const ShareButton = ({ title, text, desktop }) => {
-  const handleShare = () => {
-    if (typeof navigator === 'undefined') return
+const ShareButton = ({ title, text, desktop, shareImageUrl, floating = false }) => {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [preparedShareFile, setPreparedShareFile] = useState(null)
+  const shareInFlightRef = useRef(false)
+
+  useEffect(() => {
+    if (!floating || typeof window === 'undefined') return undefined
+    const threshold = desktop ? 320 : 160
+    const onScroll = () => setIsScrolled(window.scrollY > threshold)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [desktop, floating])
+
+  useEffect(() => {
+    let cancelled = false
+    if (!shareImageUrl || typeof window === 'undefined') {
+      setPreparedShareFile(null)
+      return () => {}
+    }
+
+    const prepareShareFile = async () => {
+      try {
+        const res = await fetch(shareImageUrl)
+        if (!res.ok) return
+        const blob = await res.blob()
+        const ext = blob.type.includes('png') ? 'png' : 'jpg'
+        const file = new File([blob], `fated-la-result.${ext}`, { type: blob.type || 'image/png' })
+        if (!cancelled) setPreparedShareFile(file)
+      } catch (_) {
+        if (!cancelled) setPreparedShareFile(null)
+      }
+    }
+
+    prepareShareFile().catch(() => {})
+    return () => {
+      cancelled = true
+    }
+  }, [shareImageUrl])
+
+  const handleShare = async () => {
+    if (typeof navigator === 'undefined' || typeof window === 'undefined') return
+    if (shareInFlightRef.current) return
+    shareInFlightRef.current = true
     const url = window.location.href
-    if (navigator.share) {
-      navigator.share({ title, text, url }).catch(() => {})
-    } else if (navigator.clipboard) {
-      navigator.clipboard.writeText(url).catch(() => {})
+
+    try {
+      if (navigator.share) {
+        const fileShareAvailable =
+          !!preparedShareFile &&
+          navigator.canShare &&
+          navigator.canShare({ files: [preparedShareFile] })
+
+        if (fileShareAvailable) {
+          await navigator.share({ title, text, url, files: [preparedShareFile] })
+          return
+        }
+
+        await navigator.share({ title, text, url })
+        return
+      }
+
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+        navigator.clipboard.writeText(url).catch(() => {})
+      }
+    } catch (_) {
+    } finally {
+      shareInFlightRef.current = false
     }
   }
-  const pos = desktop
-    ? { position: 'absolute', right: 96, top: 66, zIndex: 2 }
-    : { position: 'absolute', right: 12, top: 31, zIndex: 2 }
+
+  const pos = floating
+    ? {
+      bottom: '32px',
+      left: '50%',
+      opacity: isScrolled ? 1 : 0,
+      pointerEvents: isScrolled ? 'auto' : 'none',
+      position: 'fixed',
+      transform: isScrolled ? 'translate(-50%, 0)' : 'translate(-50%, calc(100% + 40px))',
+      transition:
+        'transform 520ms cubic-bezier(0.16, 1, 0.3, 1), opacity 480ms cubic-bezier(0.22, 1, 0.36, 1)',
+      zIndex: 24,
+    }
+    : desktop
+      ? { position: 'absolute', right: 96, top: 66, zIndex: 2 }
+      : { position: 'absolute', right: mobileSideControlOffset, top: mobileTopControlOffset, zIndex: 2 }
+
   return (
     <button
       type="button"
-      onClick={handleShare}
+      onClick={() => {
+        handleShare().catch(() => {})
+      }}
+      onTouchEnd={(event) => {
+        event.preventDefault()
+        handleShare().catch(() => {})
+      }}
       aria-label="Share result"
       style={{
-        alignItems: desktop ? 'center' : undefined,
         background: 'none',
         border: 'none',
         cursor: 'pointer',
-        display: desktop ? 'flex' : undefined,
-        height: desktop ? 48 : undefined,
-        justifyContent: desktop ? 'center' : undefined,
-        padding: desktop ? 0 : '8px',
+        padding: 0,
         touchAction: 'manipulation',
         WebkitTapHighlightColor: 'transparent',
-        width: desktop ? 48 : undefined,
         ...pos,
       }}
     >
-      {desktop ? (
-        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill={yellow} style={{ width: 48, height: 48, display: 'block' }}>
-          <path d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h120v80H240v400h480v-400H600v-80h120q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm200-240v-447l-64 64-56-57 160-160 160 160-56 57-64-64v447h-80Z" />
+      {floating ? (
+        <div
+          style={{
+            alignItems: 'center',
+            backgroundColor: yellow,
+            borderRadius: '100px',
+            boxShadow: `${largeCardShadow}, inset 0 -2px 4px 0 rgba(0, 0, 0, 0.2)`,
+            color: '#291543',
+            display: 'flex',
+            fontFamily: noirBold,
+            fontSize: '24px',
+            height: '62px',
+            justifyContent: 'space-between',
+            lineHeight: '30px',
+            padding: '0 30px 0 32px',
+            width: '153px',
+          }}
+        >
+          <span>Share</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M8.49771 12.0103L10.0087 19.6895C10.2939 21.1393 12.2419 21.4278 12.9352 20.1229L20.2753 6.30624C20.5593 5.77171 20.5 5.18094 20.216 4.73115M8.49771 12.0103L3.00985 6.69763C1.99619 5.71634 2.69085 4 4.10169 4H18.889C19.4676 4 19.9445 4.30115 20.216 4.73115M8.49771 12.0103L20.216 4.73115M20.216 4.73115L20.3184 4.66752" stroke="#291543" strokeWidth="1.70531" />
+          </svg>
+        </div>
+      ) : desktop ? (
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" style={{ width: 48, height: 48, display: 'block' }}>
+          <path d="M8.49771 12.0103L10.0087 19.6895C10.2939 21.1393 12.2419 21.4278 12.9352 20.1229L20.2753 6.30624C20.5593 5.77171 20.5 5.18094 20.216 4.73115M8.49771 12.0103L3.00985 6.69763C1.99619 5.71634 2.69085 4 4.10169 4H18.889C19.4676 4 19.9445 4.30115 20.216 4.73115M8.49771 12.0103L20.216 4.73115M20.216 4.73115L20.3184 4.66752" stroke={yellow} strokeWidth="1.70531" />
         </svg>
       ) : (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M9 6L12 3M12 3L15 6M12 3V13M7.00023 10C6.06835 10 5.60241 10 5.23486 10.1522C4.74481 10.3552 4.35523 10.7448 4.15224 11.2349C4 11.6024 4 12.0681 4 13V17.8C4 18.9201 4 19.4798 4.21799 19.9076C4.40973 20.2839 4.71547 20.5905 5.0918 20.7822C5.5192 21 6.07899 21 7.19691 21H16.8036C17.9215 21 18.4805 21 18.9079 20.7822C19.2842 20.5905 19.5905 20.2839 19.7822 19.9076C20 19.4802 20 18.921 20 17.8031V13C20 12.0681 19.9999 11.6024 19.8477 11.2349C19.6447 10.7448 19.2554 10.3552 18.7654 10.1522C18.3978 10 17.9319 10 17 10" stroke={yellow} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M8.49771 12.0103L10.0087 19.6895C10.2939 21.1393 12.2419 21.4278 12.9352 20.1229L20.2753 6.30624C20.5593 5.77171 20.5 5.18094 20.216 4.73115M8.49771 12.0103L3.00985 6.69763C1.99619 5.71634 2.69085 4 4.10169 4H18.889C19.4676 4 19.9445 4.30115 20.216 4.73115M8.49771 12.0103L20.216 4.73115M20.216 4.73115L20.3184 4.66752" stroke={yellow} strokeWidth="1.70531" />
         </svg>
       )}
     </button>
@@ -251,6 +351,7 @@ const ResultFooter = () => (
 const ResultPage = ({
   drew,
   soulCandidate,
+  shareText,
   heroName,
   heroArcana,
   heroImg,
@@ -258,6 +359,7 @@ const ResultPage = ({
   heroImgHeight,
   heroImgLeft,
   heroImgTop,
+  shareImage,
   tarotReading,
   inPlainTerms,
   shadowTitle,
@@ -335,7 +437,8 @@ const ResultPage = ({
             colorFront="#264A89"
             style={{ backgroundColor: '#291543', height: '1031px', left: 0, position: 'absolute', top: 0, width: '100%', zIndex: 0 }}
           />
-          <ShareButton title={drew?.replace('\n', '')} text={soulCandidate} desktop />
+          <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop shareImageUrl={shareImage} />
+          <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop floating shareImageUrl={shareImage} />
           <div style={{ position: 'absolute', left: 84, top: 58, zIndex: 2 }}>
             <StarIcon size={48} style={starSpinStyle} />
           </div>
@@ -509,11 +612,12 @@ const ResultPage = ({
           style={{ backgroundColor: '#291543', height: '823px', left: 0, position: 'absolute', top: 0, width: '100%', zIndex: 0 }}
         />
 
-        <ShareButton title={drew?.replace('\n', '')} text={soulCandidate} desktop={false} />
+        <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop={false} shareImageUrl={shareImage} />
+        <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop={false} floating shareImageUrl={shareImage} />
 
         <div style={{ position: 'relative', zIndex: 1 }}>
 
-          <div style={{ alignItems: 'center', display: 'flex', padding: '39px 20px 0 16px' }}>
+          <div style={{ alignItems: 'center', display: 'flex', padding: `${mobileTopControlOffset}px 20px 0 ${mobileSideControlOffset}px` }}>
             <StarIcon size={24} style={starSpinStyle} />
           </div>
 
