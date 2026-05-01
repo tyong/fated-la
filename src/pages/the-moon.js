@@ -1,6 +1,6 @@
 import React from 'react'
 import ResultPage from '../components/ResultPage'
-import { createResultHead } from '../utils/shareMeta'
+import { createResultHead, defaultLinkPreviewImage } from '../utils/shareMeta'
 
 const TheMoon = () => (
   <ResultPage
@@ -33,6 +33,6 @@ export const Head = () =>
   createResultHead({
     pageTitle: 'I drew The Moon — Fated LA',
     description: 'My soul candidate for the LA Election 2026 is no one candidate, The Moon.',
-    imageUrl: '/share/the-moon.png',
+    imageUrl: defaultLinkPreviewImage,
     path: '/the-moon/',
   })

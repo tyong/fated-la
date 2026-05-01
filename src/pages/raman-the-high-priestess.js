@@ -1,6 +1,6 @@
 import React from 'react'
 import ResultPage from '../components/ResultPage'
-import { createResultHead } from '../utils/shareMeta'
+import { createResultHead, defaultLinkPreviewImage } from '../utils/shareMeta'
 
 export default () => (
   <ResultPage
@@ -31,6 +31,6 @@ export const Head = () =>
   createResultHead({
     pageTitle: 'I drew The High Priestess — Fated LA',
     description: 'My soul candidate for the LA Election 2026 is Nithya Raman, The High Priestess.',
-    imageUrl: '/share/raman-the-high-priestess.png',
+    imageUrl: defaultLinkPreviewImage,
     path: '/raman-the-high-priestess/',
   })

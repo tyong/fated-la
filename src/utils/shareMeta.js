@@ -3,8 +3,9 @@ import React from 'react'
 const defaultTitle = 'Fated LA'
 const defaultDescription = 'Which candidate for LA Mayor vibes best with you?'
 
-/** OG/Twitter card image for the main site URL and other routes without a result-specific card. */
+/** OG/Twitter card image for link previews (homepage + result URLs). Update dims if asset changes. */
 export const defaultLinkPreviewImage = '/share/link-preview.png'
+export const defaultLinkPreviewImageSize = { width: 474, height: 128 }
 
 const normalizeSiteUrl = (value) => {
   if (!value) return null
@@ -46,6 +47,10 @@ export const createResultHead = ({
         : imageUrl
     : null
 
+  const useDefaultOgDimensions =
+    typeof imageUrl === 'string' &&
+    (imageUrl === defaultLinkPreviewImage || imageUrl.endsWith('/share/link-preview.png'))
+
   return (
     <>
       <title>{pageTitle}</title>
@@ -55,6 +60,12 @@ export const createResultHead = ({
       <meta property="og:description" content={description} />
       {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
       {absoluteImageUrl && <meta property="og:image" content={absoluteImageUrl} />}
+      {absoluteImageUrl && useDefaultOgDimensions && (
+        <>
+          <meta property="og:image:width" content={String(defaultLinkPreviewImageSize.width)} />
+          <meta property="og:image:height" content={String(defaultLinkPreviewImageSize.height)} />
+        </>
+      )}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={pageTitle} />
       <meta name="twitter:description" content={description} />
