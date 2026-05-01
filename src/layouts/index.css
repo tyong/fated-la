@@ -90,6 +90,32 @@ a {
   color: inherit;
 }
 
+.result-tilt-shell {
+  position: relative;
+}
+
+.result-tilt-shell > hover-tilt {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  box-sizing: border-box;
+  border-radius: 6px;
+  overflow: visible;
+  background: transparent;
+}
+
+.result-tilt-shell > hover-tilt::part(container) {
+  width: 100%;
+  height: 100%;
+}
+
+.result-tilt-shell > hover-tilt::part(tilt) {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50% !important;
+}
+
 :root {
   --bp-sm: 480px;
   --bp-md: 768px;

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Agentation } from 'agentation'
+import 'hover-tilt/web-component'
 import './src/layouts/index.css'
 
 // Only when `npm run develop` starts agentation-mcp; bare `gatsby develop` leaves this off
