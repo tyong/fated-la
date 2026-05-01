@@ -1,5 +1,28 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
+/** App-wide one-shot: multiple ClientOnlyDithering mounts must not each probe (WebGL context cap ~8). */
+let webgl2SupportCache
+function canUseWebGL2() {
+  if (webgl2SupportCache !== undefined) return webgl2SupportCache
+  if (typeof document === 'undefined') {
+    webgl2SupportCache = false
+    return false
+  }
+  try {
+    const canvas = document.createElement('canvas')
+    const gl = canvas.getContext('webgl2')
+    const ok = !!gl
+    if (gl) {
+      gl.getExtension('WEBGL_lose_context')?.loseContext()
+    }
+    webgl2SupportCache = ok
+    return ok
+  } catch {
+    webgl2SupportCache = false
+    return false
+  }
+}
+
 const DEFAULT_FADE_DURATION = 260
 const DEFAULT_SWIRL_DURATION = 560
 
@@ -62,15 +85,7 @@ export default function ClientOnlyDithering({
     return <div style={style} />
   }
 
-  let webgl2Ok = false
-  if (typeof document !== 'undefined') {
-    try {
-      const canvas = document.createElement('canvas')
-      webgl2Ok = !!canvas.getContext('webgl2')
-    } catch {
-      webgl2Ok = false
-    }
-  }
+  const webgl2Ok = canUseWebGL2()
 
   const { Dithering } = require('@paper-design/shaders-react')
   const fallbackColor = (style && style.backgroundColor) || '#00000000'
