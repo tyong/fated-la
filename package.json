@@ -19,7 +19,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build && PLAYWRIGHT_BROWSERS_PATH=0 npx playwright install chromium && node scripts/capture-share-images.mjs",
+    "build": "node scripts/run-build-capture.mjs",
     "build:gatsby": "gatsby build",
     "capture:share": "node scripts/capture-share-images.mjs",
     "dev": "bash ./scripts/dev-https.sh",

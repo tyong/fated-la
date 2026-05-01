@@ -2,8 +2,8 @@
 /**
  * Generates social share PNGs (mobile hero crop) for result pages.
  *
- * Default (CI / Vercel / local after `gatsby build`):
- *   Serves `public/` over HTTP and captures — no HTTPS or local certs required.
+ * After `gatsby build`, serves `public/` over HTTP and captures (local/CI), unless
+ * VERCEL=1 (skipped by default; use committed static/share) or SKIP_SHARE_CAPTURE=1.
  *
  * Optional: set SHARE_CAPTURE_BASE_URL=https://your-site.vercel.app to capture
  * against an already-deployed build (public TLS; no cert download).
@@ -33,6 +33,19 @@ const cwd = join(__dirname, '..')
 // To use the host env instead: PLAYWRIGHT_USE_HOST_BROWSER_PATH=1
 if (process.env.PLAYWRIGHT_USE_HOST_BROWSER_PATH !== '1') {
   process.env.PLAYWRIGHT_BROWSERS_PATH = '0'
+}
+
+if (process.env.SKIP_SHARE_CAPTURE === '1') {
+  console.log('[capture-share] SKIP_SHARE_CAPTURE=1 — skipping.')
+  process.exit(0)
+}
+
+// Vercel: Chromium/Playwright often fails in build (sandbox/deps). Repo ships static/share/*.png.
+if (process.env.VERCEL === '1' && process.env.FORCE_SHARE_CAPTURE !== '1') {
+  console.log(
+    '[capture-share] VERCEL=1 — skipping Playwright (use committed static/share; set FORCE_SHARE_CAPTURE=1 to capture in build).',
+  )
+  process.exit(0)
 }
 
 const PAGES = [
@@ -156,11 +169,6 @@ async function captureOne(page, baseUrl, pathname) {
 }
 
 async function main() {
-  if (process.env.SKIP_SHARE_CAPTURE === '1') {
-    console.log('[capture-share] SKIP_SHARE_CAPTURE=1 — skipping.')
-    process.exit(0)
-  }
-
   let baseUrl = (process.env.SHARE_CAPTURE_BASE_URL || '').trim()
   /** @type {null | (() => Promise<void>)} */
   let stopServe = null
