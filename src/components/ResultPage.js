@@ -22,7 +22,11 @@ const largeCardShadow = '0 18px 32px 8px rgba(29, 13, 50, 0.8)'
 const DESKTOP_MIN = 768
 
 function useDesktopLayout() {
-  const [desktop, setDesktop] = useState(false)
+  const [desktop, setDesktop] = useState(() => {
+    if (typeof window === 'undefined') return null
+    return window.matchMedia(`(min-width: ${DESKTOP_MIN}px)`).matches
+  })
+
   useEffect(() => {
     if (typeof window === 'undefined') return
     const mq = window.matchMedia(`(min-width: ${DESKTOP_MIN}px)`)
@@ -43,19 +47,35 @@ const StarIcon = ({ size = 24, style = {} }) => (
 )
 
 const LargeCard = ({ name, arcana, img, imgWidth = 225, imgHeight = 362, imgLeft = 33, imgTop = 70, desktop, fluid, fluidMargin }) => {
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setIsVisible(true))
+    return () => cancelAnimationFrame(frame)
+  }, [])
+
+  const zoomInStyle = {
+    opacity: 1,
+    transform: isVisible ? 'scale(1)' : 'scale(0.0034)',
+    transformOrigin: '50% 33%',
+    transition: 'transform 1700ms cubic-bezier(0.16, 1, 0.3, 1)',
+  }
+
   const isFluid = !desktop || !!fluid
   if (!isFluid) {
     return (
       <div style={{ margin: '48px auto 0', position: 'relative', width: '294px', height: '517px' }}>
-        <div style={{ backgroundColor: pink, borderRadius: '6px', boxShadow: largeCardShadow, height: '100%', outline: `1px solid ${purple}`, position: 'absolute', top: 0, left: 0, width: '100%' }} />
-        <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: '50%', letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 27, transform: 'translateX(-50%)', width: 276, zIndex: 1 }}>
-          {name}
-        </div>
-        {img && (
-          <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundSize: 'cover', borderRadius: '4px', height: `${imgHeight}px`, left: `${imgLeft}px`, outline: `1px solid ${purple}`, position: 'absolute', top: `${imgTop}px`, width: `${imgWidth}px`, zIndex: 1 }} />
-        )}
-        <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: '50%', letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 461, transform: 'translateX(-50%)', width: 294, zIndex: 1 }}>
-          {arcana}
+        <div style={{ position: 'absolute', inset: 0, ...zoomInStyle }}>
+          <div style={{ backgroundColor: pink, borderRadius: '6px', boxShadow: largeCardShadow, height: '100%', outline: `1px solid ${purple}`, position: 'absolute', top: 0, left: 0, width: '100%' }} />
+          <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: '50%', letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 27, transform: 'translateX(-50%)', width: 276, zIndex: 1 }}>
+            {name}
+          </div>
+          {img && (
+            <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundSize: 'cover', borderRadius: '4px', height: `${imgHeight}px`, left: `${imgLeft}px`, outline: `1px solid ${purple}`, position: 'absolute', top: `${imgTop}px`, width: `${imgWidth}px`, zIndex: 1 }} />
+          )}
+          <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: '50%', letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 461, transform: 'translateX(-50%)', width: 294, zIndex: 1 }}>
+            {arcana}
+          </div>
         </div>
       </div>
     )
@@ -90,36 +110,43 @@ const LargeCard = ({ name, arcana, img, imgWidth = 225, imgHeight = 362, imgLeft
     >
       <div
         style={{
-          backgroundColor: pink,
-          borderRadius: '6px',
-          boxShadow: largeCardShadow,
-          boxSizing: 'border-box',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'stretch',
-          gap: desktop ? '18px' : '16px',
-          outline: `1px solid ${purple}`,
-          padding: desktop ? '20px 14px 20px' : '18px 12px 18px',
+          ...zoomInStyle,
           width: '100%',
         }}
       >
-        <div style={titleStyle}>{name}</div>
-        {img && (
-          <img
-            alt={name ? `${name} illustration` : 'Tarot card illustration'}
-            src={img}
-            style={{
-              borderRadius: '4px',
-              display: 'block',
-              height: 'auto',
-              maxWidth: '100%',
-              objectFit: 'contain',
-              outline: `1px solid ${purple}`,
-              width: '100%',
-            }}
-          />
-        )}
-        <div style={titleStyle}>{arcana}</div>
+        <div
+          style={{
+            backgroundColor: pink,
+            borderRadius: '6px',
+            boxShadow: largeCardShadow,
+            boxSizing: 'border-box',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'stretch',
+            gap: desktop ? '18px' : '16px',
+            outline: `1px solid ${purple}`,
+            padding: desktop ? '20px 14px 20px' : '18px 12px 18px',
+            width: '100%',
+          }}
+        >
+          <div style={titleStyle}>{name}</div>
+          {img && (
+            <img
+              alt={name ? `${name} illustration` : 'Tarot card illustration'}
+              src={img}
+              style={{
+                borderRadius: '4px',
+                display: 'block',
+                height: 'auto',
+                maxWidth: '100%',
+                objectFit: 'contain',
+                outline: `1px solid ${purple}`,
+                width: '100%',
+              }}
+            />
+          )}
+          <div style={titleStyle}>{arcana}</div>
+        </div>
       </div>
     </div>
   )
@@ -237,6 +264,18 @@ const ResultPage = ({
 }) => {
   const desktop = useDesktopLayout()
   const fullReading = inPlainTerms ? `${tarotReading}\n\n${inPlainTerms}` : tarotReading
+
+  if (desktop === null) {
+    return (
+      <div
+        style={{
+          backgroundColor: '#291543',
+          minHeight: '100vh',
+          width: '100%',
+        }}
+      />
+    )
+  }
 
   const shadowHeadingLines = (shadowTitle || '').split('\n').map((s) => s.trim()).filter(Boolean)
   let shadowHeadingPrimary = shadowHeadingLines[0]?.replace(/:\s*$/, '').trim() || 'Your Shadow Card'
