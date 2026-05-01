@@ -4,7 +4,7 @@ import QuestionPage from '../components/QuestionPage'
 export default () => (
   <QuestionPage
     number={1}
-    title="The Palisades"
+    title="The Fires"
     paragraphs={[
       '2025. The Palisades and Altadena burned. The mayor was in Ghana.',
       'The fire department had empty positions nobody filled. Hydrants ran dry. Thousands of people lost everything.',
