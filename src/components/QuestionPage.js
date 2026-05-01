@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { navigate } from 'gatsby'
 import { STORAGE_KEY } from '../data/scores'
+import './question-page.css'
 
 const mono    = '"Apercu-Mono", "Apercu Mono", "Courier New", monospace'
 const noirBold= '"NOIRetBLANCMediumBold", "NOIR et BLANC Medium Bold", "Instrument Serif", Georgia, serif'
@@ -24,16 +25,9 @@ const ChoiceCard = ({ title, body, onChoose }) => {
   const bg = pressed ? '#D8C1D2' : hovered ? '#EBD2E3' : pink
   return (
     <div
+      className="question-page__choice-card"
       onClick={onChoose}
-      style={{
-        backgroundColor: bg,
-        borderRadius: '4px',
-        cursor: 'pointer',
-        marginBottom: '11px',
-        padding: '20px 17px 22px',
-        transition: 'background-color 0.15s ease',
-        userSelect: 'none',
-      }}
+      style={{ backgroundColor: bg }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => { setHovered(false); setPressed(false) }}
       onMouseDown={() => setPressed(true)}
@@ -41,10 +35,10 @@ const ChoiceCard = ({ title, body, onChoose }) => {
       onTouchStart={() => setPressed(true)}
       onTouchEnd={() => setPressed(false)}
     >
-      <div style={{ color: purple, fontFamily: figBold, fontSize: '16px', fontWeight: 700, lineHeight: '22px', marginBottom: '4px' }}>
+      <div className="question-page__choice-title" style={{ color: purple, fontFamily: figBold, fontWeight: 700 }}>
         {title}
       </div>
-      <div style={{ color: purple, fontFamily: fig, fontSize: '16px', lineHeight: '22px' }}>
+      <div className="question-page__choice-body" style={{ color: purple, fontFamily: fig }}>
         {body}
       </div>
     </div>
@@ -59,61 +53,70 @@ const saveAnswer = (questionNumber, choiceIndex) => {
 }
 
 const QuestionPage = ({ number, total = 10, title, paragraphs, question, choices, nextPath }) => (
-  <div style={{
-    backgroundColor: '#291543',
-    fontSynthesis: 'none',
-    margin: '0 auto',
-    minHeight: '100vh',
-    MozOsxFontSmoothing: 'grayscale',
-    position: 'relative',
-    WebkitFontSmoothing: 'antialiased',
-    width: '100%',
-    maxWidth: '1440px',
-    padding: '0 clamp(16px, 3vw, 32px)',
-  }}>
-    <div style={{ width: '100%', maxWidth: '760px', margin: '0 auto' }}>
+  <div
+    className="question-page"
+    style={{
+      backgroundColor: '#291543',
+      fontSynthesis: 'none',
+      margin: '0 auto',
+      minHeight: '100vh',
+      MozOsxFontSmoothing: 'grayscale',
+      position: 'relative',
+      WebkitFontSmoothing: 'antialiased',
+      width: '100%',
+      maxWidth: '1440px',
+    }}
+  >
+    <div className="question-page__inner">
 
-    <div style={{ height: '5px', left: 0, position: 'absolute', top: 0, width: '100%' }}>
-      <div style={{ backgroundColor: purple, height: '5px', width: '100%' }} />
-      <div style={{ backgroundColor: yellow, height: '5px', left: 0, position: 'absolute', top: 0, width: `${(number / total) * 100}%` }} />
-    </div>
-
-    <div style={{ alignItems: 'flex-start', display: 'flex', justifyContent: 'space-between', padding: '20px 20px 0' }}>
-      <StarIcon size={24} />
-      <div style={{ color: pink, fontFamily: mono, fontSize: '12px', lineHeight: '16px', paddingTop: '4px' }}>
-        Question {number} of {total}
+      <div className="question-page__progress">
+        <div style={{ backgroundColor: purple, height: '5px', width: '100%' }} />
+        <div style={{ backgroundColor: yellow, height: '5px', left: 0, position: 'absolute', top: 0, width: `${(number / total) * 100}%` }} />
       </div>
-    </div>
 
-    <div style={{ color: pink, fontFamily: noirBold, fontSize: 'clamp(40px, 6vw, 68px)', lineHeight: 1.1, padding: '24px 20px 0' }}>
-      {title}
-    </div>
-
-    <div style={{ padding: '20px 20px 0' }}>
-      {paragraphs.map((p, i) => (
-        <div key={i} style={{ color: pink, fontFamily: fig, fontSize: 'clamp(16px, 1.5vw, 20px)', lineHeight: 1.45, marginBottom: '16px' }}>
-          {p}
-        </div>
-      ))}
-    </div>
-
-    <div style={{ color: pink, fontFamily: fig, fontSize: 'clamp(16px, 1.4vw, 20px)', lineHeight: 1.45, padding: '0 20px 24px' }}>
-      {question}
-    </div>
-
-    <div style={{ padding: '0 20px 60px' }}>
-      {choices.map((c, i) => (
-        <ChoiceCard
-          key={i}
-          title={c.title}
-          body={c.body}
-          onChoose={() => {
-            saveAnswer(number, i)
-            navigate(nextPath)
-          }}
+      <div className="question-page__header">
+        <StarIcon
+          size={24}
+          style={{ animation: 'spinStar 10s linear infinite', transformOrigin: '50% 50%' }}
         />
-      ))}
-    </div>
+        <div className="question-page__header-meta" style={{ color: pink, fontFamily: mono }}>
+          Question {number} of {total}
+        </div>
+      </div>
+
+      <div className="question-page__grid">
+        <div className="question-page__main">
+          <h1 className="question-page__title">
+            {title}
+          </h1>
+
+          <div className="question-page__intro">
+            {paragraphs.map((p, i) => (
+              <p key={i} className="question-page__intro-p">
+                {p}
+              </p>
+            ))}
+          </div>
+
+          <p className="question-page__prompt">
+            {question}
+          </p>
+        </div>
+
+        <div className="question-page__choices">
+          {choices.map((c, i) => (
+            <ChoiceCard
+              key={i}
+              title={c.title}
+              body={c.body}
+              onChoose={() => {
+                saveAnswer(number, i)
+                navigate(nextPath)
+              }}
+            />
+          ))}
+        </div>
+      </div>
 
     </div>
   </div>
