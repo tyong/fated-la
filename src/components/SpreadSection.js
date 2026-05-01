@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { SCORES, CANDIDATES, SPREAD_KEY, ISSUE_LABELS } from '../data/scores'
 
 const noirBold = '"NOIRetBLANCMediumBold", "NOIR et BLANC Medium Bold", "Instrument Serif", Georgia, serif'
@@ -46,6 +46,24 @@ function computeCandidateTotals(answers) {
 
 export default function SpreadSection({ desktop = false }) {
   const [spreadData, setSpreadData] = useState(null)
+  const [barsAnimated, setBarsAnimated] = useState(false)
+  const candidateRef = useRef(null)
+
+  useEffect(() => {
+    const el = candidateRef.current
+    if (!el || barsAnimated) return
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setBarsAnimated(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.15 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [spreadData, barsAnimated])
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -114,6 +132,23 @@ export default function SpreadSection({ desktop = false }) {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', marginTop: '40px', maxWidth: '1248px', marginLeft: 'auto', marginRight: 'auto', width: '100%', gap: '56px' }}>
+          <section ref={candidateRef}>
+            <h3 style={sectionHeading}>By Candidate</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginTop: '24px' }}>
+              {byCandidateRows.map(({ key, name, color, points }, i) => {
+                const widthPct = maxCandidatePoints === 0 ? 0 : (points / maxCandidatePoints) * 100
+                return (
+                  <div key={key} style={{ alignItems: 'center', display: 'grid', gap: '16px', gridTemplateColumns: '220px 1fr' }}>
+                    <div style={{ color: pink, fontFamily: fig, fontSize: '18px', lineHeight: '24px' }}>{name}</div>
+                    <div style={{ backgroundColor: '#1D0673', borderRadius: '999px', height: '14px', overflow: 'hidden' }}>
+                      <div style={{ backgroundColor: color, borderRadius: '999px', height: '100%', minWidth: barsAnimated && points > 0 ? '8px' : '0', transition: `width 700ms cubic-bezier(0.16, 1, 0.3, 1) ${i * 80}ms`, width: barsAnimated ? `${widthPct}%` : '0%' }} />
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </section>
+
           <section>
             <h3 style={sectionHeading}>By Issue</h3>
             <div style={{ display: 'flex', flexDirection: 'column', marginTop: '16px' }}>
@@ -129,30 +164,13 @@ export default function SpreadSection({ desktop = false }) {
               ))}
             </div>
           </section>
-
-          <section>
-            <h3 style={sectionHeading}>By Candidate</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginTop: '24px' }}>
-              {byCandidateRows.map(({ key, name, color, points }) => {
-                const widthPct = maxCandidatePoints === 0 ? 0 : (points / maxCandidatePoints) * 100
-                return (
-                  <div key={key} style={{ alignItems: 'center', display: 'grid', gap: '16px', gridTemplateColumns: '220px 1fr' }}>
-                    <div style={{ color: pink, fontFamily: fig, fontSize: '18px', lineHeight: '24px' }}>{name}</div>
-                    <div style={{ backgroundColor: '#1D0673', borderRadius: '999px', height: '14px', overflow: 'hidden' }}>
-                      <div style={{ backgroundColor: color, borderRadius: '999px', height: '100%', minWidth: points > 0 ? '8px' : '0', transition: 'width 300ms ease', width: `${widthPct}%` }} />
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-          </section>
         </div>
       </div>
     )
   }
 
   return (
-    <div style={{ backgroundColor: purple, padding: '48px clamp(20px, 4vw, 33px) 48px' }}>
+    <div style={{ backgroundColor: purple, padding: '48px 33px' }}>
       <div style={{ color: spreadCyan, fontFamily: noirBold, fontSize: '30px', lineHeight: '90px' }}>
         Your Spread
       </div>
@@ -161,6 +179,23 @@ export default function SpreadSection({ desktop = false }) {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+        <section ref={candidateRef}>
+          <h3 style={sectionHeading}>By Candidate</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginTop: '24px' }}>
+            {byCandidateRows.map(({ key, name, color, points }, i) => {
+              const widthPct = maxCandidatePoints === 0 ? 0 : (points / maxCandidatePoints) * 100
+              return (
+                <div key={key} style={{ display: 'grid', gridTemplateColumns: 'minmax(128px, 1fr) minmax(80px, 2fr)', gap: '10px', alignItems: 'center' }}>
+                  <div style={{ color: pink, fontFamily: fig, fontSize: '14px', lineHeight: '18px' }}>{name}</div>
+                  <div style={{ backgroundColor: '#1D0673', borderRadius: '999px', height: '10px', overflow: 'hidden' }}>
+                    <div style={{ backgroundColor: color, borderRadius: '999px', height: '100%', minWidth: barsAnimated && points > 0 ? '6px' : '0', transition: `width 700ms cubic-bezier(0.16, 1, 0.3, 1) ${i * 80}ms`, width: barsAnimated ? `${widthPct}%` : '0%' }} />
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </section>
+
         <section>
           <h3 style={sectionHeading}>By Issue</h3>
           <div style={{ borderBottom: '1px solid rgba(255,255,255,0.4)', display: 'flex', justifyContent: 'space-between', marginTop: '12px', paddingBottom: '12px' }}>
@@ -174,23 +209,6 @@ export default function SpreadSection({ desktop = false }) {
               <div style={{ color: pink, fontFamily: fig, fontSize: '16px', lineHeight: '22px', textAlign: 'right' }}>{candidate}</div>
             </div>
           ))}
-        </section>
-
-        <section>
-          <h3 style={sectionHeading}>By Candidate</h3>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginTop: '24px' }}>
-            {byCandidateRows.map(({ key, name, color, points }) => {
-              const widthPct = maxCandidatePoints === 0 ? 0 : (points / maxCandidatePoints) * 100
-              return (
-                <div key={key} style={{ display: 'grid', gridTemplateColumns: 'minmax(128px, 1fr) minmax(80px, 2fr)', gap: '10px', alignItems: 'center' }}>
-                  <div style={{ color: pink, fontFamily: fig, fontSize: '14px', lineHeight: '18px' }}>{name}</div>
-                  <div style={{ backgroundColor: '#1D0673', borderRadius: '999px', height: '10px', overflow: 'hidden' }}>
-                    <div style={{ backgroundColor: color, borderRadius: '999px', height: '100%', minWidth: points > 0 ? '6px' : '0', width: `${widthPct}%` }} />
-                  </div>
-                </div>
-              )
-            })}
-          </div>
         </section>
       </div>
     </div>
