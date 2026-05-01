@@ -55,8 +55,11 @@ const saveAnswer = (questionNumber, choiceIndex) => {
 /** Last question index shown this session — used so browser Back animates the bar backward (unfill). */
 const LAST_QUESTION_PROGRESS_KEY = 'fated-la-question-progress-last'
 
-const progressPercent = (questionIndex, total) =>
-  Math.min(100, Math.max(0, (questionIndex / total) * 100))
+/** One extra step (total + 1) so the bar is not full on the last question until the flow is done. */
+const progressPercent = (questionIndex, total) => {
+  const steps = total + 1
+  return Math.min(100, Math.max(0, (questionIndex / steps) * 100))
+}
 
 const QuestionPage = ({ number, total = 10, title, paragraphs, question, choices, nextPath }) => {
   const currentProgress = progressPercent(number, total)
