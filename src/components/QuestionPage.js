@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { navigate } from 'gatsby'
 import { STORAGE_KEY, SPREAD_KEY } from '../data/scores'
+import { getQuizResultPath } from '../utils/getQuizResultPath'
 import './question-page.css'
 
 const mono    = '"Apercu-Mono", "Apercu Mono", "Courier New", monospace'
@@ -90,7 +91,17 @@ const progressPercent = (questionIndex, total) => {
   return Math.min(100, Math.max(0, (questionIndex / steps) * 100))
 }
 
-const QuestionPage = ({ number, total = 10, title, paragraphs, question, choices, nextPath }) => {
+const QuestionPage = ({
+  number,
+  total = 10,
+  title,
+  paragraphs,
+  question,
+  choices,
+  nextPath,
+  /** When set (e.g. last question), navigate here instead of nextPath — avoids /result flash */
+  replaceNextPath,
+}) => {
   const currentProgress = progressPercent(number, total)
   const [progressWidth, setProgressWidth] = useState(() => {
     if (typeof window === 'undefined') {
@@ -177,6 +188,17 @@ const QuestionPage = ({ number, total = 10, title, paragraphs, question, choices
                 body={c.body}
                 onChoose={() => {
                   saveAnswer(number, i)
+                  if (replaceNextPath) {
+                    let answers = {}
+                    try {
+                      answers = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')
+                    } catch {
+                      answers = {}
+                    }
+                    localStorage.setItem(SPREAD_KEY, JSON.stringify(answers))
+                    navigate(getQuizResultPath(answers), { replace: true })
+                    return
+                  }
                   navigate(nextPath)
                 }}
               />

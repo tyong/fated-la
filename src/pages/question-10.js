@@ -17,6 +17,6 @@ export default () => (
       { title: 'Faster permits to build more housing.', body: "When there are more places to live, landlords can't get away with this." },
       { title: 'Protect renters now AND build housing.', body: 'The landlord only wins when you have nowhere else to go.' },
     ]}
-    nextPath="/result"
+    replaceNextPath
   />
 )
