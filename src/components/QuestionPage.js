@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { navigate } from 'gatsby'
 import { STORAGE_KEY } from '../data/scores'
 import './question-page.css'
@@ -52,74 +52,108 @@ const saveAnswer = (questionNumber, choiceIndex) => {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(answers))
 }
 
-const QuestionPage = ({ number, total = 10, title, paragraphs, question, choices, nextPath }) => (
-  <div
-    className="question-page"
-    style={{
-      backgroundColor: '#291543',
-      fontSynthesis: 'none',
-      margin: '0 auto',
-      minHeight: '100vh',
-      MozOsxFontSmoothing: 'grayscale',
-      position: 'relative',
-      WebkitFontSmoothing: 'antialiased',
-      width: '100%',
-      maxWidth: '1440px',
-    }}
-  >
-    <div className="question-page__inner">
+/** Last question index shown this session — used so browser Back animates the bar backward (unfill). */
+const LAST_QUESTION_PROGRESS_KEY = 'fated-la-question-progress-last'
 
-      <div className="question-page__progress">
-        <div style={{ backgroundColor: purple, height: '5px', width: '100%' }} />
-        <div style={{ backgroundColor: yellow, height: '5px', left: 0, position: 'absolute', top: 0, width: `${(number / total) * 100}%` }} />
-      </div>
+const progressPercent = (questionIndex, total) =>
+  Math.min(100, Math.max(0, (questionIndex / total) * 100))
 
-      <div className="question-page__header">
-        <StarIcon
-          size={24}
-          style={{ animation: 'spinStar 10s linear infinite', transformOrigin: '50% 50%' }}
-        />
-        <div className="question-page__header-meta" style={{ color: pink, fontFamily: mono }}>
-          Question {number} of {total}
+const QuestionPage = ({ number, total = 10, title, paragraphs, question, choices, nextPath }) => {
+  const currentProgress = progressPercent(number, total)
+  const [progressWidth, setProgressWidth] = useState(() => {
+    if (typeof window === 'undefined') {
+      return progressPercent(number - 1, total)
+    }
+    const raw = window.sessionStorage.getItem(LAST_QUESTION_PROGRESS_KEY)
+    const lastNum = raw === null || raw === '' ? NaN : Number.parseInt(raw, 10)
+    if (Number.isFinite(lastNum) && lastNum > number) {
+      return progressPercent(lastNum, total)
+    }
+    if (Number.isFinite(lastNum) && lastNum === number) {
+      return currentProgress
+    }
+    return progressPercent(number - 1, total)
+  })
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.sessionStorage.setItem(LAST_QUESTION_PROGRESS_KEY, String(number))
+    }
+    const frame = requestAnimationFrame(() => {
+      setProgressWidth(currentProgress)
+    })
+    return () => cancelAnimationFrame(frame)
+  }, [currentProgress, number])
+
+  return (
+    <div
+      className="question-page"
+      style={{
+        backgroundColor: '#291543',
+        fontSynthesis: 'none',
+        margin: '0 auto',
+        minHeight: '100vh',
+        MozOsxFontSmoothing: 'grayscale',
+        position: 'relative',
+        WebkitFontSmoothing: 'antialiased',
+        width: '100%',
+        maxWidth: '1440px',
+      }}
+    >
+      <div className="question-page__inner">
+
+        <div className="question-page__progress">
+          <div style={{ backgroundColor: purple, height: '5px', width: '100%' }} />
+          <div className="question-page__progress-fill" style={{ backgroundColor: yellow, height: '5px', left: 0, position: 'absolute', top: 0, width: `${progressWidth}%` }} />
         </div>
-      </div>
 
-      <div className="question-page__grid">
-        <div className="question-page__main">
-          <h1 className="question-page__title">
-            {title}
-          </h1>
+        <div className="question-page__header">
+          <StarIcon
+            size={24}
+            style={{ animation: 'spinStar 10s linear infinite', transformOrigin: '50% 50%' }}
+          />
+          <div className="question-page__header-meta" style={{ color: pink, fontFamily: mono }}>
+            Question {number} of {total}
+          </div>
+        </div>
 
-          <div className="question-page__intro">
-            {paragraphs.map((p, i) => (
-              <p key={i} className="question-page__intro-p">
-                {p}
-              </p>
-            ))}
+        <div className="question-page__grid">
+          <div className="question-page__main">
+            <h1 className="question-page__title">
+              {title}
+            </h1>
+
+            <div className="question-page__intro">
+              {paragraphs.map((p, i) => (
+                <p key={i} className="question-page__intro-p">
+                  {p}
+                </p>
+              ))}
+            </div>
+
+            <p className="question-page__prompt">
+              {question}
+            </p>
           </div>
 
-          <p className="question-page__prompt">
-            {question}
-          </p>
+          <div className="question-page__choices">
+            {choices.map((c, i) => (
+              <ChoiceCard
+                key={i}
+                title={c.title}
+                body={c.body}
+                onChoose={() => {
+                  saveAnswer(number, i)
+                  navigate(nextPath)
+                }}
+              />
+            ))}
+          </div>
         </div>
 
-        <div className="question-page__choices">
-          {choices.map((c, i) => (
-            <ChoiceCard
-              key={i}
-              title={c.title}
-              body={c.body}
-              onChoose={() => {
-                saveAnswer(number, i)
-                navigate(nextPath)
-              }}
-            />
-          ))}
-        </div>
       </div>
-
     </div>
-  </div>
-)
+  )
+}
 
 export default QuestionPage
