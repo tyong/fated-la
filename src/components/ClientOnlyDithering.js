@@ -62,6 +62,16 @@ export default function ClientOnlyDithering({
     return <div style={style} />
   }
 
+  let webgl2Ok = false
+  if (typeof document !== 'undefined') {
+    try {
+      const canvas = document.createElement('canvas')
+      webgl2Ok = !!canvas.getContext('webgl2')
+    } catch {
+      webgl2Ok = false
+    }
+  }
+
   const { Dithering } = require('@paper-design/shaders-react')
   const fallbackColor = (style && style.backgroundColor) || '#00000000'
   const transitionDuration = reduceMotion ? 120 : duration
@@ -85,19 +95,35 @@ export default function ClientOnlyDithering({
           zIndex: 0,
         }}
       />
-      <Dithering
-        style={{
-          ...revealStyle,
-          inset: 0,
-          position: 'absolute',
-          transition: `opacity ${transitionDuration}ms ease-out, transform ${transitionDuration}ms ease-out, filter ${transitionDuration}ms ease-out`,
-          width: '100%',
-          height: '100%',
-          zIndex: 1,
-        }}
-        shape={shape}
-        {...props}
-      />
+      {webgl2Ok ? (
+        <Dithering
+          style={{
+            ...revealStyle,
+            inset: 0,
+            position: 'absolute',
+            transition: `opacity ${transitionDuration}ms ease-out, transform ${transitionDuration}ms ease-out, filter ${transitionDuration}ms ease-out`,
+            width: '100%',
+            height: '100%',
+            zIndex: 1,
+          }}
+          shape={shape}
+          {...props}
+        />
+      ) : (
+        <div
+          aria-hidden="true"
+          style={{
+            ...revealStyle,
+            backgroundColor: fallbackColor,
+            inset: 0,
+            position: 'absolute',
+            transition: `opacity ${transitionDuration}ms ease-out, transform ${transitionDuration}ms ease-out, filter ${transitionDuration}ms ease-out`,
+            width: '100%',
+            height: '100%',
+            zIndex: 1,
+          }}
+        />
+      )}
     </div>
   )
 }
