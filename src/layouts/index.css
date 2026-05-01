@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
 
+/* Home + result pages — star rotation */
+@keyframes spinStar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 @font-face {
   font-family: 'Apercu-Mono';
   src: url('/fonts/ApercuMonoProRegular/font.woff2') format('woff2'),
