@@ -1,5 +1,28 @@
 import React, { useEffect, useMemo, useState } from 'react'
 
+/** App-wide one-shot: multiple ClientOnlyDithering mounts must not each probe (WebGL context cap ~8). */
+let webgl2SupportCache
+function canUseWebGL2() {
+  if (webgl2SupportCache !== undefined) return webgl2SupportCache
+  if (typeof document === 'undefined') {
+    webgl2SupportCache = false
+    return false
+  }
+  try {
+    const canvas = document.createElement('canvas')
+    const gl = canvas.getContext('webgl2')
+    const ok = !!gl
+    if (gl) {
+      gl.getExtension('WEBGL_lose_context')?.loseContext()
+    }
+    webgl2SupportCache = ok
+    return ok
+  } catch {
+    webgl2SupportCache = false
+    return false
+  }
+}
+
 const DEFAULT_FADE_DURATION = 260
 const DEFAULT_SWIRL_DURATION = 560
 
@@ -62,6 +85,8 @@ export default function ClientOnlyDithering({
     return <div style={style} />
   }
 
+  const webgl2Ok = canUseWebGL2()
+
   const { Dithering } = require('@paper-design/shaders-react')
   const fallbackColor = (style && style.backgroundColor) || '#00000000'
   const transitionDuration = reduceMotion ? 120 : duration
@@ -85,19 +110,35 @@ export default function ClientOnlyDithering({
           zIndex: 0,
         }}
       />
-      <Dithering
-        style={{
-          ...revealStyle,
-          inset: 0,
-          position: 'absolute',
-          transition: `opacity ${transitionDuration}ms ease-out, transform ${transitionDuration}ms ease-out, filter ${transitionDuration}ms ease-out`,
-          width: '100%',
-          height: '100%',
-          zIndex: 1,
-        }}
-        shape={shape}
-        {...props}
-      />
+      {webgl2Ok ? (
+        <Dithering
+          style={{
+            ...revealStyle,
+            inset: 0,
+            position: 'absolute',
+            transition: `opacity ${transitionDuration}ms ease-out, transform ${transitionDuration}ms ease-out, filter ${transitionDuration}ms ease-out`,
+            width: '100%',
+            height: '100%',
+            zIndex: 1,
+          }}
+          shape={shape}
+          {...props}
+        />
+      ) : (
+        <div
+          aria-hidden="true"
+          style={{
+            ...revealStyle,
+            backgroundColor: fallbackColor,
+            inset: 0,
+            position: 'absolute',
+            transition: `opacity ${transitionDuration}ms ease-out, transform ${transitionDuration}ms ease-out, filter ${transitionDuration}ms ease-out`,
+            width: '100%',
+            height: '100%',
+            zIndex: 1,
+          }}
+        />
+      )}
     </div>
   )
 }
