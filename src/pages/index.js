@@ -181,7 +181,7 @@ const IntroPage = () => {
         <div className="page-shell" style={{ position: 'relative', zIndex: 1 }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '96px', marginTop: 0, marginBottom: '24px' }}>
             <StarIcon size={48} style={{ animation: 'spinStar 10s linear infinite', transformOrigin: '50% 50%' }} />
-            <div style={{ color: offPink, fontFamily: noirBold, fontSize: '14px', lineHeight: '20px', marginLeft: 'auto' }}>Fated  ——— Los Angeles</div>
+            <div className="intro-brand-label" style={{ color: offPink, fontFamily: noirBold, lineHeight: '20px', marginLeft: 'auto' }}>Fated  ——— Los Angeles</div>
           </div>
 
           <div className="desktop-grid-2 hero-grid" style={{ alignItems: 'start', gap: '24px' }}>

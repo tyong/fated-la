@@ -168,6 +168,10 @@ a {
   padding-bottom: 24px;
 }
 
+.intro-brand-label {
+  font-size: 14px;
+}
+
 .reading-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -295,6 +299,10 @@ a {
     --page-gutter: 24px;
     --section-space: 64px;
   }
+
+  .intro-brand-label {
+    font-size: 16px;
+  }
 }
 
 @media (min-width: 900px) {
@@ -317,6 +325,10 @@ a {
   .hero-shell {
     padding-top: 56px;
     padding-bottom: 80px;
+  }
+
+  .intro-brand-label {
+    font-size: 18px;
   }
 
   .desktop-grid-3 {
