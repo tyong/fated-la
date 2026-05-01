@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { navigate } from 'gatsby'
-import { STORAGE_KEY } from '../data/scores'
+import { STORAGE_KEY, SPREAD_KEY } from '../data/scores'
 import './question-page.css'
 
 const mono    = '"Apercu-Mono", "Apercu Mono", "Courier New", monospace'
@@ -45,8 +45,37 @@ const ChoiceCard = ({ title, body, onChoose }) => {
   )
 }
 
+/** If answers were cleared after /result but quizSpread still has the run, restore missing questions. */
+const mergeQuizAnswersFromSpread = () => {
+  if (typeof window === 'undefined') return
+  let storage = {}
+  let spread = {}
+  try {
+    storage = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')
+  } catch {
+    return
+  }
+  try {
+    spread = JSON.parse(localStorage.getItem(SPREAD_KEY) || '{}')
+  } catch {
+    return
+  }
+  const merged = { ...storage }
+  let changed = false
+  for (let q = 1; q <= 10; q++) {
+    if (merged[q] === undefined && spread[q] !== undefined) {
+      merged[q] = spread[q]
+      changed = true
+    }
+  }
+  if (changed) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(merged))
+  }
+}
+
 const saveAnswer = (questionNumber, choiceIndex) => {
   if (typeof window === 'undefined') return
+  mergeQuizAnswersFromSpread()
   const answers = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')
   answers[questionNumber] = choiceIndex
   localStorage.setItem(STORAGE_KEY, JSON.stringify(answers))
@@ -80,6 +109,7 @@ const QuestionPage = ({ number, total = 10, title, paragraphs, question, choices
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      mergeQuizAnswersFromSpread()
       window.sessionStorage.setItem(LAST_QUESTION_PROGRESS_KEY, String(number))
     }
     const frame = requestAnimationFrame(() => {

@@ -49,7 +49,12 @@ export default function SpreadSection({ desktop = false }) {
 
   useEffect(() => {
     if (typeof window === 'undefined') return
-    const answers = JSON.parse(localStorage.getItem(SPREAD_KEY) || '{}')
+    let answers = {}
+    try {
+      answers = JSON.parse(localStorage.getItem(SPREAD_KEY) || '{}')
+    } catch {
+      answers = {}
+    }
     if (!answers || Object.keys(answers).length === 0) {
       setSpreadData(null)
       return
