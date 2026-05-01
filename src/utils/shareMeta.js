@@ -6,7 +6,7 @@ const defaultDescription = 'Which candidate for LA Mayor vibes best with you?'
 
 /** OG/Twitter card image for link previews (homepage + result URLs). Update dims if asset changes. */
 export const defaultLinkPreviewImage = '/share/link-preview.png'
-export const defaultLinkPreviewImageSize = { width: 474, height: 128 }
+export const defaultLinkPreviewImageSize = { width: 1024, height: 537 }
 
 export const createResultHead = ({
   pageTitle = defaultTitle,
