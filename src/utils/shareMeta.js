@@ -20,11 +20,18 @@ const resolveSiteUrl = () => {
   const explicit = normalizeSiteUrl(process.env.GATSBY_SITE_URL)
   if (explicit) return explicit
 
-  // Vercel's production domain (custom or default) is the best canonical fallback.
+  // Preview deployments: og:url and og:image must use THIS deployment's host. If we prefer
+  // VERCEL_PROJECT_PRODUCTION_URL here, meta tags point at prod while the shared link is a
+  // preview URL — iMessage and other crawlers often fail or strip the rich preview.
+  const env = process.env.VERCEL_ENV
+  if (env === 'preview' || env === 'development') {
+    const previewHost = normalizeSiteUrl(process.env.VERCEL_URL)
+    if (previewHost) return previewHost
+  }
+
   const vercelProduction = normalizeSiteUrl(process.env.VERCEL_PROJECT_PRODUCTION_URL)
   if (vercelProduction) return vercelProduction
 
-  // Last-resort fallback for preview/dev builds.
   const vercelUrl = normalizeSiteUrl(process.env.VERCEL_URL)
   if (vercelUrl) return vercelUrl
 
