@@ -398,8 +398,8 @@ const ResultPage = ({
               <ClientOnlyDithering
                 speed={0.56}
                 shape="warp"
-                type="4x4"
-                size={0.7}
+                type="8x8"
+                size={0.3}
                 scale={0.53}
                 colorBack="#00000000"
                 colorFront="#5E67AA"
@@ -551,8 +551,8 @@ const ResultPage = ({
                 <ClientOnlyDithering
                   speed={0.56}
                   shape="warp"
-                  type="4x4"
-                  size={1.5}
+                  type="8x8"
+                  size={0.3}
                   scale={0.53}
                   colorBack="#00000000"
                   colorFront="#5E67AA"
