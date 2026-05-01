@@ -170,7 +170,7 @@ export default function SpreadSection({ desktop = false }) {
   }
 
   return (
-    <div style={{ backgroundColor: purple, padding: '48px clamp(20px, 4vw, 33px) 48px' }}>
+    <div style={{ backgroundColor: purple, padding: '48px 33px' }}>
       <div style={{ color: spreadCyan, fontFamily: noirBold, fontSize: '30px', lineHeight: '90px' }}>
         Your Spread
       </div>
