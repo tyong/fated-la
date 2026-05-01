@@ -38,6 +38,11 @@
   width: 100%;
 }
 
+.question-page__progress-fill {
+  /* Smooth in-out: gentle acceleration then deceleration (fill + unfill) */
+  transition: width 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Mobile — Question 01 - Mobile (16E-0): star top 28, meta 32, title 92, body 166, choices top 373, gap 11 */
 .question-page__header {
   align-items: flex-start;
