@@ -115,22 +115,6 @@ export default function SpreadSection({ desktop = false }) {
 
         <div style={{ display: 'flex', flexDirection: 'column', marginTop: '40px', maxWidth: '1248px', marginLeft: 'auto', marginRight: 'auto', width: '100%', gap: '56px' }}>
           <section>
-            <h3 style={sectionHeading}>By Issue</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', marginTop: '16px' }}>
-              <div style={{ ...rowBase, borderBottomColor: '#4400CC', paddingBlock: '16px' }}>
-                <div style={{ ...cell, color: spreadCyan }}>Issue</div>
-                <div style={{ ...cell, color: spreadCyan }}>Your choice</div>
-              </div>
-              {byIssueRows.map(({ issue, candidate }, i) => (
-                <div key={i} style={{ ...rowBase, borderBottom: i === byIssueRows.length - 1 ? 'none' : rowBase.borderBottom }}>
-                  <div style={cell}>{issue}</div>
-                  <div style={cell}>{candidate}</div>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          <section>
             <h3 style={sectionHeading}>By Candidate</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginTop: '24px' }}>
               {byCandidateRows.map(({ key, name, color, points }) => {
@@ -144,6 +128,22 @@ export default function SpreadSection({ desktop = false }) {
                   </div>
                 )
               })}
+            </div>
+          </section>
+
+          <section>
+            <h3 style={sectionHeading}>By Issue</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', marginTop: '16px' }}>
+              <div style={{ ...rowBase, borderBottomColor: '#4400CC', paddingBlock: '16px' }}>
+                <div style={{ ...cell, color: spreadCyan }}>Issue</div>
+                <div style={{ ...cell, color: spreadCyan }}>Your choice</div>
+              </div>
+              {byIssueRows.map(({ issue, candidate }, i) => (
+                <div key={i} style={{ ...rowBase, borderBottom: i === byIssueRows.length - 1 ? 'none' : rowBase.borderBottom }}>
+                  <div style={cell}>{issue}</div>
+                  <div style={cell}>{candidate}</div>
+                </div>
+              ))}
             </div>
           </section>
         </div>
@@ -162,21 +162,6 @@ export default function SpreadSection({ desktop = false }) {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
         <section>
-          <h3 style={sectionHeading}>By Issue</h3>
-          <div style={{ borderBottom: '1px solid rgba(255,255,255,0.4)', display: 'flex', justifyContent: 'space-between', marginTop: '12px', paddingBottom: '12px' }}>
-            <div style={{ color: spreadCyan, fontFamily: fig, fontSize: '12px', letterSpacing: '0.05em' }}>Issue</div>
-            <div style={{ color: spreadCyan, fontFamily: fig, fontSize: '12px', letterSpacing: '0.05em' }}>Your choice</div>
-          </div>
-
-          {byIssueRows.map(({ issue, candidate }, i) => (
-            <div key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.2)', display: 'grid', gridTemplateColumns: 'minmax(150px, 1fr) minmax(120px, 220px)', gap: '16px', padding: '20px 0', alignItems: 'start' }}>
-              <div style={{ color: pink, fontFamily: fig, fontSize: '16px', lineHeight: '22px' }}>{issue}</div>
-              <div style={{ color: pink, fontFamily: fig, fontSize: '16px', lineHeight: '22px', textAlign: 'right' }}>{candidate}</div>
-            </div>
-          ))}
-        </section>
-
-        <section>
           <h3 style={sectionHeading}>By Candidate</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginTop: '24px' }}>
             {byCandidateRows.map(({ key, name, color, points }) => {
@@ -191,6 +176,21 @@ export default function SpreadSection({ desktop = false }) {
               )
             })}
           </div>
+        </section>
+
+        <section>
+          <h3 style={sectionHeading}>By Issue</h3>
+          <div style={{ borderBottom: '1px solid rgba(255,255,255,0.4)', display: 'flex', justifyContent: 'space-between', marginTop: '12px', paddingBottom: '12px' }}>
+            <div style={{ color: spreadCyan, fontFamily: fig, fontSize: '12px', letterSpacing: '0.05em' }}>Issue</div>
+            <div style={{ color: spreadCyan, fontFamily: fig, fontSize: '12px', letterSpacing: '0.05em' }}>Your choice</div>
+          </div>
+
+          {byIssueRows.map(({ issue, candidate }, i) => (
+            <div key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.2)', display: 'grid', gridTemplateColumns: 'minmax(150px, 1fr) minmax(120px, 220px)', gap: '16px', padding: '20px 0', alignItems: 'start' }}>
+              <div style={{ color: pink, fontFamily: fig, fontSize: '16px', lineHeight: '22px' }}>{issue}</div>
+              <div style={{ color: pink, fontFamily: fig, fontSize: '16px', lineHeight: '22px', textAlign: 'right' }}>{candidate}</div>
+            </div>
+          ))}
         </section>
       </div>
     </div>
