@@ -1,5 +1,17 @@
 import React from 'react'
 import QuestionPage from '../components/QuestionPage'
+import {
+  createResultHead,
+  defaultLinkPreviewImage,
+  questionPageTitle,
+} from '../utils/shareMeta'
+
+export const Head = () =>
+  createResultHead({
+    pageTitle: questionPageTitle(8, 'The 911 Call'),
+    imageUrl: defaultLinkPreviewImage,
+    path: '/question-08/',
+  })
 
 export default () => (
   <QuestionPage
