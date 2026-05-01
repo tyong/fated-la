@@ -4,7 +4,12 @@ import { SCORES, CANDIDATES, MOON, MOON_THRESHOLD, MILLER_NARROW_THRESHOLD, STOR
 
 export default () => {
   useEffect(() => {
-    const answers = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')
+    let answers = {}
+    try {
+      answers = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')
+    } catch {
+      answers = {}
+    }
     const totals = [0, 0, 0, 0, 0]
 
     for (let q = 1; q <= 10; q++) {
@@ -15,7 +20,7 @@ export default () => {
     }
 
     localStorage.setItem(SPREAD_KEY, JSON.stringify(answers))
-    localStorage.removeItem(STORAGE_KEY)
+    // Keep STORAGE_KEY so browser Back + new picks still merge with the full quiz; spread is the snapshot for result UI.
 
     const ranked = totals
       .map((score, i) => ({ ...CANDIDATES[i], score }))
