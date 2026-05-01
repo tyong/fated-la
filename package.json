@@ -19,8 +19,8 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "dev": "npx agentation-mcp server & gatsby develop",
-    "develop": "npx agentation-mcp server & gatsby develop",
+    "dev": "export GATSBY_AGENTATION=1; npx agentation-mcp server & gatsby develop -H 0.0.0.0 -p 9000",
+    "develop": "export GATSBY_AGENTATION=1; npx agentation-mcp server & gatsby develop -H 0.0.0.0 -p 9000",
     "format": "prettier --write 'src/**/*.js'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
