@@ -5,6 +5,8 @@
  */
 import React from 'react'
 
+export { wrapPageElement } from './src/wrap-page-element'
+
 const criticalFonts = [
   '/fonts/NoirEnBlanc/noiretblanc-webfont.woff2',
   '/fonts/NoirEnBlanc/noiretblanc_medium_bold-webfont.woff2',
