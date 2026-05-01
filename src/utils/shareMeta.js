@@ -4,6 +4,16 @@ import { resolveSiteUrl } from './resolveSiteUrl'
 const defaultTitle = 'Fated LA'
 const defaultDescription = 'Which candidate for LA Mayor vibes best with you?'
 
+/** Browser tab + OG title for candidate / Moon result pages. */
+export function resultPageTitle(cardName, candidateName) {
+  return `You drew: ${cardName}, ${candidateName} — Fated LA`
+}
+
+/** Browser tab + OG title for quiz question pages. */
+export function questionPageTitle(questionNumber, questionTitle) {
+  return `Question ${questionNumber}: ${questionTitle} — Fated LA`
+}
+
 /** OG/Twitter card image for link previews (homepage + result URLs). Update dims if asset changes. */
 export const defaultLinkPreviewImage = '/share/link-preview.png'
 export const defaultLinkPreviewImageSize = { width: 1024, height: 537 }

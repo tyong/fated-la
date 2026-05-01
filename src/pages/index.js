@@ -5,7 +5,7 @@ import { createResultHead, defaultLinkPreviewImage } from '../utils/shareMeta'
 export const Head = () => (
   <>
     {createResultHead({
-      pageTitle: 'Fated LA',
+      pageTitle: 'Fated LA: Which candidate for Mayor of L.A. do you vibe with?',
       description: 'Which candidate for LA Mayor vibes best with you? 10 questions. Find out.',
       imageUrl: defaultLinkPreviewImage,
       path: '/',

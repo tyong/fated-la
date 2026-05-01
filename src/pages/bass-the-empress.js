@@ -1,6 +1,10 @@
 import React from 'react'
 import ResultPage from '../components/ResultPage'
-import { createResultHead, defaultLinkPreviewImage } from '../utils/shareMeta'
+import {
+  createResultHead,
+  defaultLinkPreviewImage,
+  resultPageTitle,
+} from '../utils/shareMeta'
 
 export default () => (
   <ResultPage
@@ -29,7 +33,7 @@ export default () => (
 
 export const Head = () =>
   createResultHead({
-    pageTitle: 'I drew The Empress — Fated LA',
+    pageTitle: resultPageTitle('The Empress', 'Karen Bass'),
     description: 'My soul candidate for the LA Election 2026 is Karen Bass, The Empress.',
     imageUrl: defaultLinkPreviewImage,
     path: '/bass-the-empress/',

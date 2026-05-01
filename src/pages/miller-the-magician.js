@@ -1,6 +1,10 @@
 import React from 'react'
 import ResultPage from '../components/ResultPage'
-import { createResultHead, defaultLinkPreviewImage } from '../utils/shareMeta'
+import {
+  createResultHead,
+  defaultLinkPreviewImage,
+  resultPageTitle,
+} from '../utils/shareMeta'
 
 export default () => (
   <ResultPage
@@ -29,7 +33,7 @@ export default () => (
 
 export const Head = () =>
   createResultHead({
-    pageTitle: 'I drew The Magician — Fated LA',
+    pageTitle: resultPageTitle('The Magician', 'Adam Miller'),
     description: 'My soul candidate for the LA Election 2026 is Adam Miller, The Magician.',
     imageUrl: defaultLinkPreviewImage,
     path: '/miller-the-magician/',
