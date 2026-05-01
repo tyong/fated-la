@@ -121,7 +121,7 @@ a {
     display: none;
   }
 
-  .intro-how-it-works-shell {
+  .page-shell.intro-how-it-works-shell {
     padding-left: 33px;
     padding-right: 33px;
   }
