@@ -3,10 +3,14 @@
  * Runs `gatsby build`, then optionally Playwright share capture.
  * On Vercel (VERCEL=1), skips `playwright install` unless FORCE_SHARE_CAPTURE=1 —
  * Chromium often fails in Vercel builds; PNGs ship from static/share/.
+ *
+ * Injects GATSBY_SITE_URL before Gatsby compiles so og:image / og:url absolute URLs
+ * are inlined (Gatsby strips non-GATSBY_* env from client bundles).
  */
 import { spawnSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
+import { resolveSiteUrl } from '../src/utils/resolveSiteUrl.js'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 
@@ -20,7 +24,8 @@ function run(cmd, args, extraEnv = {}) {
   if ((r.status ?? 1) !== 0) process.exit(r.status ?? 1)
 }
 
-run('npx', ['gatsby', 'build'])
+const origin = resolveSiteUrl()
+run('npx', ['gatsby', 'build'], origin ? { GATSBY_SITE_URL: origin } : {})
 
 const onVercel = process.env.VERCEL === '1'
 const forceCapture = process.env.FORCE_SHARE_CAPTURE === '1'

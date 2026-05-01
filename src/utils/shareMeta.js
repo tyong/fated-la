@@ -1,4 +1,5 @@
 import React from 'react'
+import { resolveSiteUrl } from './resolveSiteUrl'
 
 const defaultTitle = 'Fated LA'
 const defaultDescription = 'Which candidate for LA Mayor vibes best with you?'
@@ -6,37 +7,6 @@ const defaultDescription = 'Which candidate for LA Mayor vibes best with you?'
 /** OG/Twitter card image for link previews (homepage + result URLs). Update dims if asset changes. */
 export const defaultLinkPreviewImage = '/share/link-preview.png'
 export const defaultLinkPreviewImageSize = { width: 474, height: 128 }
-
-const normalizeSiteUrl = (value) => {
-  if (!value) return null
-  const trimmed = String(value).trim()
-  if (!trimmed) return null
-  if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) return trimmed
-  return `https://${trimmed}`
-}
-
-const resolveSiteUrl = () => {
-  // Explicit project setting wins.
-  const explicit = normalizeSiteUrl(process.env.GATSBY_SITE_URL)
-  if (explicit) return explicit
-
-  // Preview deployments: og:url and og:image must use THIS deployment's host. If we prefer
-  // VERCEL_PROJECT_PRODUCTION_URL here, meta tags point at prod while the shared link is a
-  // preview URL — iMessage and other crawlers often fail or strip the rich preview.
-  const env = process.env.VERCEL_ENV
-  if (env === 'preview' || env === 'development') {
-    const previewHost = normalizeSiteUrl(process.env.VERCEL_URL)
-    if (previewHost) return previewHost
-  }
-
-  const vercelProduction = normalizeSiteUrl(process.env.VERCEL_PROJECT_PRODUCTION_URL)
-  if (vercelProduction) return vercelProduction
-
-  const vercelUrl = normalizeSiteUrl(process.env.VERCEL_URL)
-  if (vercelUrl) return vercelUrl
-
-  return null
-}
 
 export const createResultHead = ({
   pageTitle = defaultTitle,
