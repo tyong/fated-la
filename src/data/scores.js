@@ -82,7 +82,7 @@ export const CANDIDATES = [
     emoji: '🌕',
     role: 'Incumbent Mayor',
     color: '#8B5E3C',
-    route: '/the-empress',
+    route: '/bass-the-empress',
     shareQuote: "You don't trust sudden movements. You've seen what happens when institutions collapse faster than replacements can be built.",
   },
   {
@@ -92,7 +92,7 @@ export const CANDIDATES = [
     emoji: '⚖️',
     role: 'City Councilmember, District 4',
     color: '#2C4A7C',
-    route: '/the-high-priestess',
+    route: '/raman-the-high-priestess',
     shareQuote: "You believe the boring stuff — oversight, transparency, performance metrics — is actually where change lives.",
   },
   {
@@ -102,7 +102,7 @@ export const CANDIDATES = [
     emoji: '✨',
     role: 'Community Organizer, Housing Now CA',
     color: '#1A5C8A',
-    route: '/the-star',
+    route: '/huang-the-star',
     shareQuote: "You've decided the risk of not trying is larger than the risk of trying and falling short.",
   },
   {
@@ -112,7 +112,7 @@ export const CANDIDATES = [
     emoji: '⚡',
     role: 'Nonprofit Founder',
     color: '#6B2D2D',
-    route: '/the-tower',
+    route: '/pratt-the-tower',
     shareQuote: "You are done with lessons learned.",
   },
   {
@@ -122,7 +122,7 @@ export const CANDIDATES = [
     emoji: '🏛️',
     role: 'Tech Entrepreneur, Better Angels',
     color: '#2D5A3D',
-    route: '/the-magician',
+    route: '/miller-the-magician',
     shareQuote: "You don't need the meeting to feel inspiring. You need the meeting to end with a decision, an owner, and a date.",
   },
 ]
