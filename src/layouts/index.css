@@ -116,6 +116,17 @@ a {
   transform-origin: 50% 50% !important;
 }
 
+@media (max-width: 639px) {
+  .city-image-block {
+    display: none;
+  }
+
+  .intro-how-it-works-shell {
+    padding-left: 33px;
+    padding-right: 33px;
+  }
+}
+
 :root {
   --bp-sm: 480px;
   --bp-md: 768px;
