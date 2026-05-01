@@ -1,13 +1,16 @@
 import React from 'react'
 import ResultPage from '../components/ResultPage'
+import { createResultHead } from '../utils/shareMeta'
 
 export default () => (
   <ResultPage
     drew={"You drew \nThe High Priestess."}
     soulCandidate="Your soul candidate is Nithya Raman."
+    shareText="My soul candidate for the LA Election 2026 is Nithya Raman, The High Priestess."
     heroName="NITHYA RAMAN"
     heroArcana="THE HIGH PRIESTESS"
     heroImg="https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAXJPF3WYPXPSWM2Q969YKC.png"
+    shareImage="/share/raman-the-high-priestess.png"
     heroImgWidth={213}
     heroImgHeight={358}
     heroImgLeft={40}
@@ -23,3 +26,11 @@ export default () => (
     charge={`You're a policy person. So is your candidate. Don't let the campaign stay at the level of "accountability" and "transparency" — those are vibes, not plans. Push into the specifics. How does the LAHSA transition actually work? What's the timeline? Who gets fired if it doesn't?\n\nDetails are the difference between a policy and a press release.`}
   />
 )
+
+export const Head = () =>
+  createResultHead({
+    pageTitle: 'I drew The High Priestess — Fated LA',
+    description: 'My soul candidate for the LA Election 2026 is Nithya Raman, The High Priestess.',
+    imageUrl: '/share/raman-the-high-priestess.png',
+    path: '/raman-the-high-priestess/',
+  })

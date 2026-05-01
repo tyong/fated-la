@@ -13,9 +13,20 @@ const criticalFonts = [
   '/fonts/FigGrotesk/FigGrotesk-Book.woff2',
 ]
 
+/** Plain HTTP (non-localhost) → HTTPS before first paint; preserves path/query/hash and host. */
+const forceHttpsScript = (
+  <script
+    key="force-https"
+    dangerouslySetInnerHTML={{
+      __html: `(function(){var h=location.hostname;if(h==="localhost"||h==="127.0.0.1"||h==="[::1]")return;if(location.protocol==="http:")location.replace("https://"+location.host+location.pathname+location.search+location.hash)})();`,
+    }}
+  />
+)
+
 export const onRenderBody = ({ setHeadComponents }) => {
-  setHeadComponents(
-    criticalFonts.map((href) => (
+  setHeadComponents([
+    forceHttpsScript,
+    ...criticalFonts.map((href) => (
       <link
         key={href}
         rel="preload"
@@ -24,6 +35,6 @@ export const onRenderBody = ({ setHeadComponents }) => {
         type="font/woff2"
         crossOrigin="anonymous"
       />
-    ))
-  )
+    )),
+  ])
 }

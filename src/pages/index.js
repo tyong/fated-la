@@ -1,11 +1,16 @@
 import React, { useMemo, useState } from 'react'
 import { Link } from 'gatsby'
 import ClientOnlyDithering from '../components/ClientOnlyDithering'
+import { createResultHead, defaultLinkPreviewImage } from '../utils/shareMeta'
 
 export const Head = () => (
   <>
-    <title>Fated LA</title>
-    <meta name="description" content="Which candidate for LA Mayor vibes best with you? 10 questions. Find out." />
+    {createResultHead({
+      pageTitle: 'Fated LA',
+      description: 'Which candidate for LA Mayor vibes best with you? 10 questions. Find out.',
+      imageUrl: defaultLinkPreviewImage,
+      path: '/',
+    })}
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>{`
       @keyframes scrollCards {
