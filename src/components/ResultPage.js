@@ -3,6 +3,7 @@ import { Link } from 'gatsby'
 import ClientOnlyDithering from './ClientOnlyDithering'
 import SpreadSectionExternal from './SpreadSection'
 import { ResultTiltCard } from './ResultTiltCard'
+import { useDesktopLayout } from '../hooks/useDesktopLayout'
 
 const starPath = "M100.722 2.758C101.021 -0.919 106.405 -0.919 106.703 2.758L112.411 73.151C112.626 75.808 115.942 76.885 117.678 74.862L163.672 21.268C166.074 18.469 170.43 21.633 168.51 24.783L131.752 85.088C130.364 87.364 132.413 90.184 135.007 89.568L203.719 73.244C207.308 72.391 208.972 77.512 205.567 78.932L140.383 106.113C137.922 107.139 137.922 110.625 140.383 111.651L205.567 138.833C208.972 140.252 207.308 145.373 203.719 144.52L135.007 128.196C132.413 127.58 130.364 130.4 131.752 132.676L168.51 192.981C170.43 196.131 166.074 199.296 163.672 196.496L117.678 142.902C115.942 140.879 112.626 141.956 112.411 144.613L106.703 215.007C106.405 218.683 101.021 218.683 100.722 215.007L95.014 144.613C94.799 141.956 91.484 140.879 89.748 142.902L43.753 196.496C41.351 199.296 36.995 196.131 38.915 192.981L75.673 132.676C77.061 130.4 75.012 127.58 72.418 128.196L3.706 144.52C0.117 145.373 -1.546 140.252 1.858 138.833L67.043 111.651C69.503 110.625 69.503 107.139 67.043 106.113L1.858 78.932C-1.546 77.512 0.117 72.391 3.706 73.244L72.418 89.568C75.012 90.184 77.061 87.364 75.673 85.088L38.915 24.783C36.995 21.633 41.351 18.469 43.753 21.268L89.748 74.862C91.484 76.885 94.799 75.808 95.014 73.151L100.722 2.758Z"
 
@@ -10,8 +11,7 @@ const mono    = '"Apercu-Mono", "Apercu Mono", "Courier New", monospace'
 const monoPro = '"ApercuMonoPro-Regular", "Apercu Mono Pro", "Courier New", monospace'
 const noir    = '"NOIRetBLANC-Regular", "NOIR et BLANC", "Instrument Serif", Georgia, serif'
 const noirBold= '"NOIRetBLANCMediumBold", "NOIR et BLANC Medium Bold", "Instrument Serif", Georgia, serif'
-const fig     = '"FigGrotesk0.3Trial-Regular", "FigGrotesk 0.3 Trial", system-ui, sans-serif'
-const figBook = '"FigGrotesk0.3Trial-Book", "FigGrotesk 0.3 Trial", system-ui, sans-serif'
+const fig = '"FigGrotesk0.3Trial-Regular", "FigGrotesk 0.3 Trial", system-ui, sans-serif'
 const purple  = '#3F00DB'
 const pink    = '#FFE4F7'
 const dark    = '#2A009C'
@@ -20,26 +20,6 @@ const offPink = '#F2CACE'
 const largeCardShadow = '0 18px 32px 8px rgba(29, 13, 50, 0.8)'
 const mobileTopControlOffset = 39
 const mobileSideControlOffset = 16
-
-// Tablet and up use the Paper “Result — Desktop” layout; phones stay narrow.
-const DESKTOP_MIN = 768
-
-function useDesktopLayout() {
-  const [desktop, setDesktop] = useState(() => {
-    if (typeof window === 'undefined') return null
-    return window.matchMedia(`(min-width: ${DESKTOP_MIN}px)`).matches
-  })
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    const mq = window.matchMedia(`(min-width: ${DESKTOP_MIN}px)`)
-    const sync = () => setDesktop(mq.matches)
-    sync()
-    mq.addEventListener('change', sync)
-    return () => mq.removeEventListener('change', sync)
-  }, [])
-  return desktop
-}
 
 const starSpinStyle = { animation: 'spinStar 10s linear infinite', transformOrigin: '50% 50%' }
 
@@ -326,28 +306,6 @@ const ShareButton = ({ title, text, desktop, shareImageUrl, floating = false }) 
   )
 }
 
-const ResultFooter = () => (
-  <div style={{ backgroundColor: dark, padding: '72px 111px 80px', width: '100%', boxSizing: 'border-box' }}>
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '48px 118px', maxWidth: '1218px' }}>
-      <div>
-        <div style={{ color: pink, fontFamily: noirBold, fontSize: '40px', lineHeight: '50px', marginBottom: '24px' }}>About</div>
-        <div style={{ color: '#FFFFFF', fontFamily: figBook, fontSize: '24px', fontWeight: 300, lineHeight: '36px', whiteSpace: 'pre-wrap' }}>
-          {`This site was made by Tabitha Yong, \nWill Peng & Yvonne Leow. We're nonpartisan citizens of Los Angeles. We wanted a more fun, approachable way to do our civic duty. \n\nDesigned and vibe-coded with Paper, Claude Code & Vercel.\n\nQuestions? Comments? Recs for your favorite L.A. spot? Email us. ➝`}
-        </div>
-      </div>
-      <div>
-        <div style={{ color: pink, fontFamily: noirBold, fontSize: '40px', lineHeight: '50px', marginBottom: '24px' }}>Methodology</div>
-        <div style={{ color: '#FFFFFF', fontFamily: figBook, fontSize: '24px', fontWeight: 300, lineHeight: '36px', whiteSpace: 'pre-wrap' }}>
-          {`For simplicity, the candidate list is limited to credible candidates who have been officially endorsed. For the full list of candidates, go here ➝\n\nCandidate policy positions were sourced with Claude, based on whatever information they've publicly shared in their campaigns. They might change.`}
-        </div>
-      </div>
-    </div>
-    <div style={{ color: offPink, fontFamily: fig, fontSize: '12px', lineHeight: '20px', marginTop: '48px', maxWidth: '294px' }}>
-      Last updated  ———  30 April 2026
-    </div>
-  </div>
-)
-
 const ResultPage = ({
   drew,
   soulCandidate,
@@ -550,11 +508,11 @@ const ResultPage = ({
                 fontSize: '20px',
                 lineHeight: '28px',
                 margin: '0 auto',
-                maxWidth: '449px',
-                padding: '48px 24px 64px',
+                maxWidth: '500px',
+                padding: '48px 0 64px',
                 position: 'relative',
                 whiteSpace: 'pre-wrap',
-                width: '100%',
+                width: '500px',
                 zIndex: 1,
               }}
             >
@@ -563,23 +521,35 @@ const ResultPage = ({
           </>
         )}
 
-        <div style={{ backgroundColor: dark, borderTop: `1px solid ${purple}`, padding: '88px 96px 72px' }}>
-          <div style={{ color: offPink, fontFamily: noir, fontSize: '64px', lineHeight: '1.1' }}>
+        <div style={{ backgroundColor: '#5E67AC', borderTop: `1px solid ${purple}`, padding: '88px 0 72px' }}>
+          <div style={{ color: '#BDC4EB', fontFamily: noirBold, fontSize: '32px', lineHeight: '44px', margin: '0 auto', textAlign: 'center', width: '500px' }}>
+            How should you act?
+          </div>
+          <div style={{ color: '#FFFFFF', fontFamily: noirBold, fontSize: '48px', lineHeight: '56px', margin: '8px auto 0', textAlign: 'center', width: '500px' }}>
             Your Charge
           </div>
-          <div style={{ color: pink, fontFamily: fig, fontSize: '22px', lineHeight: '1.6', marginTop: '40px', maxWidth: '900px', whiteSpace: 'pre-wrap' }}>
+          <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '20px', lineHeight: '28px', margin: '40px auto 0', maxWidth: '500px', whiteSpace: 'pre-wrap', width: '500px' }}>
             {charge}
           </div>
-          <div style={{ borderTop: '1px solid rgba(255,228,247,0.2)', marginTop: '48px', paddingTop: '32px', textAlign: 'center' }}>
-            <Link to="/" style={{ textDecoration: 'none' }}>
-              <div style={{ backgroundColor: pink, borderRadius: '4px', color: purple, cursor: 'pointer', display: 'inline-block', fontFamily: fig, fontSize: '16px', padding: '12px 28px' }}>
-                Start over ↺
-              </div>
-            </Link>
-          </div>
+          <Link
+            to="/"
+            style={{
+              backgroundColor: yellow,
+              borderRadius: '4px',
+              color: '#000403',
+              display: 'block',
+              fontFamily: fig,
+              fontSize: '16px',
+              lineHeight: '46px',
+              margin: '48px auto 0',
+              padding: '0 22px',
+              textDecoration: 'none',
+              width: 'fit-content',
+            }}
+          >
+            Start over ↺
+          </Link>
         </div>
-
-        <ResultFooter />
       </div>
     )
   }
@@ -694,21 +664,75 @@ const ResultPage = ({
             </>
           )}
 
-          <div style={{ backgroundColor: dark, padding: '24px 33px 60px' }}>
-            <div style={{ color: '#F2CACE', fontFamily: noir, fontSize: '30px', lineHeight: '90px' }}>
+          <div
+            style={{
+              backgroundColor: '#5E67AC',
+              borderTop: `1px solid ${purple}`,
+              boxSizing: 'border-box',
+              padding: '88px 33px 72px',
+              width: '100%',
+            }}
+          >
+            <div
+              style={{
+                color: '#BDC4EB',
+                fontFamily: noirBold,
+                fontSize: '24px',
+                lineHeight: '32px',
+                margin: '0 auto',
+                maxWidth: '500px',
+                textAlign: 'center',
+                width: '100%',
+              }}
+            >
+              How should you act?
+            </div>
+            <div
+              style={{
+                color: '#FFFFFF',
+                fontFamily: noirBold,
+                fontSize: '32px',
+                lineHeight: '40px',
+                margin: '8px auto 0',
+                maxWidth: '500px',
+                textAlign: 'center',
+                width: '100%',
+              }}
+            >
               Your Charge
             </div>
-            <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', lineHeight: '24px', whiteSpace: 'pre-wrap' }}>
+            <div
+              style={{
+                color: '#FFFFFF',
+                fontFamily: fig,
+                fontSize: '16px',
+                lineHeight: '24px',
+                margin: '40px auto 0',
+                maxWidth: '500px',
+                whiteSpace: 'pre-wrap',
+                width: '100%',
+              }}
+            >
               {charge}
             </div>
-
-            <div style={{ borderTop: '1px solid rgba(255,228,247,0.2)', marginTop: '48px', paddingTop: '32px', textAlign: 'center' }}>
-              <Link to="/" style={{ textDecoration: 'none' }}>
-                <div style={{ backgroundColor: pink, borderRadius: '4px', color: purple, cursor: 'pointer', display: 'inline-block', fontFamily: fig, fontSize: '16px', padding: '12px 28px' }}>
-                  Start over ↺
-                </div>
-              </Link>
-            </div>
+            <Link
+              to="/"
+              style={{
+                backgroundColor: yellow,
+                borderRadius: '4px',
+                color: '#000403',
+                display: 'block',
+                fontFamily: fig,
+                fontSize: '16px',
+                lineHeight: '46px',
+                margin: '48px auto 0',
+                padding: '0 22px',
+                textDecoration: 'none',
+                width: 'fit-content',
+              }}
+            >
+              Start over ↺
+            </Link>
           </div>
 
         </div>

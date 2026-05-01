@@ -2,7 +2,6 @@ import React, { useMemo, useState } from 'react'
 import { Link } from 'gatsby'
 import ClientOnlyDithering from '../components/ClientOnlyDithering'
 import { createResultHead, defaultLinkPreviewImage } from '../utils/shareMeta'
-
 export const Head = () => (
   <>
     {createResultHead({
@@ -27,12 +26,9 @@ export const Head = () => (
 
 const monoPro = '"ApercuMonoPro-Regular", "Apercu Mono Pro", "Courier New", monospace'
 const noirBold= '"NOIRetBLANCMediumBold", "NOIR et BLANC Medium Bold", "Instrument Serif", Georgia, serif'
-const figBook = '"FigGrotesk0.3Trial-Book", "FigGrotesk 0.3 Trial", system-ui, sans-serif'
 const fig     = '"FigGrotesk0.3Trial-Regular", "FigGrotesk 0.3 Trial", system-ui, sans-serif'
-const figBold = '"FigGrotesk0.3Trial-Bold", "FigGrotesk 0.3 Trial", system-ui, sans-serif'
 const purple  = '#3F00DB'
 const pink    = '#FFE4F7'
-const dark    = '#2A009C'
 const yellow  = '#D2D260'
 const offPink = '#F2CACE'
 const heroBodyWeight = 400
@@ -318,29 +314,6 @@ const IntroPage = () => {
               See my fate ➝
             </Link>
           </div>
-        </div>
-      </section>
-
-      <section style={{ backgroundColor: dark, padding: 'var(--section-space) 0' }}>
-        <div className="page-shell desktop-grid-2">
-          <div className="content-column">
-            <h2 style={h2Style}>About</h2>
-            <p style={{ color: '#FFFFFF', fontFamily: figBook, fontSize: 'var(--body-md)', lineHeight: 1.5, whiteSpace: 'pre-wrap' }}>
-              This site was made by Tabitha Yong & Yvonne Leow, nonpartisan citizens of Los Angeles. We wanted a more fun, approachable way to do our civic duty.{'\n\n'}
-              Designed and vibe-coded with Paper, Claude Code & Vercel.
-            </p>
-          </div>
-          <div className="content-column">
-            <h2 style={h2Style}>Methodology</h2>
-            <p style={{ color: '#FFFFFF', fontFamily: figBook, fontSize: 'var(--body-md)', lineHeight: 1.5, whiteSpace: 'pre-wrap' }}>
-              For simplicity, the candidate list is limited to credible candidates who have been officially endorsed. For the full list of candidates, go here ➝{'\n\n'}
-              Candidate policy positions were sourced with Claude, based on whatever information they've publicly shared in their campaigns. They might change.{'\n\n'}
-              Questions? Comments? Recs for your favorite LA spot? Email us ➝
-            </p>
-          </div>
-        </div>
-        <div className="page-shell" style={{ marginTop: '24px', color: offPink, fontFamily: fig, fontSize: '12px', lineHeight: '20px' }}>
-          Last updated  ———  30 April 2026
         </div>
       </section>
     </div>

@@ -108,12 +108,38 @@ a {
 .result-tilt-shell > hover-tilt::part(container) {
   width: 100%;
   height: 100%;
+  /*
+   * hover-tilt sets touch-action: none on its container (blocks pinch zoom on the card).
+   * That also prevents the page from scrolling when the user drags across the card on touch.
+   * Restore native panning + pinch-zoom at all breakpoints so scroll + tilt work on phones,
+   * tablets, and touch laptops — not only narrow viewports.
+   */
+  touch-action: manipulation;
 }
 
 .result-tilt-shell > hover-tilt::part(tilt) {
   width: 100%;
   height: 100%;
   transform-origin: 50% 50% !important;
+  border-radius: 6px;
+}
+
+/*
+ * hover-tilt listens on its shadow ::part(tilt) layer; light-DOM slotted content sits above it
+ * and steals hits on desktop (mouse never activates glare). Pass pointers through to tilt,
+ * then re-enable real interactive descendants if any are added later.
+ */
+.result-tilt-shell > hover-tilt * {
+  pointer-events: none;
+}
+
+.result-tilt-shell > hover-tilt a,
+.result-tilt-shell > hover-tilt button,
+.result-tilt-shell > hover-tilt [role='button'],
+.result-tilt-shell > hover-tilt input,
+.result-tilt-shell > hover-tilt textarea,
+.result-tilt-shell > hover-tilt select {
+  pointer-events: auto;
 }
 
 @media (max-width: 639px) {
