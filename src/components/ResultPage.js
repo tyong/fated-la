@@ -3,6 +3,7 @@ import ClientOnlyDithering from './ClientOnlyDithering'
 import { PrimaryCta } from './PrimaryCta'
 import SpreadSectionExternal from './SpreadSection'
 import { ResultTiltCard } from './ResultTiltCard'
+import TopBar, { TOP_BAR_HEIGHT_DESKTOP, TOP_BAR_HEIGHT_MOBILE } from './TopBar'
 import { useDesktopLayout } from '../hooks/useDesktopLayout'
 
 const starPath = "M100.722 2.758C101.021 -0.919 106.405 -0.919 106.703 2.758L112.411 73.151C112.626 75.808 115.942 76.885 117.678 74.862L163.672 21.268C166.074 18.469 170.43 21.633 168.51 24.783L131.752 85.088C130.364 87.364 132.413 90.184 135.007 89.568L203.719 73.244C207.308 72.391 208.972 77.512 205.567 78.932L140.383 106.113C137.922 107.139 137.922 110.625 140.383 111.651L205.567 138.833C208.972 140.252 207.308 145.373 203.719 144.52L135.007 128.196C132.413 127.58 130.364 130.4 131.752 132.676L168.51 192.981C170.43 196.131 166.074 199.296 163.672 196.496L117.678 142.902C115.942 140.879 112.626 141.956 112.411 144.613L106.703 215.007C106.405 218.683 101.021 218.683 100.722 215.007L95.014 144.613C94.799 141.956 91.484 140.879 89.748 142.902L43.753 196.496C41.351 199.296 36.995 196.131 38.915 192.981L75.673 132.676C77.061 130.4 75.012 127.58 72.418 128.196L3.706 144.52C0.117 145.373 -1.546 140.252 1.858 138.833L67.043 111.651C69.503 110.625 69.503 107.139 67.043 106.113L1.858 78.932C-1.546 77.512 0.117 72.391 3.706 73.244L72.418 89.568C75.012 90.184 77.061 87.364 75.673 85.088L38.915 24.783C36.995 21.633 41.351 18.469 43.753 21.268L89.748 74.862C91.484 76.885 94.799 75.808 95.014 73.151L100.722 2.758Z"
@@ -18,7 +19,7 @@ const dark    = '#2A009C'
 const yellow  = '#D2D260'
 const offPink = '#F2CACE'
 const largeCardShadow = '0 18px 32px 8px rgba(29, 13, 50, 0.8)'
-const mobileTopControlOffset = 39
+const mobileTopControlOffset = TOP_BAR_HEIGHT_MOBILE + 39
 const mobileSideControlOffset = 16
 
 const starSpinStyle = { animation: 'spinStar 10s linear infinite', transformOrigin: '50% 50%' }
@@ -256,7 +257,7 @@ const ShareButton = ({ title, text, desktop, shareImageUrl, floating = false }) 
       zIndex: 24,
     }
     : desktop
-      ? { position: 'absolute', right: 96, top: 66, zIndex: 2 }
+      ? { position: 'absolute', right: 96, top: TOP_BAR_HEIGHT_DESKTOP + 66, zIndex: 2 }
       : { position: 'absolute', right: mobileSideControlOffset, top: mobileTopControlOffset, zIndex: 2 }
 
   return (
@@ -400,6 +401,7 @@ const ResultPage = ({
         }}
       >
         <div style={{ boxSizing: 'border-box', minHeight: '1031px', overflow: 'hidden', position: 'relative', width: '100%' }}>
+          <TopBar />
           <ClientOnlyDithering
             speed={0.27}
             shape="warp"
@@ -412,10 +414,7 @@ const ResultPage = ({
           />
           <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop shareImageUrl={shareImage} />
           <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop floating shareImageUrl={shareImage} />
-          <div style={{ position: 'absolute', left: 84, top: 58, zIndex: 2 }}>
-            <StarIcon className="result-hero-star" size={48} style={starSpinStyle} />
-          </div>
-          <div style={{ boxSizing: 'border-box', paddingTop: '108px', position: 'relative', textAlign: 'center', zIndex: 1, width: '100%', maxWidth: '572px', margin: '0 auto' }}>
+          <div style={{ boxSizing: 'border-box', paddingTop: `${TOP_BAR_HEIGHT_DESKTOP + 108}px`, position: 'relative', textAlign: 'center', zIndex: 1, width: '100%', maxWidth: '572px', margin: '0 auto' }}>
             <div style={{ color: offPink, fontFamily: noirBold, fontSize: '48px', lineHeight: '52px' }}>
               {drewEyebrow}
             </div>
@@ -573,6 +572,7 @@ const ResultPage = ({
       }}
     >
       <div style={{ margin: '0 auto', maxWidth: '820px', position: 'relative', width: '100%' }}>
+        <TopBar />
 
         <ClientOnlyDithering
           speed={0.27}
@@ -589,10 +589,6 @@ const ResultPage = ({
         <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop={false} floating shareImageUrl={shareImage} />
 
         <div style={{ position: 'relative', zIndex: 1 }}>
-
-          <div style={{ alignItems: 'center', display: 'flex', padding: `${mobileTopControlOffset}px 20px 0 ${mobileSideControlOffset}px` }}>
-            <StarIcon className="result-hero-star" size={24} style={starSpinStyle} />
-          </div>
 
           <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '40px', marginTop: '-16px', textAlign: 'center', whiteSpace: 'pre-wrap' }}>
             {(drew || '').replace(/\.\s*$/, '').trim()}

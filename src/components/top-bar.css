@@ -1,0 +1,101 @@
+@keyframes topBarStarSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.top-bar {
+  background: transparent;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.5);
+  height: 46px;
+  left: 0;
+  position: relative;
+  top: 0;
+  width: 100%;
+  z-index: 12;
+}
+
+.top-bar__inner {
+  align-items: center;
+  background: transparent;
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 0 11px;
+  width: 100%;
+}
+
+.top-bar__brand {
+  align-items: center;
+  color: #d1d160;
+  display: inline-flex;
+  gap: 8px;
+}
+
+.top-bar__star {
+  animation: topBarStarSpin 10s linear infinite;
+  height: auto;
+  width: 15px;
+}
+
+.top-bar__logo-text {
+  color: #d1d160;
+  font-family: "BigIssueXWideTRIAL-Regular", "Big Issue XWide TRIAL", "NOIRetBLANCMediumBold", "NOIR et BLANC Medium Bold", system-ui, sans-serif;
+  font-size: 20px;
+  font-stretch: expanded;
+  line-height: 22px;
+  white-space: nowrap;
+}
+
+.top-bar__election-wrap {
+  align-items: center;
+  color: #fff;
+  display: inline-flex;
+  gap: 0;
+  padding-left: 0;
+}
+
+.top-bar__divider {
+  background-color: rgba(255, 255, 255, 0.5);
+  display: inline-block;
+  height: 45px;
+  margin-right: 11px;
+  transform: rotate(180deg);
+  width: 0.5px;
+}
+
+.top-bar__election-text {
+  color: #fff;
+  font-family: "ApercuMonoPro-Regular", "Apercu Mono Pro", system-ui, sans-serif;
+  font-size: 12px;
+  line-height: 22px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+@media (min-width: 900px) {
+  .top-bar { height: 49px; }
+
+  .top-bar__inner {
+    padding: 0 32px;
+  }
+
+  .top-bar__star {
+    width: 20px;
+  }
+
+  .top-bar__divider { height: 48px; margin-right: 32px; }
+
+  .top-bar__election-wrap {
+    gap: 0;
+  }
+
+  .top-bar__election-text {
+    font-size: 14px;
+  }
+}

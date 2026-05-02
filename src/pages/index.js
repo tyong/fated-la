@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import ClientOnlyDithering from '../components/ClientOnlyDithering'
 import { PrimaryCta } from '../components/PrimaryCta'
+import TopBar from '../components/TopBar'
 import { createResultHead, defaultLinkPreviewImage } from '../utils/shareMeta'
 export const Head = () => (
   <>
@@ -151,6 +152,7 @@ const IntroPage = () => {
       }}
     >
       <section className="hero-shell" aria-label="Introduction">
+        <TopBar />
         <ClientOnlyDithering
           speed={0.27}
           shape="warp"
@@ -162,27 +164,6 @@ const IntroPage = () => {
           style={{ backgroundColor: '#291543', position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 'var(--hero-dither-top, 0px)', width: '100vw', height: '760px', zIndex: 0 }}
         />
         <div className="page-shell" style={{ position: 'relative', zIndex: 1 }}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-              flexWrap: 'wrap',
-              gap: 'clamp(16px, 5vw, 96px)',
-              marginTop: 0,
-              marginBottom: '24px',
-            }}
-          >
-            <StarIcon
-              size={48}
-              className="home-hero-star"
-              style={{ animation: 'spinStar 10s linear infinite', transformOrigin: '50% 50%' }}
-            />
-            <div className="intro-brand-label" style={{ color: offPink, fontFamily: noirBold, lineHeight: '20px', marginLeft: 'auto' }}>
-              Fated · Los Angeles
-            </div>
-          </div>
-
           <div className="desktop-grid-2 hero-grid" style={{ alignItems: 'start', gap: '24px' }}>
             <div className="content-column hero-content-column" style={{ maxWidth: '580px' }}>
               <h1 style={{ color: offPink, fontFamily: noirBold, fontWeight: 400, fontSize: 'calc(clamp(42px, 6vw, 76px) * 0.91)', lineHeight: 1.2, margin: '0 0 24px', letterSpacing: '-0.01em' }}>

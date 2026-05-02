@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { navigate } from 'gatsby'
 import { STORAGE_KEY, SPREAD_KEY } from '../data/scores'
 import { getQuizResultPath } from '../utils/getQuizResultPath'
+import TopBar from './TopBar'
 import './question-page.css'
 
 const mono    = '"Apercu-Mono", "Apercu Mono", "Courier New", monospace'
@@ -155,6 +156,7 @@ const QuestionPage = ({
         maxWidth: '1440px',
       }}
     >
+      <TopBar />
       <div className="question-page__inner">
 
         <div className="question-page__progress" aria-hidden="true">
