@@ -636,6 +636,11 @@ const ResultPage = ({
   const desktop = useDesktopLayout()
   const fullReading = inPlainTerms ? `${tarotReading}\n\n${inPlainTerms}` : tarotReading
 
+  useEffect(() => {
+    document.documentElement.classList.add('page-results')
+    return () => document.documentElement.classList.remove('page-results')
+  }, [])
+
   if (desktop === null) {
     return (
       <div

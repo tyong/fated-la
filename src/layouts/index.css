@@ -244,24 +244,48 @@ button.result-scroll-hint:focus-visible {
   outline-offset: 3px;
 }
 
+/**
+ * Full-width layer (not shrink-to-fit): the old centered shrink-to-fit box capped width and could
+ * wrap “Start over” + Share on narrow viewports. Flex-centers chevron + CTAs within full width.
+ */
 .result-bottom-bar-layer {
-  left: 50%;
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  max-width: 100%;
   opacity: 0;
+  padding-left: max(12px, env(safe-area-inset-left, 0px));
+  padding-right: max(12px, env(safe-area-inset-right, 0px));
   pointer-events: none;
   position: absolute;
   top: 50%;
-  transform: translate3d(-50%, calc(-50% + 14px), 0);
+  transform: translate3d(0, calc(-50% + 14px), 0);
   transition:
     opacity 250ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
   z-index: 1;
 }
 
 .result-bottom-bar-layer--visible {
   opacity: 1;
   pointer-events: auto;
-  transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(0, -50%, 0);
   z-index: 2;
+}
+
+#result-share-button-row {
+  box-sizing: border-box;
+  flex-wrap: nowrap;
+  max-width: 100%;
+}
+
+#result-share-button-row .primary-cta,
+#result-share-button-row .result-share-trigger {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 /* Chevron motion is driven by JS (requestAnimationFrame) so hover can transition translateY smoothly */
@@ -299,12 +323,12 @@ button.result-scroll-hint:focus-visible {
   }
 
   .result-bottom-bar-layer {
-    transform: translate3d(-50%, -50%, 0) !important;
+    transform: translate3d(0, -50%, 0) !important;
     transition: opacity 250ms ease !important;
   }
 
   .result-bottom-bar-layer--visible {
-    transform: translate3d(-50%, -50%, 0) !important;
+    transform: translate3d(0, -50%, 0) !important;
   }
 
   .result-scroll-hint svg,
@@ -332,6 +356,15 @@ button.result-scroll-hint:focus-visible {
   --body-lg: clamp(17px, 1.5vw, 22px);
   --body-md: clamp(15px, 1.2vw, 18px);
   --hero-dither-top: 0px;
+}
+
+.site-footer {
+  padding-bottom: 80px;
+}
+
+/** Tarot result routes (`ResultPage`) — extra space below legal line */
+html.page-results .site-footer {
+  padding-bottom: calc(80px + 64px);
 }
 
 .page-shell {
