@@ -39,6 +39,17 @@
   gap: 8px;
 }
 
+.top-bar__brand-link {
+  text-decoration: none;
+}
+
+.top-bar__brand-link:visited,
+.top-bar__brand-link:hover,
+.top-bar__brand-link:active {
+  color: #d1d160;
+  text-decoration: none;
+}
+
 .top-bar__star {
   animation: topBarStarSpin 10s linear infinite;
   height: auto;
@@ -51,6 +62,8 @@
   font-size: 20px;
   font-stretch: expanded;
   line-height: 22px;
+  position: relative;
+  top: 1px;
   white-space: nowrap;
 }
 
@@ -77,7 +90,17 @@
   font-size: 12px;
   line-height: 22px;
   text-align: right;
+  text-transform: uppercase;
   white-space: nowrap;
+}
+
+/* Full title from 900px up; short “L.A.” label below that (mobile / narrow). */
+.top-bar__election-text--full {
+  display: none;
+}
+
+.top-bar__election-text--short {
+  display: inline;
 }
 
 /* Mobile + tablet — mirror outer gutter: inset before the divider and gap after it match `--site-gutter-x` */
@@ -106,5 +129,13 @@
 
   .top-bar__election-text {
     font-size: 14px;
+  }
+
+  .top-bar__election-text--full {
+    display: inline;
+  }
+
+  .top-bar__election-text--short {
+    display: none;
   }
 }

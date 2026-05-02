@@ -171,7 +171,7 @@ const IntroPage = () => {
               </h1>
               <div style={{ color: '#FFFFFF', fontFamily: fig, fontWeight: heroBodyWeight, fontSize: `calc(clamp(16px, 1.45vw, 24px) * ${heroBodyScale})`, lineHeight: 1.4, margin: '0 0 30px', maxWidth: '430px' }}>
                 <p style={{ margin: '0 0 16px' }}>10 questions. 5 top mayoral candidates.</p>
-                <p style={{ margin: '0 0 16px' }}>L.A.&apos;s primary election on June 2.</p>
+                <p style={{ margin: '0 0 16px' }}>L.A.&apos;s primary election is on June 2.</p>
                 <p style={{ margin: 0 }}>Surrender your expectations.</p>
               </div>
               <PrimaryCta to="/question-01">Begin your reading ➝</PrimaryCta>

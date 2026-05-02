@@ -152,7 +152,7 @@ const Section = ({ title, children }) => (
   <div
     style={{
       backgroundColor: '#291543',
-      padding: '24px var(--site-gutter-x) 48px',
+      padding: '24px var(--site-gutter-x) 32px',
       position: 'relative',
       zIndex: 1,
     }}
@@ -881,7 +881,7 @@ const ResultPage = ({
           </div>
         </div>
 
-        <div style={{ backgroundColor: '#291543', padding: '64px 0 56px', position: 'relative', textAlign: 'center', zIndex: 1 }}>
+        <div style={{ backgroundColor: '#291543', padding: '64px 0 64px', position: 'relative', textAlign: 'center', zIndex: 1 }}>
           <div style={{ color: pink, fontFamily: noirBold, fontSize: '48px', lineHeight: '90px' }}>
             Your Tarot Reading
           </div>
@@ -927,7 +927,7 @@ const ResultPage = ({
                   {shadowHeadingPrimary}
                 </div>
                 {shadowHeadingSecondary && (
-                  <div style={{ color: '#fff', fontFamily: noirBold, fontSize: '48px', lineHeight: '56px', marginTop: '8px' }}>
+                  <div style={{ color: '#fff', fontFamily: noirBold, fontSize: '48px', lineHeight: '56px', marginTop: '16px' }}>
                     {shadowHeadingSecondary}
                   </div>
                 )}
@@ -977,7 +977,7 @@ const ResultPage = ({
           </>
         )}
 
-        <div style={{ backgroundColor: '#5E67AC', borderTop: `1px solid ${purple}`, padding: '88px 0 72px' }}>
+        <div style={{ backgroundColor: '#5E67AC', borderTop: `1px solid ${purple}`, padding: '56px 0 64px' }}>
           <div style={{ color: '#BDC4EB', fontFamily: noirBold, fontSize: '32px', lineHeight: '44px', margin: '0 auto', textAlign: 'center', width: '500px' }}>
             How should you act?
           </div>
@@ -1050,11 +1050,14 @@ const ResultPage = ({
               <BodyText desktop={false}>{fullReading}</BodyText>
             </Section>
           </div>
+        </div>
+      </div>
 
-          <div style={{ marginTop: '32px' }}>
-            <SpreadSectionExternal desktop={false} />
-          </div>
+      <div style={{ marginTop: '32px', width: '100%' }}>
+        <SpreadSectionExternal desktop={false} />
+      </div>
 
+      <div style={{ margin: '0 auto', maxWidth: '820px', position: 'relative', width: '100%' }}>
           {shadowTitle && (
             <>
               <div style={{ overflow: 'hidden', padding: '80px var(--site-gutter-x) 32px', position: 'relative' }}>
@@ -1105,7 +1108,7 @@ const ResultPage = ({
               backgroundColor: '#5E67AC',
               borderTop: `1px solid ${purple}`,
               boxSizing: 'border-box',
-              padding: '88px var(--site-gutter-x) 72px',
+              padding: '48px var(--site-gutter-x) 56px',
               width: '100%',
             }}
           >
@@ -1143,7 +1146,7 @@ const ResultPage = ({
                 fontFamily: fig,
                 fontSize: '16px',
                 lineHeight: '24px',
-                margin: '40px auto 0',
+                margin: '24px auto 0',
                 maxWidth: '500px',
                 whiteSpace: 'pre-wrap',
                 width: '100%',
@@ -1153,9 +1156,8 @@ const ResultPage = ({
             </div>
           </div>
 
-        </div>
-
       </div>
+
     </main>
   )
 }
