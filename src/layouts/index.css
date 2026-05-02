@@ -195,7 +195,7 @@ button.result-share-trigger:focus-visible {
   --bp-xl: 1440px;
 
   --page-max: 1440px;
-  --page-gutter: clamp(24px, 8vw, 111px);
+  --page-gutter: 24px;
   /** Quiz (`QuestionPage`) + `SiteFooter` — one horizontal inset at all breakpoints */
   --site-gutter-x: clamp(24px, 8vw, 111px);
   --section-space: 48px;
@@ -391,6 +391,12 @@ button.result-share-trigger:focus-visible {
     grid-column: 1 / -1;
     justify-self: center;
     width: min(100%, 360px);
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --site-gutter-x: 24px;
   }
 }
 
