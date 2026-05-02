@@ -5,7 +5,7 @@ import { createResultHead, defaultLinkPreviewImage } from '../utils/shareMeta'
 export const Head = () => (
   <>
     {createResultHead({
-      pageTitle: 'Fated LA: Which candidate for Mayor of L.A. do you vibe with?',
+      pageTitle: 'Fated LA: Which mayoral candidate aligns with your soul?',
       description: 'Which candidate for LA Mayor vibes best with you? 10 questions. Find out.',
       imageUrl: defaultLinkPreviewImage,
       path: '/',
@@ -141,8 +141,8 @@ const IntroPage = () => {
       id="main-content"
       style={{
         backgroundColor: '#291543',
-        /* Matches hero dither (#264A89) for first paint / SSR before WebGL hydrates */
-        backgroundImage: 'radial-gradient(ellipse 130% 90% at 50% 0%, rgba(38, 74, 137, 0.42) 0%, rgba(41, 21, 67, 0) 58%)',
+        /* Matches hero dither (Paper Intro — Desktop, #274988 on #291543) for first paint / SSR */
+        backgroundImage: 'radial-gradient(ellipse 130% 90% at 50% 0%, rgba(39, 73, 136, 0.42) 0%, rgba(41, 21, 67, 0) 58%)',
         color: '#FFFFFF',
         overflowX: 'hidden',
         WebkitFontSmoothing: 'antialiased',
@@ -152,15 +152,13 @@ const IntroPage = () => {
     >
       <section className="hero-shell" aria-label="Introduction">
         <ClientOnlyDithering
-          speed={1}
-          shape="swirl"
-          revealVariant="swirl"
-          revealDuration={560}
-          type="8x8"
-          size={0.3}
+          speed={0.27}
+          shape="warp"
+          type="4x4"
+          size={0.2}
           scale={1}
           colorBack="#00000000"
-          colorFront="#264A89"
+          colorFront="#274988"
           style={{ backgroundColor: '#291543', position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 'var(--hero-dither-top, 0px)', width: '100vw', height: '760px', zIndex: 0 }}
         />
         <div className="page-shell" style={{ position: 'relative', zIndex: 1 }}>
@@ -188,7 +186,7 @@ const IntroPage = () => {
           <div className="desktop-grid-2 hero-grid" style={{ alignItems: 'start', gap: '24px' }}>
             <div className="content-column hero-content-column" style={{ maxWidth: '580px' }}>
               <h1 style={{ color: offPink, fontFamily: noirBold, fontWeight: 400, fontSize: 'calc(clamp(42px, 6vw, 76px) * 0.91)', lineHeight: 1.2, margin: '0 0 24px', letterSpacing: '-0.01em' }}>
-                Which candidate for Mayor of L.A. do you vibe with?
+                Which mayoral candidate aligns with your soul?
               </h1>
               <div style={{ color: '#FFFFFF', fontFamily: fig, fontWeight: heroBodyWeight, fontSize: `calc(clamp(16px, 1.45vw, 24px) * ${heroBodyScale})`, lineHeight: 1.4, margin: '0 0 30px', maxWidth: '430px' }}>
                 <p style={{ margin: '0 0 16px' }}>10 questions. 5 top mayoral candidates.</p>
@@ -281,7 +279,7 @@ const IntroPage = () => {
             <div className="reading-grid">
               <ReadingItem
                 title="Your Draw"
-                body="The mayoral candidate and archetype that best represents your political soul overall, based on your stated views."
+                body="Based on your 10 answers, see the archetype and mayoral candidate that best aligns with your soul."
               >
                 <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '81.9px', height: '152.75px', position: 'relative' }}>
                   <div style={{ backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAZTMV23XJGYQFMHR3SP8EK.png)', backgroundPosition: 'center', backgroundSize: 'cover', width: '61.1px', height: '129.35px', position: 'absolute', left: '10.4px', top: '12.13px', outline: `1px solid ${purple}` }} />
@@ -289,7 +287,7 @@ const IntroPage = () => {
               </ReadingItem>
               <ReadingItem
                 title="Your Spread"
-                body="Where you align with each of the candidates on 10 specific policy issues. You might align with different ones on each."
+                body="See how each candidate mirrors your heart along 10 unique policy issues. Be open to synchronicities."
               >
                 <div style={{ width: '81.9px', height: '152.75px', position: 'relative' }}>
                   <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '74.1px', height: '131.95px', position: 'absolute', left: 0, top: 0 }} />

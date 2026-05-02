@@ -35,14 +35,14 @@ function normalizedPath(pathname) {
 
 /**
  * Matches hero dither chrome on home (`src/pages/index.js`) and results (`ResultPage` on `/result`)
- * so first paint matches `#264A89` swirl-on-purple before JS/CSS bundles.
+ * so first paint matches `#274988` warp dither on `#291543` before JS/CSS bundles (Paper Intro — Desktop).
  */
 function criticalShellBackgroundCss(pathname) {
   const base = 'html{background-color:#291543}body{margin:0;background-color:#291543}'
   const p = normalizedPath(pathname)
   const heroDitherPages = p === '/' || p === '/result'
   if (!heroDitherPages) return base
-  return `${base}body{background-image:radial-gradient(ellipse 130% 90% at 50% 0%,rgba(38,74,137,.42) 0%,rgba(41,21,67,0) 58%)}`
+  return `${base}body{background-image:radial-gradient(ellipse 130% 90% at 50% 0%,rgba(39,73,136,.42) 0%,rgba(41,21,67,0) 58%)}`
 }
 
 /**

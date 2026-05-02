@@ -385,9 +385,9 @@ const ResultPage = ({
         id="main-content"
         style={{
           backgroundColor: '#291543',
-          /* Matches hero dither (#264A89) for first paint before WebGL (`src/pages/index.js`) */
+          /* Matches hero dither (`src/pages/index.js` / Paper Intro — Desktop) */
           backgroundImage:
-            'radial-gradient(ellipse 130% 90% at 50% 0%, rgba(38, 74, 137, 0.42) 0%, rgba(41, 21, 67, 0) 58%)',
+            'radial-gradient(ellipse 130% 90% at 50% 0%, rgba(39, 73, 136, 0.42) 0%, rgba(41, 21, 67, 0) 58%)',
           boxSizing: 'border-box',
           fontSynthesis: 'none',
           margin: '0 auto',
@@ -401,15 +401,13 @@ const ResultPage = ({
       >
         <div style={{ boxSizing: 'border-box', minHeight: '1031px', overflow: 'hidden', position: 'relative', width: '100%' }}>
           <ClientOnlyDithering
-            speed={1}
-            shape="swirl"
-            revealVariant="swirl"
-            revealDuration={560}
-            type="8x8"
-            size={0.3}
+            speed={0.27}
+            shape="warp"
+            type="4x4"
+            size={0.2}
             scale={1}
             colorBack="#00000000"
-            colorFront="#264A89"
+            colorFront="#274988"
             style={{ backgroundColor: '#291543', height: '1031px', left: 0, position: 'absolute', top: 0, width: '100%', zIndex: 0 }}
           />
           <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop shareImageUrl={shareImage} />
@@ -562,7 +560,7 @@ const ResultPage = ({
       style={{
         backgroundColor: '#291543',
         backgroundImage:
-          'radial-gradient(ellipse 130% 90% at 50% 0%, rgba(38, 74, 137, 0.42) 0%, rgba(41, 21, 67, 0) 58%)',
+          'radial-gradient(ellipse 130% 90% at 50% 0%, rgba(39, 73, 136, 0.42) 0%, rgba(41, 21, 67, 0) 58%)',
         fontSynthesis: 'none',
         margin: '0 auto',
         maxWidth: '1440px',
@@ -577,15 +575,13 @@ const ResultPage = ({
       <div style={{ margin: '0 auto', maxWidth: '820px', position: 'relative', width: '100%' }}>
 
         <ClientOnlyDithering
-          speed={1}
-          shape="swirl"
-          revealVariant="swirl"
-          revealDuration={560}
-          type="8x8"
-          size={0.3}
+          speed={0.27}
+          shape="warp"
+          type="4x4"
+          size={0.2}
           scale={1}
           colorBack="#00000000"
-          colorFront="#264A89"
+          colorFront="#274988"
           style={{ backgroundColor: '#291543', height: '823px', left: 0, position: 'absolute', top: 0, width: '100%', zIndex: 0 }}
         />
 
