@@ -14,8 +14,18 @@ const yellow  = '#D2D260'
 
 const starPath = "M100.722 2.758C101.021 -0.919 106.405 -0.919 106.703 2.758L112.411 73.151C112.626 75.808 115.942 76.885 117.678 74.862L163.672 21.268C166.074 18.469 170.43 21.633 168.51 24.783L131.752 85.088C130.364 87.364 132.413 90.184 135.007 89.568L203.719 73.244C207.308 72.391 208.972 77.512 205.567 78.932L140.383 106.113C137.922 107.139 137.922 110.625 140.383 111.651L205.567 138.833C208.972 140.252 207.308 145.373 203.719 144.52L135.007 128.196C132.413 127.58 130.364 130.4 131.752 132.676L168.51 192.981C170.43 196.131 166.074 199.296 163.672 196.496L117.678 142.902C115.942 140.879 112.626 141.956 112.411 144.613L106.703 215.007C106.405 218.683 101.021 218.683 100.722 215.007L95.014 144.613C94.799 141.956 91.484 140.879 89.748 142.902L43.753 196.496C41.351 199.296 36.995 196.131 38.915 192.981L75.673 132.676C77.061 130.4 75.012 127.58 72.418 128.196L3.706 144.52C0.117 145.373 -1.546 140.252 1.858 138.833L67.043 111.651C69.503 110.625 69.503 107.139 67.043 106.113L1.858 78.932C-1.546 77.512 0.117 72.391 3.706 73.244L72.418 89.568C75.012 90.184 77.061 87.364 75.673 85.088L38.915 24.783C36.995 21.633 41.351 18.469 43.753 21.268L89.748 74.862C91.484 76.885 94.799 75.808 95.014 73.151L100.722 2.758Z"
 
-const StarIcon = ({ size = 24, style = {} }) => (
-  <svg width="208" height="218" viewBox="0 0 208 218" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ width: size, height: size, ...style }}>
+const StarIcon = ({ size = 24, style = {}, className, ...rest }) => (
+  <svg
+    width="208"
+    height="218"
+    viewBox="0 0 208 218"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="none"
+    className={className}
+    style={{ width: size, height: size, ...style }}
+    {...rest}
+  >
     <path d={starPath} fill={yellow} />
   </svg>
 )
@@ -25,7 +35,8 @@ const ChoiceCard = ({ title, body, onChoose }) => {
   const [pressed, setPressed] = useState(false)
   const bg = pressed ? '#D8C1D2' : hovered ? '#EBD2E3' : pink
   return (
-    <div
+    <button
+      type="button"
       className="question-page__choice-card"
       onClick={onChoose}
       style={{ backgroundColor: bg }}
@@ -36,13 +47,13 @@ const ChoiceCard = ({ title, body, onChoose }) => {
       onTouchStart={() => setPressed(true)}
       onTouchEnd={() => setPressed(false)}
     >
-      <div className="question-page__choice-title" style={{ color: purple, fontFamily: figBold, fontWeight: 700 }}>
+      <span className="question-page__choice-title" style={{ color: purple, display: 'block', fontFamily: figBold, fontWeight: 700 }}>
         {title}
-      </div>
-      <div className="question-page__choice-body" style={{ color: purple, fontFamily: fig }}>
+      </span>
+      <span className="question-page__choice-body" style={{ color: purple, display: 'block', fontFamily: fig }}>
         {body}
-      </div>
-    </div>
+      </span>
+    </button>
   )
 }
 
@@ -130,13 +141,13 @@ const QuestionPage = ({
   }, [currentProgress, number])
 
   return (
-    <div
+    <main
+      id="main-content"
       className="question-page"
       style={{
         backgroundColor: '#291543',
         fontSynthesis: 'none',
         margin: '0 auto',
-        minHeight: '100vh',
         MozOsxFontSmoothing: 'grayscale',
         position: 'relative',
         WebkitFontSmoothing: 'antialiased',
@@ -146,13 +157,15 @@ const QuestionPage = ({
     >
       <div className="question-page__inner">
 
-        <div className="question-page__progress">
+        <div className="question-page__progress" aria-hidden="true">
           <div style={{ backgroundColor: purple, height: '5px', width: '100%' }} />
           <div className="question-page__progress-fill" style={{ backgroundColor: yellow, height: '5px', left: 0, position: 'absolute', top: 0, width: `${progressWidth}%` }} />
         </div>
 
         <div className="question-page__header">
           <StarIcon
+            aria-hidden="true"
+            className="question-hero-star"
             size={24}
             style={{ animation: 'spinStar 10s linear infinite', transformOrigin: '50% 50%' }}
           />
@@ -163,7 +176,7 @@ const QuestionPage = ({
 
         <div className="question-page__grid">
           <div className="question-page__main">
-            <h1 className="question-page__title">
+            <h1 id="question-page-title" className="question-page__title">
               {title}
             </h1>
 
@@ -180,7 +193,7 @@ const QuestionPage = ({
             </p>
           </div>
 
-          <div className="question-page__choices">
+          <div className="question-page__choices" role="group" aria-labelledby="question-page-title">
             {choices.map((c, i) => (
               <ChoiceCard
                 key={i}
@@ -207,7 +220,7 @@ const QuestionPage = ({
         </div>
 
       </div>
-    </div>
+    </main>
   )
 }
 

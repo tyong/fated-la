@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Link } from 'gatsby'
 import ClientOnlyDithering from './ClientOnlyDithering'
+import { PrimaryCta } from './PrimaryCta'
 import SpreadSectionExternal from './SpreadSection'
 import { ResultTiltCard } from './ResultTiltCard'
 import { useDesktopLayout } from '../hooks/useDesktopLayout'
@@ -23,8 +23,17 @@ const mobileSideControlOffset = 16
 
 const starSpinStyle = { animation: 'spinStar 10s linear infinite', transformOrigin: '50% 50%' }
 
-const StarIcon = ({ size = 24, style = {} }) => (
-  <svg width="208" height="218" viewBox="0 0 208 218" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ width: size, height: size, ...style }}>
+const StarIcon = ({ size = 24, style = {}, className }) => (
+  <svg
+    className={className}
+    width="208"
+    height="218"
+    viewBox="0 0 208 218"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="none"
+    style={{ width: size, height: size, ...style }}
+  >
     <path d={starPath} fill={yellow} />
   </svg>
 )
@@ -48,7 +57,7 @@ const LargeCard = ({ name, arcana, img, imgWidth = 225, imgHeight = 362, imgLeft
   if (!isFluid) {
     return (
       <div style={{ margin: '48px auto 0', position: 'relative', width: '294px', height: '517px' }}>
-        <div style={{ position: 'absolute', inset: 0, ...zoomInStyle }}>
+        <div className="result-card-reveal" style={{ position: 'absolute', inset: 0, ...zoomInStyle }}>
           <ResultTiltCard style={{ position: 'relative', width: '100%', height: '100%' }}>
             <div style={{ backgroundColor: pink, borderRadius: '6px', boxShadow: largeCardShadow, height: '100%', outline: `1px solid ${purple}`, position: 'relative', width: '100%' }}>
               <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: '50%', letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 27, transform: 'translateX(-50%)', width: 276, zIndex: 1 }}>
@@ -95,6 +104,7 @@ const LargeCard = ({ name, arcana, img, imgWidth = 225, imgHeight = 362, imgLeft
       }}
     >
       <div
+        className="result-card-reveal"
         style={{
           ...zoomInStyle,
           width: '100%',
@@ -252,6 +262,7 @@ const ShareButton = ({ title, text, desktop, shareImageUrl, floating = false }) 
   return (
     <button
       type="button"
+      className={floating ? 'result-share-trigger result-share-floating' : 'result-share-trigger'}
       onClick={() => {
         handleShare().catch(() => {})
       }}
@@ -339,6 +350,7 @@ const ResultPage = ({
           minHeight: '100vh',
           width: '100%',
         }}
+        aria-hidden="true"
       />
     )
   }
@@ -369,18 +381,20 @@ const ResultPage = ({
 
   if (desktop) {
     return (
-      <div style={{
-        backgroundColor: '#291543',
-        boxSizing: 'border-box',
-        fontSynthesis: 'none',
-        margin: '0 auto',
-        maxWidth: '1440px',
-        MozOsxFontSmoothing: 'grayscale',
-        overflow: 'hidden',
-        position: 'relative',
-        WebkitFontSmoothing: 'antialiased',
-        width: '100%',
-      }}
+      <main
+        id="main-content"
+        style={{
+          backgroundColor: '#291543',
+          boxSizing: 'border-box',
+          fontSynthesis: 'none',
+          margin: '0 auto',
+          maxWidth: '1440px',
+          MozOsxFontSmoothing: 'grayscale',
+          overflow: 'hidden',
+          position: 'relative',
+          WebkitFontSmoothing: 'antialiased',
+          width: '100%',
+        }}
       >
         <div style={{ boxSizing: 'border-box', minHeight: '1031px', overflow: 'hidden', position: 'relative', width: '100%' }}>
           <ClientOnlyDithering
@@ -398,7 +412,7 @@ const ResultPage = ({
           <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop shareImageUrl={shareImage} />
           <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop floating shareImageUrl={shareImage} />
           <div style={{ position: 'absolute', left: 84, top: 58, zIndex: 2 }}>
-            <StarIcon size={48} style={starSpinStyle} />
+            <StarIcon className="result-hero-star" size={48} style={starSpinStyle} />
           </div>
           <div style={{ boxSizing: 'border-box', paddingTop: '108px', position: 'relative', textAlign: 'center', zIndex: 1, width: '100%', maxWidth: '572px', margin: '0 auto' }}>
             <div style={{ color: offPink, fontFamily: noirBold, fontSize: '48px', lineHeight: '52px' }}>
@@ -531,42 +545,30 @@ const ResultPage = ({
           <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '20px', lineHeight: '28px', margin: '40px auto 0', maxWidth: '500px', whiteSpace: 'pre-wrap', width: '500px' }}>
             {charge}
           </div>
-          <Link
-            to="/"
-            style={{
-              backgroundColor: yellow,
-              borderRadius: '4px',
-              color: '#000403',
-              display: 'block',
-              fontFamily: fig,
-              fontSize: '16px',
-              lineHeight: '46px',
-              margin: '48px auto 0',
-              padding: '0 22px',
-              textDecoration: 'none',
-              width: 'fit-content',
-            }}
-          >
-            Start over ↺
-          </Link>
+          <div style={{ margin: '48px auto 0', textAlign: 'center', width: '100%' }}>
+            <PrimaryCta to="/">Start over ↺</PrimaryCta>
+          </div>
         </div>
-      </div>
+      </main>
     )
   }
 
   return (
-    <div style={{
-      backgroundColor: '#291543',
-      fontSynthesis: 'none',
-      margin: '0 auto',
-      maxWidth: '1440px',
-      MozOsxFontSmoothing: 'grayscale',
-      overflow: 'hidden',
-      padding: 0,
-      position: 'relative',
-      WebkitFontSmoothing: 'antialiased',
-      width: '100%',
-    }}>
+    <main
+      id="main-content"
+      style={{
+        backgroundColor: '#291543',
+        fontSynthesis: 'none',
+        margin: '0 auto',
+        maxWidth: '1440px',
+        MozOsxFontSmoothing: 'grayscale',
+        overflow: 'hidden',
+        padding: 0,
+        position: 'relative',
+        WebkitFontSmoothing: 'antialiased',
+        width: '100%',
+      }}
+    >
       <div style={{ margin: '0 auto', maxWidth: '820px', position: 'relative', width: '100%' }}>
 
         <ClientOnlyDithering
@@ -588,7 +590,7 @@ const ResultPage = ({
         <div style={{ position: 'relative', zIndex: 1 }}>
 
           <div style={{ alignItems: 'center', display: 'flex', padding: `${mobileTopControlOffset}px 20px 0 ${mobileSideControlOffset}px` }}>
-            <StarIcon size={24} style={starSpinStyle} />
+            <StarIcon className="result-hero-star" size={24} style={starSpinStyle} />
           </div>
 
           <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '40px', marginTop: '-16px', textAlign: 'center', whiteSpace: 'pre-wrap' }}>
@@ -715,30 +717,15 @@ const ResultPage = ({
             >
               {charge}
             </div>
-            <Link
-              to="/"
-              style={{
-                backgroundColor: yellow,
-                borderRadius: '4px',
-                color: '#000403',
-                display: 'block',
-                fontFamily: fig,
-                fontSize: '16px',
-                lineHeight: '46px',
-                margin: '48px auto 0',
-                padding: '0 22px',
-                textDecoration: 'none',
-                width: 'fit-content',
-              }}
-            >
-              Start over ↺
-            </Link>
+            <div style={{ margin: '48px auto 0', textAlign: 'center', width: '100%' }}>
+              <PrimaryCta to="/">Start over ↺</PrimaryCta>
+            </div>
           </div>
 
         </div>
 
       </div>
-    </div>
+    </main>
   )
 }
 

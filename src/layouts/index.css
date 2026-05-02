@@ -153,6 +153,45 @@ a {
   }
 }
 
+/* Primary yellow link CTAs (home, result “Start over”, etc.) */
+a.primary-cta:focus-visible {
+  outline: 2px solid #ffe4f7;
+  outline-offset: 3px;
+}
+
+/* Result: share control (icon or pill) */
+button.result-share-trigger:focus-visible {
+  outline: 2px solid #ffe4f7;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero-star,
+  .result-hero-star,
+  .question-hero-star {
+    animation: none !important;
+  }
+
+  .home-card-rail {
+    animation: none !important;
+  }
+
+  .question-page__progress-fill {
+    transition: none !important;
+  }
+
+  /* Tarot card zoom-in reveal */
+  .result-card-reveal {
+    transition: none !important;
+    transform: scale(1) !important;
+  }
+
+  button.result-share-floating {
+    transition: none !important;
+  }
+}
+
 :root {
   --bp-sm: 480px;
   --bp-md: 768px;
@@ -161,6 +200,8 @@ a {
 
   --page-max: 1440px;
   --page-gutter: 16px;
+  /** Quiz (`QuestionPage`) + `SiteFooter` — one horizontal inset at all breakpoints */
+  --site-gutter-x: clamp(24px, 8vw, 111px);
   --section-space: 48px;
   --content-max: 720px;
 
