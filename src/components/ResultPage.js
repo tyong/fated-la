@@ -154,7 +154,7 @@ const Section = ({ title, children }) => (
   <div
     style={{
       backgroundColor: '#291543',
-      padding: '24px 33px 48px',
+      padding: '24px var(--site-gutter-x) 48px',
       position: 'relative',
       zIndex: 1,
     }}
@@ -628,7 +628,7 @@ const ResultPage = ({
 
           {shadowTitle && (
             <>
-              <div style={{ overflow: 'hidden', padding: '80px 33px 32px', position: 'relative' }}>
+              <div style={{ overflow: 'hidden', padding: '80px var(--site-gutter-x) 32px', position: 'relative' }}>
                 <ClientOnlyDithering
                   speed={0.56}
                   shape="warp"
@@ -659,7 +659,7 @@ const ResultPage = ({
                   fontFamily: fig,
                   fontSize: '16px',
                   lineHeight: '24px',
-                  padding: '24px 33px 48px',
+                  padding: '24px var(--site-gutter-x) 48px',
                   position: 'relative',
                   whiteSpace: 'pre-wrap',
                   width: '100%',
@@ -676,7 +676,7 @@ const ResultPage = ({
               backgroundColor: '#5E67AC',
               borderTop: `1px solid ${purple}`,
               boxSizing: 'border-box',
-              padding: '88px 33px 72px',
+              padding: '88px var(--site-gutter-x) 72px',
               width: '100%',
             }}
           >

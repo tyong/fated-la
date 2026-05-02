@@ -16,12 +16,6 @@
   padding-right: var(--site-gutter-x);
 }
 
-@media (max-width: 767px) {
-  .question-page {
-    padding-left: calc(var(--site-gutter-x) / 2);
-    padding-right: calc(var(--site-gutter-x) / 2);
-  }
-}
 
 .question-page *,
 .question-page *::before,

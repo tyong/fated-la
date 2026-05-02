@@ -147,10 +147,6 @@ a {
     display: none;
   }
 
-  .page-shell.intro-how-it-works-shell {
-    padding-left: 33px;
-    padding-right: 33px;
-  }
 }
 
 /* Primary yellow link CTAs (home, result “Start over”, etc.) */
@@ -199,7 +195,7 @@ button.result-share-trigger:focus-visible {
   --bp-xl: 1440px;
 
   --page-max: 1440px;
-  --page-gutter: 16px;
+  --page-gutter: clamp(24px, 8vw, 111px);
   /** Quiz (`QuestionPage`) + `SiteFooter` — one horizontal inset at all breakpoints */
   --site-gutter-x: clamp(24px, 8vw, 111px);
   --section-space: 48px;
