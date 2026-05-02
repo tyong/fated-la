@@ -180,7 +180,7 @@ const IntroPage = () => {
         Which mayoral candidate aligns with your soul?
       </div>
 
-      <div ref={body.ref} style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', left: 32, lineHeight: '24px', position: 'absolute', top: 287, whiteSpace: 'pre-wrap', ...body.fadeStyle }}>
+      <div ref={body.ref} style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '14px', left: 32, lineHeight: '21px', position: 'absolute', top: 287, whiteSpace: 'pre-wrap', ...body.fadeStyle }}>
         {'10 questions. 5 top mayoral candidates.\nL.A.\'s primary election on June 2.\nSurrender your expectations.'}
       </div>
 
@@ -209,7 +209,7 @@ const IntroPage = () => {
         <div style={{ color: offPink, fontFamily: noirMedium, fontSize: '32px', lineHeight: '50px' }}>
           Channel your intuition
         </div>
-        <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', lineHeight: '24px', marginTop: '8px', whiteSpace: 'pre-wrap' }}>
+        <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '14px', lineHeight: '21px', marginTop: '8px', whiteSpace: 'pre-wrap' }}>
           {'Answer 10 questions about Los Angeles — its fires, its failures, its possible futures.\n\nIn the end, your Fated reading will name the candidate whose vision most closely aligns with your own.\n\nYour cards do not tell you what to believe. They mirror what you already feel.'}
         </div>
       </div>
@@ -221,7 +221,7 @@ const IntroPage = () => {
         <div style={{ color: offPink, fontFamily: noirBold, fontSize: '32px', lineHeight: '50px' }}>
           Reveal your desire
         </div>
-        <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', lineHeight: '22px', marginTop: '3px' }}>
+        <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '14px', lineHeight: '20px', marginTop: '3px' }}>
           Your Fated reading shows your truth.
         </div>
       </div>
@@ -232,7 +232,7 @@ const IntroPage = () => {
       <div style={{ color: offPink, fontFamily: figBold, fontSize: '16px', fontWeight: 700, left: 123, lineHeight: '22px', position: 'absolute', top: 1492, width: '145px', ...drawRow.fadeStyle }}>
         Your Draw
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', left: 123, lineHeight: '22px', position: 'absolute', top: 1522, width: '227px', ...drawRow.fadeStyle }}>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '14px', left: 123, lineHeight: '20px', position: 'absolute', top: 1522, width: '227px', ...drawRow.fadeStyle }}>
         Based on your 10 answers, see the archetype and mayoral candidate that best aligns with your soul.
       </div>
 
@@ -245,7 +245,7 @@ const IntroPage = () => {
       <div style={{ color: offPink, fontFamily: figBold, fontSize: '16px', fontWeight: 700, left: 123, lineHeight: '22px', position: 'absolute', top: 1655, width: '145px', ...spreadRow.fadeStyle }}>
         Your Spread
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', left: 123, lineHeight: '22px', position: 'absolute', top: 1685, width: '224px', ...spreadRow.fadeStyle }}>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '14px', left: 123, lineHeight: '20px', position: 'absolute', top: 1685, width: '224px', ...spreadRow.fadeStyle }}>
         See how each candidate mirrors your heart along 10 unique policy issues. Be open to synchronicities.
       </div>
 
@@ -255,7 +255,7 @@ const IntroPage = () => {
       <div style={{ color: offPink, fontFamily: figBold, fontSize: '16px', fontWeight: 700, left: 123, lineHeight: '22px', position: 'absolute', top: 1814, width: '145px', ...shadowRow.fadeStyle }}>
         Your Shadow
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', left: 123, lineHeight: '22px', position: 'absolute', top: 1844, width: '224px', ...shadowRow.fadeStyle }}>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '14px', left: 123, lineHeight: '20px', position: 'absolute', top: 1844, width: '224px', ...shadowRow.fadeStyle }}>
         The candidate that you may not have expected to align with, but who shares more in common than you think.
       </div>
 
@@ -267,7 +267,7 @@ const IntroPage = () => {
       <div ref={about.ref} style={{ color: offPink, fontFamily: noirBold, fontSize: '32px', left: 'calc(50% - 8px)', lineHeight: '50px', position: 'absolute', top: 2142, translate: '-50%', width: '299px', ...about.fadeStyle }}>
         About us
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', left: 39, lineHeight: '24px', position: 'absolute', top: 2208, whiteSpace: 'pre-wrap', width: '283px', ...about.fadeStyle }}>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '14px', left: 39, lineHeight: '21px', opacity: 0.8, position: 'absolute', top: 2208, whiteSpace: 'pre-wrap', width: '283px', ...about.fadeStyle }}>
         {'This experience was made by Tabitha Yong, Will Peng & Yvonne Leow.  We\'re non-clairvoyant Los Angeles citizens who wanted to create a fun, nonpartisan way to fulfill our civic duty this election.'}
       </div>
 
@@ -276,7 +276,7 @@ const IntroPage = () => {
       <div ref={methodology.ref} style={{ color: offPink, fontFamily: noirBold, fontSize: '32px', left: 'calc(50% - 8px)', lineHeight: '50px', position: 'absolute', top: 2426, translate: '-50%', width: '299px', ...methodology.fadeStyle }}>
         Methodology
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', left: 39, lineHeight: '24px', position: 'absolute', top: 2495, whiteSpace: 'pre-wrap', width: '328px', ...methodology.fadeStyle }}>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '14px', left: 39, lineHeight: '21px', opacity: 0.8, position: 'absolute', top: 2495, whiteSpace: 'pre-wrap', width: '328px', ...methodology.fadeStyle }}>
         {'For simplicity, our candidate list is limited to the top 5 candidates in the mayoral race who have received endorsements.\nFull list of candidates is here. ➝\n\nCandidate policy positions were sourced with Claude, based on whatever information they\'ve publicly shared in their campaigns as of May 2026. They might change. We cited our sources. ➝'}
       </div>
 
@@ -284,7 +284,7 @@ const IntroPage = () => {
       <div style={{ color: offPink, fontFamily: noirBold, fontSize: '32px', left: 'calc(50% - 8px)', lineHeight: '50px', position: 'absolute', top: 2798, translate: '-50%', width: '299px' }}>
         Connect
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '16px', left: 43, lineHeight: '24px', position: 'absolute', top: 2866, width: '324px' }}>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '14px', left: 43, lineHeight: '21px', opacity: 0.8, position: 'absolute', top: 2866, width: '324px' }}>
         Are you experiencing resistance? An emotional release? Reach out ➝
       </div>
 
@@ -338,7 +338,7 @@ const IntroPage = () => {
       </div>
 
       {/* Body text */}
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '24px', left: 159, lineHeight: '36px', position: 'absolute', top: 475, whiteSpace: 'pre' }}>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '20px', left: 159, lineHeight: '30px', position: 'absolute', top: 475, whiteSpace: 'pre' }}>
         {'10 questions. 5 top mayoral candidates.\nL.A.\'s primary election on June 2.\nSurrender your expectations.'}
       </div>
 
@@ -357,7 +357,7 @@ const IntroPage = () => {
       <div style={{ color: offPink, fontFamily: noirMedium, fontSize: '40px', left: 835, lineHeight: '50px', position: 'absolute', top: 971, width: '510px' }}>
         Channel your intuition
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '24px', left: 839, lineHeight: '34px', position: 'absolute', top: 1053, whiteSpace: 'pre-wrap', width: '499px' }}>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '20px', left: 839, lineHeight: '30px', position: 'absolute', top: 1053, whiteSpace: 'pre-wrap', width: '499px' }}>
         {'Answer 10 questions about Los Angeles — its fires, its failures, its possible futures.\n\nIn the end, your Fated reading will name the candidate whose vision most closely aligns with your own.\n\nYour cards do not tell you what to believe. They mirror what you already feel.'}
       </div>
 
@@ -378,7 +378,7 @@ const IntroPage = () => {
       <div style={{ color: offPink, fontFamily: noirBold, fontSize: '40px', left: '50%', lineHeight: '50px', position: 'absolute', textAlign: 'center', top: 1728, translate: '-50%', width: '480px' }}>
         Reveal your desire
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '24px', left: '50%', lineHeight: '32px', position: 'absolute', textAlign: 'center', top: 1794, translate: '-50%', width: '480px' }}>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '20px', left: '50%', lineHeight: '28px', position: 'absolute', textAlign: 'center', top: 1794, translate: '-50%', width: '480px' }}>
         Your Fated reading shows your truth.
       </div>
 
@@ -401,19 +401,19 @@ const IntroPage = () => {
       <div style={{ color: offPink, fontFamily: figBold, fontSize: '24px', fontWeight: 700, left: 111, lineHeight: '32px', position: 'absolute', textAlign: 'center', top: 2247, width: '356px' }}>
         Your Draw
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '24px', left: 111, lineHeight: '32px', position: 'absolute', textAlign: 'center', top: 2290, width: '389px' }}>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '20px', left: 111, lineHeight: '28px', position: 'absolute', textAlign: 'center', top: 2290, width: '389px' }}>
         Based on your 10 answers, see the archetype and mayoral candidate that best aligns with your soul.
       </div>
       <div style={{ color: offPink, fontFamily: figBold, fontSize: '24px', fontWeight: 700, left: 549, lineHeight: '32px', position: 'absolute', textAlign: 'center', top: 2247, width: '350px' }}>
         Your Spread
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '24px', left: 549, lineHeight: '32px', position: 'absolute', textAlign: 'center', top: 2290, width: '356px' }}>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '20px', left: 549, lineHeight: '28px', position: 'absolute', textAlign: 'center', top: 2290, width: '356px' }}>
         See how each candidate mirrors your heart along 10 unique policy issues. Be open to synchronicities.
       </div>
       <div style={{ color: offPink, fontFamily: figBold, fontSize: '24px', fontWeight: 700, left: 972, lineHeight: '32px', position: 'absolute', textAlign: 'center', top: 2247, width: '349px' }}>
         Your Shadow
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '24px', left: 972, lineHeight: '32px', position: 'absolute', textAlign: 'center', top: 2290, width: '356px' }}>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '20px', left: 972, lineHeight: '28px', position: 'absolute', textAlign: 'center', top: 2290, width: '356px' }}>
         The candidate that you may not have expected to align with, but who shares more in common than you think.
       </div>
 
@@ -428,17 +428,17 @@ const IntroPage = () => {
       <div style={{ color: '#FFE4F7', fontFamily: noirBold, fontSize: '36px', left: 788, lineHeight: '50px', position: 'absolute', top: 2897, width: '498px' }}>
         Methodology
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '24px', left: 111, lineHeight: '36px', position: 'absolute', top: 2977, whiteSpace: 'pre-wrap', width: '600px' }}>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '20px', left: 111, lineHeight: '30px', opacity: 0.8, position: 'absolute', top: 2977, whiteSpace: 'pre-wrap', width: '600px' }}>
         {'This experience was made by Tabitha Yong, Will Peng & Yvonne Leow.  We\'re non-clairvoyant Los Angeles citizens who wanted to create a fun, nonpartisan way to fulfill our civic duty this election.'}
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '24px', left: 788, lineHeight: '36px', position: 'absolute', top: 2977, whiteSpace: 'pre-wrap', width: '572px' }}>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '20px', left: 788, lineHeight: '30px', opacity: 0.8, position: 'absolute', top: 2977, whiteSpace: 'pre-wrap', width: '572px' }}>
         {'To keep things simple to understand, our candidate list is limited to the top 5 most credible candidates in the mayoral race, based on received endorsements. Full list of candidates is here. ➝\n\nCandidate policy positions were sourced with Claude, based on whatever information they\'ve publicly shared in their campaigns as of May 2026. They might change. We cited our sources. ➝'}
       </div>
 
       <div style={{ color: '#FFE4F7', fontFamily: noirBold, fontSize: '36px', left: 111, lineHeight: '50px', position: 'absolute', top: 3160, width: '299px' }}>
         Connect
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '24px', left: 111, lineHeight: '36px', position: 'absolute', top: 3233, width: '546px' }}>
+      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '20px', left: 111, lineHeight: '30px', opacity: 0.8, position: 'absolute', top: 3233, width: '546px' }}>
         Experiencing resistance? Emotional release? Reach out ➝
       </div>
 
