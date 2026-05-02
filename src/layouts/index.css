@@ -155,11 +155,122 @@ a.primary-cta:focus-visible {
   outline-offset: 3px;
 }
 
+@keyframes primary-cta-reset-arrow {
+  0% {
+    transform: rotate(0deg);
+  }
+  45% {
+    transform: rotate(-45deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.primary-cta__reset-arrow {
+  display: inline-block;
+  font-size: 18px; /* +2px vs 16px primary-cta copy */
+  margin-left: 2px;
+  position: relative;
+  top: 1px;
+  transform-origin: 50% 55%;
+}
+
+a.primary-cta:hover .primary-cta__reset-arrow,
+a.primary-cta:focus-visible .primary-cta__reset-arrow {
+  animation: primary-cta-reset-arrow 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.primary-cta:hover .primary-cta__reset-arrow,
+  a.primary-cta:focus-visible .primary-cta__reset-arrow {
+    animation: none;
+  }
+}
+
 /* Result: share control (icon or pill) */
+button.result-share-trigger {
+  overflow: visible;
+}
+
+.result-share-trigger__icon-wrap {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes result-share-icon-hover {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  32% {
+    opacity: 0;
+    /* Exit past top-right of the button */
+    transform: translate3d(12px, -24px, 0);
+  }
+  32.01% {
+    opacity: 0;
+    /* Re-enter from bottom-left (keeps motion inside clipped backdrop) */
+    transform: translate3d(-14px, 22px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+button.result-share-trigger:hover .result-share-trigger__icon,
+button.result-share-trigger:focus-visible .result-share-trigger__icon {
+  animation: result-share-icon-hover 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  button.result-share-trigger:hover .result-share-trigger__icon,
+  button.result-share-trigger:focus-visible .result-share-trigger__icon {
+    animation: none;
+  }
+}
+
 button.result-share-trigger:focus-visible {
   outline: 2px solid #ffe4f7;
   outline-offset: 3px;
   border-radius: 6px;
+}
+
+button.result-scroll-hint:focus-visible {
+  outline: 2px solid #ffe4f7;
+  outline-offset: 3px;
+}
+
+.result-bottom-bar-layer {
+  left: 50%;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: translate3d(-50%, calc(-50% + 14px), 0);
+  transition:
+    opacity 250ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+.result-bottom-bar-layer--visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate3d(-50%, -50%, 0);
+  z-index: 2;
+}
+
+/* Chevron motion is driven by JS (requestAnimationFrame) so hover can transition translateY smoothly */
+.result-bottom-bar-layer--visible .result-scroll-hint svg {
+  display: block;
+}
+
+.result-scroll-hint svg {
+  display: block;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -183,7 +294,21 @@ button.result-share-trigger:focus-visible {
     transform: scale(1) !important;
   }
 
-  button.result-share-floating {
+  .result-share-floating {
+    transition: none !important;
+  }
+
+  .result-bottom-bar-layer {
+    transform: translate3d(-50%, -50%, 0) !important;
+    transition: opacity 250ms ease !important;
+  }
+
+  .result-bottom-bar-layer--visible {
+    transform: translate3d(-50%, -50%, 0) !important;
+  }
+
+  .result-scroll-hint svg,
+  .result-bottom-bar-layer--visible .result-scroll-hint svg {
     transition: none !important;
   }
 }

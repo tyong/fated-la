@@ -5,13 +5,14 @@ const fig = '"FigGrotesk0.3Trial-Regular", "FigGrotesk 0.3 Trial", system-ui, sa
 const yellow = '#D2D260'
 
 /** Primary yellow link CTA: hover/press match quiz signal-yellow pattern (DESIGN.md). */
-export function PrimaryCta({ to, children, className = '' }) {
+export function PrimaryCta({ to, children, className = '', tabIndex, padding = '0 22px' }) {
   const [hovered, setHovered] = useState(false)
   const [pressed, setPressed] = useState(false)
   const bg = pressed ? '#AAAA3A' : hovered ? '#C2C24E' : yellow
   return (
     <Link
       to={to}
+      tabIndex={tabIndex}
       className={['primary-cta', className].filter(Boolean).join(' ')}
       style={{
         backgroundColor: bg,
@@ -23,9 +24,9 @@ export function PrimaryCta({ to, children, className = '' }) {
         fontSize: '16px',
         lineHeight: '46px',
         minHeight: '46px',
-        padding: '0 22px',
+        padding,
         textDecoration: 'none',
-        transition: 'background-color 0.15s ease',
+        transition: 'background-color 250ms ease',
         userSelect: 'none',
       }}
       onMouseEnter={() => setHovered(true)}
