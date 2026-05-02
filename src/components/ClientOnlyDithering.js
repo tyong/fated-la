@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useLayoutEffect, useMemo, useState } from 'react'
+import { Dithering } from '@paper-design/shaders-react'
 
 /** App-wide one-shot: multiple ClientOnlyDithering mounts must not each probe (WebGL context cap ~8). */
 let webgl2SupportCache
@@ -36,19 +37,24 @@ export default function ClientOnlyDithering({
   shape,
   revealVariant = 'auto',
   revealDuration,
+  /** Skip reveal delay/blur so WebGL shows on first layout pass (e.g. home hero). */
+  instantReveal = false,
   ...props
 }) {
   const [mounted, setMounted] = useState(false)
   const [revealed, setRevealed] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setMounted(true)
     setReduceMotion(prefersReducedMotion())
-  }, [])
+    if (instantReveal) {
+      setRevealed(true)
+    }
+  }, [instantReveal])
 
-  useEffect(() => {
-    if (!mounted) return
+  useLayoutEffect(() => {
+    if (!mounted || instantReveal) return
     setRevealed(false)
 
     const timer = window.setTimeout(() => {
@@ -61,7 +67,7 @@ export default function ClientOnlyDithering({
     }, 32)
 
     return () => window.clearTimeout(timer)
-  }, [mounted, shape, revealVariant])
+  }, [mounted, shape, revealVariant, instantReveal])
 
   const duration = revealDuration ?? (shape === 'swirl' ? DEFAULT_SWIRL_DURATION : DEFAULT_FADE_DURATION)
   const isSwirlReveal = revealVariant === 'swirl' || (revealVariant === 'auto' && shape === 'swirl')
@@ -87,7 +93,6 @@ export default function ClientOnlyDithering({
 
   const webgl2Ok = canUseWebGL2()
 
-  const { Dithering } = require('@paper-design/shaders-react')
   const fallbackColor = (style && style.backgroundColor) || '#00000000'
   const transitionDuration = reduceMotion ? 120 : duration
 

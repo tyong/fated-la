@@ -139,7 +139,16 @@ const IntroPage = () => {
   return (
     <main
       id="main-content"
-      style={{ backgroundColor: '#291543', color: '#FFFFFF', overflowX: 'hidden', WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale', textRendering: 'auto' }}
+      style={{
+        backgroundColor: '#291543',
+        /* Matches hero dither (#264A89) for first paint / SSR before WebGL hydrates */
+        backgroundImage: 'radial-gradient(ellipse 130% 90% at 50% 0%, rgba(38, 74, 137, 0.42) 0%, rgba(41, 21, 67, 0) 58%)',
+        color: '#FFFFFF',
+        overflowX: 'hidden',
+        WebkitFontSmoothing: 'antialiased',
+        MozOsxFontSmoothing: 'grayscale',
+        textRendering: 'auto',
+      }}
     >
       <section className="hero-shell" aria-label="Introduction">
         <ClientOnlyDithering
