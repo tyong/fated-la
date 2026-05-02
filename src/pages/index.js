@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'gatsby'
 import ClientOnlyDithering from '../components/ClientOnlyDithering'
 import useFadeUp from '../components/useFadeUp'
@@ -112,7 +112,20 @@ const YellowButton = ({ to, children, left, top, width, height = 46, fontSize = 
   )
 }
 
+const useViewportScale = (designWidth) => {
+  const [scale, setScale] = useState(1)
+  useEffect(() => {
+    const update = () => setScale(window.innerWidth / designWidth)
+    update()
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [designWidth])
+  return scale
+}
+
 const IntroPage = () => {
+  const mobileScale  = useViewportScale(393)
+  const desktopScale = useViewportScale(1440)
   const hero        = useFadeUp(0)
   const body        = useFadeUp(100)
   const howItWorks  = useFadeUp(0)
@@ -127,7 +140,8 @@ const IntroPage = () => {
   <div>
 
     {/* ── MOBILE ── */}
-    <div className="intro-mobile" style={{
+    <div className="intro-mobile" style={{ height: `${3037 * mobileScale}px`, overflow: 'hidden', width: '100%' }}>
+    <div style={{
       backgroundColor: '#291543',
       fontSynthesis: 'none',
       MozOsxFontSmoothing: 'grayscale',
@@ -136,7 +150,8 @@ const IntroPage = () => {
       WebkitFontSmoothing: 'antialiased',
       width: '393px',
       minHeight: '3037px',
-      margin: '0 auto',
+      transform: `scale(${mobileScale})`,
+      transformOrigin: 'top left',
     }}>
 
       <ClientOnlyDithering
@@ -278,9 +293,11 @@ const IntroPage = () => {
       </div>
 
     </div>
+    </div>
 
     {/* ── DESKTOP ── */}
-    <div className="intro-desktop" style={{
+    <div className="intro-desktop" style={{ height: `${3523 * desktopScale}px`, overflow: 'hidden', width: '100%' }}>
+    <div style={{
       backgroundColor: '#291543',
       fontSynthesis: 'none',
       MozOsxFontSmoothing: 'grayscale',
@@ -289,7 +306,8 @@ const IntroPage = () => {
       WebkitFontSmoothing: 'antialiased',
       width: '1440px',
       minHeight: '3523px',
-      margin: '0 auto',
+      transform: `scale(${desktopScale})`,
+      transformOrigin: 'top left',
     }}>
 
       <ClientOnlyDithering
@@ -428,6 +446,7 @@ const IntroPage = () => {
         Last updated{'  '}———{'  '}01 May 2026
       </div>
 
+    </div>
     </div>
 
   </div>
