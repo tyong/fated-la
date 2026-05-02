@@ -27,13 +27,13 @@ const SiteFooter = () => {
         boxSizing: 'border-box',
         paddingLeft: 'var(--site-gutter-x)',
         paddingRight: 'var(--site-gutter-x)',
-        paddingTop: '72px',
+        paddingTop: desktop ? '72px' : '56px',
         width: '100%',
       }}
     >
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '48px', maxWidth: '1218px' }}>
         <div>
-          <div style={{ color: pink, fontFamily: noirBold, fontSize: headingSize, lineHeight: headingLine, marginBottom: '24px' }}>About</div>
+          <div style={{ color: pink, fontFamily: noirBold, fontSize: headingSize, lineHeight: headingLine, marginBottom: desktop ? '24px' : '16px' }}>About</div>
           <div style={{ color: '#C2CAF2', fontFamily: fig, fontSize: bodyFontSize, lineHeight: bodyLineHeight, whiteSpace: 'pre-wrap' }}>
             {`Fated was made by Tabitha Yong, Will Peng & Yvonne Leow.
 
@@ -41,32 +41,24 @@ We're non-clairvoyant Angelenos who wanted to create a fun, nonpartisan way to f
           </div>
           <div style={{ color: pink, fontFamily: noirBold, fontSize: headingSize, lineHeight: headingLine, marginBottom: '24px', marginTop: '32px' }}>Connect</div>
           <div style={{ color: '#C2CAF2', fontFamily: fig, fontSize: bodyFontSize, lineHeight: bodyLineHeight }}>
+            Experiencing resistance? Emotional release?{' '}
             <a
               href={getContactMailtoHref()}
-              style={{
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
+              className="site-footer-link"
             >
-              Experiencing resistance? Emotional release? Reach out ➝
+              Reach out ➝
             </a>
           </div>
         </div>
         <div>
           <div style={{ color: '#fff', fontFamily: noirBold, fontSize: headingSize, lineHeight: headingLine, marginBottom: '24px' }}>Methodology</div>
           <div style={{ color: '#C2CAF2', fontFamily: fig, fontSize: bodyFontSize, lineHeight: bodyLineHeight, whiteSpace: 'pre-wrap' }}>
-            {`For simplicity's sake, Fated's readings are limited to the top 5 mayoral candidates who have received official endorsements.
-
-`}
+            {`For simplicity's sake, Fated's readings are limited to the top 5 mayoral candidates who have received official endorsements. `}
             <a
               href={getCandidatesListUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                color: 'inherit',
-                textDecoration: 'underline',
-                textUnderlineOffset: '3px',
-              }}
+              className="site-footer-link"
             >
               See the full list of candidates ➝
             </a>
@@ -77,11 +69,7 @@ Candidate positions are based on publicly accessible information, like their cam
               href={getSourcesUrl()}
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                color: 'inherit',
-                textDecoration: 'underline',
-                textUnderlineOffset: '3px',
-              }}
+              className="site-footer-link"
             >
               See our sources. ➝
             </a>
