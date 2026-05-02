@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from 'react'
-import { Link } from 'gatsby'
+import React, { useMemo } from 'react'
 import ClientOnlyDithering from '../components/ClientOnlyDithering'
+import { PrimaryCta } from '../components/PrimaryCta'
 import { createResultHead, defaultLinkPreviewImage } from '../utils/shareMeta'
 export const Head = () => (
   <>
@@ -36,8 +36,17 @@ const heroBodyScale = 1
 
 const starPath = "M100.722 2.758C101.021 -0.919 106.405 -0.919 106.703 2.758L112.411 73.151C112.626 75.808 115.942 76.885 117.678 74.862L163.672 21.268C166.074 18.469 170.43 21.633 168.51 24.783L131.752 85.088C130.364 87.364 132.413 90.184 135.007 89.568L203.719 73.244C207.308 72.391 208.972 77.512 205.567 78.932L140.383 106.113C137.922 107.139 137.922 110.625 140.383 111.651L205.567 138.833C208.972 140.252 207.308 145.373 203.719 144.52L135.007 128.196C132.413 127.58 130.364 130.4 131.752 132.676L168.51 192.981C170.43 196.131 166.074 199.296 163.672 196.496L117.678 142.902C115.942 140.879 112.626 141.956 112.411 144.613L106.703 215.007C106.405 218.683 101.021 218.683 100.722 215.007L95.014 144.613C94.799 141.956 91.484 140.879 89.748 142.902L43.753 196.496C41.351 199.296 36.995 196.131 38.915 192.981L75.673 132.676C77.061 130.4 75.012 127.58 72.418 128.196L3.706 144.52C0.117 145.373 -1.546 140.252 1.858 138.833L67.043 111.651C69.503 110.625 69.503 107.139 67.043 106.113L1.858 78.932C-1.546 77.512 0.117 72.391 3.706 73.244L72.418 89.568C75.012 90.184 77.061 87.364 75.673 85.088L38.915 24.783C36.995 21.633 41.351 18.469 43.753 21.268L89.748 74.862C91.484 76.885 94.799 75.808 95.014 73.151L100.722 2.758Z"
 
-const StarIcon = ({ size = 24, fill = yellow, style = {} }) => (
-  <svg width="208" height="218" viewBox="0 0 208 218" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ width: size, height: size, ...style }}>
+const StarIcon = ({ size = 24, fill = yellow, style = {}, className }) => (
+  <svg
+    className={className}
+    width="208"
+    height="218"
+    viewBox="0 0 208 218"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="none"
+    style={{ width: size, height: size, ...style }}
+  >
     <path d={starPath} fill={fill} />
   </svg>
 )
@@ -94,43 +103,6 @@ const DesktopCandidateCard = ({ name, arcana, img }) => (
   </div>
 )
 
-const YellowButton = ({ to, children, left, top, width }) => {
-  const [hovered, setHovered] = useState(false)
-  const [pressed, setPressed] = useState(false)
-  const bg = pressed ? '#AAAA3A' : hovered ? '#C2C24E' : yellow
-  return (
-    <Link to={to} style={{ textDecoration: 'none' }}>
-      <div
-        style={{
-          backgroundColor: bg,
-          borderRadius: '4px',
-          color: '#000403',
-          cursor: 'pointer',
-          fontFamily: fig,
-          fontSize: '16px',
-          height: '46px',
-          left,
-          lineHeight: '46px',
-          paddingLeft: '21px',
-          position: 'absolute',
-          top,
-          transition: 'background-color 0.15s ease',
-          userSelect: 'none',
-          width,
-        }}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => { setHovered(false); setPressed(false) }}
-        onMouseDown={() => setPressed(true)}
-        onMouseUp={() => setPressed(false)}
-        onTouchStart={() => setPressed(true)}
-        onTouchEnd={() => setPressed(false)}
-      >
-        {children}
-      </div>
-    </Link>
-  )
-}
-
 const ReadingItem = ({ title, body, children }) => (
   <div className="reading-item">
     <div className="reading-item-media">{children}</div>
@@ -165,8 +137,11 @@ const IntroPage = () => {
     margin: '0 0 16px',
   }
   return (
-    <div style={{ backgroundColor: '#291543', color: '#FFFFFF', overflowX: 'hidden', WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale', textRendering: 'auto' }}>
-      <section className="hero-shell">
+    <main
+      id="main-content"
+      style={{ backgroundColor: '#291543', color: '#FFFFFF', overflowX: 'hidden', WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale', textRendering: 'auto' }}
+    >
+      <section className="hero-shell" aria-label="Introduction">
         <ClientOnlyDithering
           speed={1}
           shape="swirl"
@@ -180,9 +155,25 @@ const IntroPage = () => {
           style={{ backgroundColor: '#291543', position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 'var(--hero-dither-top, 0px)', width: '100vw', height: '760px', zIndex: 0 }}
         />
         <div className="page-shell" style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '96px', marginTop: 0, marginBottom: '24px' }}>
-            <StarIcon size={48} style={{ animation: 'spinStar 10s linear infinite', transformOrigin: '50% 50%' }} />
-            <div className="intro-brand-label" style={{ color: offPink, fontFamily: noirBold, lineHeight: '20px', marginLeft: 'auto' }}>Fated  ——— Los Angeles</div>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+              flexWrap: 'wrap',
+              gap: 'clamp(16px, 5vw, 96px)',
+              marginTop: 0,
+              marginBottom: '24px',
+            }}
+          >
+            <StarIcon
+              size={48}
+              className="home-hero-star"
+              style={{ animation: 'spinStar 10s linear infinite', transformOrigin: '50% 50%' }}
+            />
+            <div className="intro-brand-label" style={{ color: offPink, fontFamily: noirBold, lineHeight: '20px', marginLeft: 'auto' }}>
+              Fated · Los Angeles
+            </div>
           </div>
 
           <div className="desktop-grid-2 hero-grid" style={{ alignItems: 'start', gap: '24px' }}>
@@ -195,9 +186,7 @@ const IntroPage = () => {
                 <p style={{ margin: '0 0 16px' }}>L.A.'s primary election is June 2, 2026.</p>
                 <p style={{ margin: 0 }}>Learn which candidate shares your views.</p>
               </div>
-              <Link to="/question-01" style={{ display: 'inline-block', backgroundColor: yellow, color: '#000403', borderRadius: '4px', fontFamily: fig, fontSize: '16px', lineHeight: '46px', padding: '0 22px' }}>
-                Let's go ➝
-              </Link>
+              <PrimaryCta to="/question-01">Let&apos;s go ➝</PrimaryCta>
             </div>
 
             <div
@@ -209,7 +198,7 @@ const IntroPage = () => {
                 marginLeft: 'calc(var(--page-gutter) * -1)',
               }}
             >
-              <div style={{ animation: 'scrollCards 20s linear infinite', display: 'flex', width: 'fit-content' }}>
+              <div className="home-card-rail" style={{ animation: 'scrollCards 20s linear infinite', display: 'flex', width: 'fit-content' }}>
                 {cardRail.map((c, i) => <CarouselCard key={i} {...c} />)}
               </div>
             </div>
@@ -256,9 +245,9 @@ const IntroPage = () => {
               There are no wrong answers. Just answer how you feel.{'\n\n'}
               At the end, we'll reveal which candidate matches your answers best.
             </p>
-            <Link to="/question-01" style={{ display: 'inline-block', marginTop: '16px', backgroundColor: yellow, color: '#000403', borderRadius: '4px', fontFamily: fig, fontSize: '16px', lineHeight: '46px', padding: '0 22px' }}>
-              I'm ready ➝
-            </Link>
+            <div style={{ marginTop: '16px' }}>
+              <PrimaryCta to="/question-01">I&apos;m ready ➝</PrimaryCta>
+            </div>
           </div>
         </div>
       </section>
@@ -310,13 +299,13 @@ const IntroPage = () => {
                 </div>
               </ReadingItem>
             </div>
-            <Link className="reading-cta" to="/question-01" style={{ display: 'inline-block', backgroundColor: yellow, color: '#000403', borderRadius: '4px', fontFamily: fig, fontSize: '16px', lineHeight: '46px', padding: '0 22px' }}>
-              See my fate ➝
-            </Link>
+            <div className="reading-cta">
+              <PrimaryCta to="/question-01">See my fate ➝</PrimaryCta>
+            </div>
           </div>
         </div>
       </section>
-    </div>
+    </main>
   )
 }
 
