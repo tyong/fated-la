@@ -1,13 +1,28 @@
 /* Question flow — desktop from Paper "Question 01 - Desktop" (≥900px) */
 
-/* Same rotation as home hero star (src/pages/index.js) */
-@keyframes spinStar {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Full-bleed strip for TopBar — must sit outside the max-width `<main>` */
+.question-page__top-wrap {
+  background-color: #291543;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Full-bleed progress strip — outside max-width `<main>` */
+.question-page__progress-wrap {
+  background-color: #291543;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.question-page__progress {
+  height: 5px;
+  position: relative;
+  width: 100%;
+}
+
+.question-page__progress-track {
+  height: 5px;
+  width: 100%;
 }
 
 .question-page {
@@ -23,41 +38,38 @@
   box-sizing: inherit;
 }
 
-/* Reserve strip for progress bar (Paper: progress is in-flow height 5px) */
+/* TopBar + progress are siblings above `<main>` — no reserved padding for the strip */
 .question-page__inner {
+  position: relative;
   width: 100%;
   max-width: 760px;
   margin: 0 auto;
-  margin-top: 46px;
-  padding-top: 5px;
 }
 
-.question-page__progress {
+.question-page__progress-fill {
   height: 5px;
   left: 0;
   position: absolute;
   top: 0;
-  width: 100%;
-}
-
-.question-page__progress-fill {
   /* Smooth in-out: gentle acceleration then deceleration (fill + unfill) */
   transition: width 0.55s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Mobile — Question 01 - Mobile (16E-0): star top 28, meta 32, title 92, body 166, choices top 373, gap 11 */
+/* Mobile — Question 01 - Mobile (16E-0): meta top area, title 92, body 166, choices top 373, gap 11 */
 .question-page__header {
   align-items: flex-start;
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 40px;
+  justify-content: flex-start;
+  margin-bottom: 0;
   padding: 23px 8px 0;
 }
 
 .question-page__header-meta {
+  font-size: 12px;
   line-height: 16px;
+  margin-bottom: 32px;
   padding-top: 4px;
-  text-align: right;
+  text-align: left;
 }
 
 .question-page__title {
@@ -166,7 +178,6 @@
   .question-page__inner {
     max-width: 1440px;
     margin: 0 auto;
-    margin-top: 49px;
     padding-left: 0;
     padding-right: 0;
   }
@@ -177,10 +188,10 @@
   }
 
   .question-page__header-meta {
-    font-size: 12px;
-    min-width: 236px;
+    font-size: 14px;
+    min-width: 0;
     padding-top: 3px;
-    text-align: right;
+    text-align: left;
   }
 
   .question-page__grid {
@@ -188,7 +199,7 @@
     column-gap: 32px;
     display: grid;
     grid-template-columns: repeat(8, minmax(0, 1fr));
-    margin-top: 47px;
+    margin-top: 0;
     padding-bottom: 60px;
   }
 
