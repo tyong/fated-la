@@ -1,5 +1,5 @@
 import React from 'react'
-import { getCandidatesListUrl, getContactMailtoHref, getFooterLegalLine } from '../utils/footerLegalLine'
+import { getCandidatesListUrl, getContactMailtoHref, getFooterLegalLine, getSourcesUrl } from '../utils/footerLegalLine'
 import { useDesktopLayout } from '../hooks/useDesktopLayout'
 
 const noirBold = '"NOIRetBLANCMediumBold", "NOIR et BLANC Medium Bold", "Instrument Serif", Georgia, serif'
@@ -25,28 +25,27 @@ const SiteFooter = () => {
         <div>
           <div style={{ color: pink, fontFamily: noirBold, fontSize: headingSize, lineHeight: headingLine, marginBottom: '24px' }}>About</div>
           <div style={{ color: '#C2CAF2', fontFamily: fig, fontSize: bodyFontSize, lineHeight: bodyLineHeight, whiteSpace: 'pre-wrap' }}>
-            {`This site was made by Tabitha Yong, Will Peng & Yvonne Leow. We're nonpartisan citizens of Los Angeles. We wanted a more fun, approachable way to do our civic duty.
+            {`Fated was made by Tabitha Yong, Will Peng & Yvonne Leow.
 
-Designed and vibe-coded with Paper, Claude Code & Vercel.
-
-Questions? Comments? Recs for your favorite L.A. spot? `}
+We're non-clairvoyant Angelenos who wanted to create a fun, nonpartisan way to fulfill our civic duty this election.`}
+          </div>
+          <div style={{ color: pink, fontFamily: noirBold, fontSize: headingSize, lineHeight: headingLine, marginBottom: '24px', marginTop: '32px' }}>Connect</div>
+          <div style={{ color: '#C2CAF2', fontFamily: fig, fontSize: bodyFontSize, lineHeight: bodyLineHeight }}>
             <a
               href={getContactMailtoHref()}
               style={{
                 color: 'inherit',
-                textDecoration: 'underline',
-                textUnderlineOffset: '3px',
+                textDecoration: 'none',
               }}
             >
-              Email us ➝
+              Experiencing resistance? Emotional release? Reach out ➝
             </a>
-            .
           </div>
         </div>
         <div>
           <div style={{ color: '#fff', fontFamily: noirBold, fontSize: headingSize, lineHeight: headingLine, marginBottom: '24px' }}>Methodology</div>
           <div style={{ color: '#C2CAF2', fontFamily: fig, fontSize: bodyFontSize, lineHeight: bodyLineHeight, whiteSpace: 'pre-wrap' }}>
-            {`For simplicity, the candidate list is limited to credible candidates who have been officially endorsed.
+            {`For simplicity's sake, Fated's readings are limited to the top 5 mayoral candidates who have received official endorsements.
 
 `}
             <a
@@ -63,7 +62,19 @@ Questions? Comments? Recs for your favorite L.A. spot? `}
             </a>
             {`
 
-Candidate policy positions were sourced with Claude, based on whatever information they've publicly shared in their campaigns. They might change.`}
+Candidate positions are based on publicly accessible information, like their campaigns or their constituents' experiences. Like our fates, they might change in time. `}
+            <a
+              href={getSourcesUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: 'inherit',
+                textDecoration: 'underline',
+                textUnderlineOffset: '3px',
+              }}
+            >
+              See our sources. ➝
+            </a>
           </div>
         </div>
       </div>

@@ -22,3 +22,10 @@ export function getCandidatesListUrl() {
   if (u && String(u).trim()) return String(u).trim()
   return 'https://www.lavote.net/'
 }
+
+/** Methodology sources link. Override with `GATSBY_SOURCES_URL`. */
+export function getSourcesUrl() {
+  const u = process.env.GATSBY_SOURCES_URL
+  if (u && String(u).trim()) return String(u).trim()
+  return getCandidatesListUrl()
+}
