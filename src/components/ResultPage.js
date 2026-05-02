@@ -431,6 +431,11 @@ const ShareButton = ({ title, text, desktop, shareImageUrl }) => {
   const shareIconAnimRef = useRef(null)
   const shareIconHoverRef = useRef(false)
   const shareIconFocusRef = useRef(false)
+  /** True while `navigator.share` is in flight — hover/focus can fire under the modal before `finally` runs. */
+  const shareNativeSheetPendingRef = useRef(false)
+  /** After the sheet closes, suppress stray pointer replay for one frame/task (cooldown covers delayed synthetic hover). */
+  const shareIconSuppressPlaybackUntilRef = useRef(0)
+  const shareTriggerBtnRef = useRef(null)
   const [resetArrowWiggle, setResetArrowWiggle] = useState(false)
   const buttonBg = pressed ? '#AAAA3A' : hovered ? '#C2C24E' : yellow
 
@@ -486,6 +491,10 @@ const ShareButton = ({ title, text, desktop, shareImageUrl }) => {
   /** Hover/focus in: start once; hover/focus out: always let the current run finish (no cancel/reverse). */
   const applyShareIconPlayback = useCallback(() => {
     if (shareIconPrefersReducedMotion()) return
+    if (shareNativeSheetPendingRef.current) return
+    if (typeof performance !== 'undefined' && performance.now() < shareIconSuppressPlaybackUntilRef.current) {
+      return
+    }
     const active = shareIconHoverRef.current || shareIconFocusRef.current
     const el = shareIconSvgRef.current
     if (!el || typeof el.animate !== 'function') return
@@ -566,7 +575,7 @@ const ShareButton = ({ title, text, desktop, shareImageUrl }) => {
     if (typeof navigator === 'undefined' || typeof window === 'undefined') return
     if (shareInFlightRef.current) return
     shareInFlightRef.current = true
-    const url = window.location.href
+    const url = `${window.location.origin}/`
 
     try {
       if (navigator.share) {
@@ -575,12 +584,24 @@ const ShareButton = ({ title, text, desktop, shareImageUrl }) => {
           navigator.canShare &&
           navigator.canShare({ files: [preparedShareFile] })
 
-        if (fileShareAvailable) {
-          await navigator.share({ title, text, url, files: [preparedShareFile] })
-          return
+        const btnEl = shareTriggerBtnRef.current
+        shareNativeSheetPendingRef.current = true
+        if (btnEl) btnEl.style.pointerEvents = 'none'
+
+        try {
+          if (fileShareAvailable) {
+            await navigator.share({ title, text, url, files: [preparedShareFile] })
+          } else {
+            await navigator.share({ title, text, url })
+          }
+        } finally {
+          if (typeof performance !== 'undefined') {
+            shareIconSuppressPlaybackUntilRef.current = performance.now() + 1800
+          }
+          shareNativeSheetPendingRef.current = false
+          if (btnEl) btnEl.style.pointerEvents = ''
         }
 
-        await navigator.share({ title, text, url })
         return
       }
 
@@ -653,6 +674,7 @@ const ShareButton = ({ title, text, desktop, shareImageUrl }) => {
               </span>
             </PrimaryCta>
             <button
+              ref={shareTriggerBtnRef}
               type="button"
               className="result-share-trigger"
               onClick={() => {
