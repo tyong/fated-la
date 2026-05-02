@@ -168,12 +168,17 @@ button.result-share-trigger:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .home-hero-star,
-  .result-hero-star {
+  .result-hero-star,
+  .question-hero-star {
     animation: none !important;
   }
 
   .home-card-rail {
     animation: none !important;
+  }
+
+  .question-page__progress-fill {
+    transition: none !important;
   }
 
   /* Tarot card zoom-in reveal */
@@ -195,6 +200,8 @@ button.result-share-trigger:focus-visible {
 
   --page-max: 1440px;
   --page-gutter: 16px;
+  /** Quiz (`QuestionPage`) + `SiteFooter` — one horizontal inset at all breakpoints */
+  --site-gutter-x: clamp(24px, 8vw, 111px);
   --section-space: 48px;
   --content-max: 720px;
 
