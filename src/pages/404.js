@@ -1,5 +1,12 @@
 import React from 'react'
 
+export const Head = () => (
+  <>
+    <title>Page not found — Fated LA</title>
+    <meta name="robots" content="noindex, nofollow" />
+  </>
+)
+
 const NotFoundPage = () => (
   <div>
     <h1>NOT FOUND</h1>
