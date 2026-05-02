@@ -36,7 +36,7 @@ const candidates = [
   {
     name: 'KAREN BASS',
     arcana: 'THE EMPRESS',
-    img: 'https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAZTMV23XJGYQFMHR3SP8EK.png',
+    img: 'https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQKM5G2T1R10EK9F268YHZDY.png',
   },
   {
     name: 'NITHYA RAMAN',
@@ -162,7 +162,7 @@ const IntroPage = () => {
         scale={1}
         colorBack="#00000000"
         colorFront="#274988"
-        style={{ backgroundColor: '#291543', height: '666px', left: 0, position: 'absolute', top: -5, width: '402px' }}
+        style={{ backgroundColor: '#291543', height: '701px', left: 0, position: 'absolute', top: -15, width: '411px' }}
       />
 
       {/* Nav */}
@@ -173,6 +173,7 @@ const IntroPage = () => {
       <div style={{ color: '#FFFFFF', fontFamily: monoPro, fontSize: '12px', left: 147, lineHeight: '22px', position: 'absolute', textAlign: 'right', top: 13, width: '133px' }}>
         LOS ANGELES MAYOR
       </div>
+      <div style={{ backgroundColor: '#DDDDDD', height: '0.5px', left: 0, position: 'absolute', top: 45, width: '396px' }} />
       <div style={{ backgroundColor: '#DDDDDD', height: '0.25px', left: 129, position: 'absolute', rotate: '270deg', top: 45, transformOrigin: '0% 0%', width: '45px' }} />
 
       {/* Hero */}
@@ -201,7 +202,7 @@ const IntroPage = () => {
         scale={1.2}
         colorBack="#00000000"
         colorFront="#291543"
-        style={{ backgroundColor: '#264988', height: '618px', left: 'calc(50% + 0.5px)', position: 'absolute', top: 1314, translate: '-50%', width: '1440px' }}
+        style={{ backgroundColor: '#264988', height: '579px', left: 'calc(50% + 19px)', position: 'absolute', top: 1326, translate: '-50%', width: '415px' }}
       />
 
       {/* Channel your intuition */}
@@ -214,7 +215,7 @@ const IntroPage = () => {
         </div>
       </div>
 
-      <YellowButton to="/question-01" left={35} top={1186} width={131}>Let's go{'  '}➝ </YellowButton>
+      <YellowButton to="/question-01" left={35} top={1173} width={123}>Let's go{'  '}➝ </YellowButton>
 
       {/* Reveal your desire */}
       <div ref={yourReading.ref} style={{ left: 35, position: 'absolute', top: 1363, ...yourReading.fadeStyle }}>
@@ -228,7 +229,7 @@ const IntroPage = () => {
 
       {/* Your Draw */}
       <div ref={drawRow.ref} style={{ backgroundColor: pink, borderRadius: '2px', height: '118px', left: 35, outline: `1px solid ${purple}`, position: 'absolute', top: 1485, width: '63px', ...drawRow.fadeStyle }} />
-      <div style={{ backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAZTMV23XJGYQFMHR3SP8EK.png)', backgroundPosition: 'center', backgroundSize: 'cover', height: '86px', left: 43, outline: `1px solid ${purple}`, position: 'absolute', top: 1500, width: '47px', ...drawRow.fadeStyle }} />
+      <div style={{ backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQKM3VJE5N27E9CQME5HFD1F.png)', backgroundPosition: 'center', backgroundSize: 'cover', height: '86px', left: 43, outline: `1px solid ${purple}`, position: 'absolute', top: 1500, width: '47px', ...drawRow.fadeStyle }} />
       <div style={{ color: offPink, fontFamily: figBold, fontSize: '16px', fontWeight: 700, left: 123, lineHeight: '22px', position: 'absolute', top: 1492, width: '145px', ...drawRow.fadeStyle }}>
         Your Draw
       </div>
@@ -267,28 +268,30 @@ const IntroPage = () => {
       <div ref={about.ref} style={{ color: offPink, fontFamily: noirBold, fontSize: '32px', left: 'calc(50% - 8px)', lineHeight: '50px', position: 'absolute', top: 2142, translate: '-50%', width: '299px', ...about.fadeStyle }}>
         About us
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '14px', left: 39, lineHeight: '21px', opacity: 0.8, position: 'absolute', top: 2208, whiteSpace: 'pre-wrap', width: '283px', ...about.fadeStyle }}>
-        {'This experience was made by Tabitha Yong, Will Peng & Yvonne Leow.  We\'re non-clairvoyant Los Angeles citizens who wanted to create a fun, nonpartisan way to fulfill our civic duty this election.'}
+      <div style={{ color: '#FFFFFFCC', fontFamily: fig, fontSize: '14px', left: 39, lineHeight: '21px', position: 'absolute', top: 2208, whiteSpace: 'pre-wrap', width: '313px', ...about.fadeStyle }}>
+        {"Fated was made by Tabitha Yong, \nWill Peng & Yvonne Leow.  We're non-clairvoyant Angelenos who wanted to create a fun, nonpartisan way to fulfill our civic duty this election."}
       </div>
 
-      <div style={{ backgroundColor: '#DDDDDD', height: '0.4px', left: 40, position: 'absolute', top: 2389, width: '312px', ...about.fadeStyle }} />
+      <div style={{ backgroundColor: '#DDDDDD66', height: '0.4px', left: 40, position: 'absolute', top: 2359, width: '312px', ...about.fadeStyle }} />
 
-      <div ref={methodology.ref} style={{ color: offPink, fontFamily: noirBold, fontSize: '32px', left: 'calc(50% - 8px)', lineHeight: '50px', position: 'absolute', top: 2426, translate: '-50%', width: '299px', ...methodology.fadeStyle }}>
+      <div ref={methodology.ref} style={{ color: offPink, fontFamily: noirBold, fontSize: '32px', left: 'calc(50% - 8px)', lineHeight: '50px', position: 'absolute', top: 2396, translate: '-50%', width: '299px', ...methodology.fadeStyle }}>
         Methodology
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '14px', left: 39, lineHeight: '21px', opacity: 0.8, position: 'absolute', top: 2495, whiteSpace: 'pre-wrap', width: '328px', ...methodology.fadeStyle }}>
-        {'For simplicity, our candidate list is limited to the top 5 candidates in the mayoral race who have received endorsements.\nFull list of candidates is here. ➝\n\nCandidate policy positions were sourced with Claude, based on whatever information they\'ve publicly shared in their campaigns as of May 2026. They might change. We cited our sources. ➝'}
+      <div style={{ color: '#FFFFFFCC', fontFamily: fig, fontSize: '14px', left: 39, lineHeight: '21px', position: 'absolute', top: 2465, whiteSpace: 'pre-wrap', width: '328px', ...methodology.fadeStyle }}>
+        {"For simplicity, Fated's readings are limited to the top 5 mayoral candidates who have received official endorsements. See the full list of candidates elsewhere. ➝\n\nCandidate positions are based on publicly accessible information. Like our fates, they might change in time. See our sources. ➝\n"}
       </div>
 
-      <div style={{ backgroundColor: '#DDDDDD', height: '0.4px', left: 43, position: 'absolute', top: 2766, width: '312px' }} />
-      <div style={{ color: offPink, fontFamily: noirBold, fontSize: '32px', left: 'calc(50% - 8px)', lineHeight: '50px', position: 'absolute', top: 2798, translate: '-50%', width: '299px' }}>
+      <div style={{ backgroundColor: '#DDDDDD66', height: '0.4px', left: 43, position: 'absolute', top: 2712, width: '312px' }} />
+      <div style={{ color: offPink, fontFamily: noirBold, fontSize: '32px', left: 'calc(50% - 8px)', lineHeight: '50px', position: 'absolute', top: 2744, translate: '-50%', width: '299px' }}>
         Connect
       </div>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '14px', left: 43, lineHeight: '21px', opacity: 0.8, position: 'absolute', top: 2866, width: '324px' }}>
+      <div style={{ color: '#FFFFFFCC', fontFamily: fig, fontSize: '14px', left: 43, lineHeight: '21px', position: 'absolute', top: 2812, width: '324px' }}>
         Are you experiencing resistance? An emotional release? Reach out ➝
       </div>
 
-      <div style={{ color: offPink, fontFamily: fig, fontSize: '12px', left: 43, lineHeight: '20px', position: 'absolute', top: 2976, whiteSpace: 'pre-wrap', width: '294px' }}>
+      <div style={{ backgroundColor: '#DDDDDD', height: '0.5px', left: 0, position: 'absolute', top: 2966, width: '393px' }} />
+
+      <div style={{ color: offPink, fontFamily: fig, fontSize: '12px', left: 43, lineHeight: '20px', position: 'absolute', top: 2992, whiteSpace: 'pre-wrap', width: '294px' }}>
         Last updated{'  '}———{'  '}01 May 2026
       </div>
 
