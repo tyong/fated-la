@@ -312,8 +312,7 @@ button.result-scroll-hint:focus-visible {
   --bp-xl: 1440px;
 
   --page-max: 1440px;
-  --page-gutter: 24px;
-  /** Quiz (`QuestionPage`) + `SiteFooter` — one horizontal inset at all breakpoints */
+  /** Quiz, home `.page-shell`, `SiteFooter`, `TopBar` — one horizontal inset at all breakpoints */
   --site-gutter-x: clamp(24px, 8vw, 111px);
   --section-space: 48px;
   --content-max: 720px;
@@ -339,8 +338,8 @@ html.page-results .site-footer {
   width: 100%;
   max-width: var(--page-max);
   margin: 0 auto;
-  padding-left: var(--page-gutter);
-  padding-right: var(--page-gutter);
+  padding-left: var(--site-gutter-x);
+  padding-right: var(--site-gutter-x);
 }
 
 .content-column {
@@ -536,7 +535,6 @@ html.page-results .site-footer {
 
 @media (min-width: 768px) {
   :root {
-    --page-gutter: 24px;
     --section-space: 64px;
   }
 
@@ -547,7 +545,6 @@ html.page-results .site-footer {
 
 @media (min-width: 900px) {
   :root {
-    --page-gutter: 32px;
     --section-space: 80px;
   }
 
