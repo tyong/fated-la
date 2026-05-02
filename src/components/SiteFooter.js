@@ -20,7 +20,17 @@ const SiteFooter = () => {
   const bodyLineHeight = desktop ? '28px' : '24px'
 
   return (
-    <div style={{ backgroundColor: dark, padding: '72px var(--site-gutter-x) 80px', width: '100%', boxSizing: 'border-box' }}>
+    <div
+      className="site-footer"
+      style={{
+        backgroundColor: dark,
+        boxSizing: 'border-box',
+        paddingLeft: 'var(--site-gutter-x)',
+        paddingRight: 'var(--site-gutter-x)',
+        paddingTop: '72px',
+        width: '100%',
+      }}
+    >
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '48px', maxWidth: '1218px' }}>
         <div>
           <div style={{ color: pink, fontFamily: noirBold, fontSize: headingSize, lineHeight: headingLine, marginBottom: '24px' }}>About</div>

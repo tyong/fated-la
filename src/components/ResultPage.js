@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import ClientOnlyDithering from './ClientOnlyDithering'
 import { PrimaryCta } from './PrimaryCta'
 import SpreadSectionExternal from './SpreadSection'
@@ -165,82 +165,376 @@ const Section = ({ title, children }) => (
 )
 
 const BodyText = ({ children, desktop }) => (
-  <div style={{ color: pink, fontFamily: fig, fontSize: desktop ? '20px' : '16px', lineHeight: desktop ? '28px' : '24px', whiteSpace: 'pre-wrap' }}>
+  <div
+    style={{
+      color: pink,
+      fontFamily: fig,
+      fontSize: desktop ? '20px' : '16px',
+      lineHeight: desktop ? '28px' : '24px',
+      textAlign: 'left',
+      whiteSpace: 'pre-wrap',
+    }}
+  >
     {children}
   </div>
 )
 
-const ShareFloatingBar = ({ isScrolled, desktop, children }) => (
-  <div
-    className="result-share-floating"
-    id="result-share-floating-bar"
-    data-testid="result-share-floating-bar"
-    data-component="ShareFloatingBar"
-    style={{
-      bottom: 0,
-      opacity: isScrolled ? 1 : 0,
-      pointerEvents: 'none',
-      position: 'fixed',
-      left: 0,
-      right: 0,
-      transform: isScrolled ? 'translateY(0)' : 'translateY(calc(100% + 40px))',
-      transition:
-        'transform 520ms cubic-bezier(0.16, 1, 0.3, 1), opacity 320ms cubic-bezier(0.22, 1, 0.36, 1)',
-      width: '100%',
-      zIndex: 24,
-    }}
-  >
+/** Must stay in sync with `result-bottom-bar-swap` minHeight — blur strip height uses this + offsets below. */
+const SHARE_BAR_ROW_MIN_PX = 54
+const SHARE_BAR_PADDING_BOTTOM_PX = 16
+/** Backdrop blur only reaches this far above the button row (gradient still fades higher). */
+const SHARE_BAR_BLUR_ABOVE_BUTTONS_PX = 16
+
+const SHARE_BACKDROP_DEFAULTS = {
+  background:
+    'radial-gradient(147.52% 92% at 50% 100%, rgba(10, 1, 21, 0.85) 0%, rgba(28, 7, 55, 0.43) 50%, rgba(115, 115, 115, 0.00) 100%)',
+  backdropFilter: 'none',
+  WebkitBackdropFilter: 'none',
+  blurMaskImage:
+    'linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.34) 10%, rgba(0, 0, 0, 0.62) 30%, rgba(0, 0, 0, 0.86) 62%, rgba(0, 0, 0, 1) 100%)',
+  blurBackdropFilterDesktop: 'blur(10px)',
+  blurBackdropFilterMobile: 'blur(8px)',
+}
+
+/** Share icon hover: one WAAPI timeline; mouse/focus out does not interrupt — it always runs to completion. */
+const SHARE_ICON_EXIT_MS = 640 // doubled from 320ms — slower motion toward top-right
+const SHARE_ICON_RETURN_MS = 680 // unchanged vs former 1000ms timeline (remainder after 320ms exit)
+const SHARE_ICON_ANIM_MS = SHARE_ICON_EXIT_MS + SHARE_ICON_RETURN_MS
+const SHARE_ICON_EXIT_END_OFFSET = SHARE_ICON_EXIT_MS / SHARE_ICON_ANIM_MS
+const SHARE_ICON_JUMP_OFFSET = SHARE_ICON_EXIT_END_OFFSET + 0.0001
+const SHARE_ICON_ANIM_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)'
+const SHARE_ICON_KEYFRAMES = [
+  { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+  {
+    opacity: 0,
+    transform: 'translate3d(12px, -24px, 0)',
+    offset: SHARE_ICON_EXIT_END_OFFSET,
+  },
+  {
+    opacity: 0,
+    transform: 'translate3d(-14px, 22px, 0)',
+    offset: SHARE_ICON_JUMP_OFFSET,
+  },
+  { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+]
+
+function shareIconPrefersReducedMotion() {
+  if (typeof window === 'undefined') return true
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
+}
+
+const ShareFloatingBar = ({ desktop, children }) => {
+  const d = SHARE_BACKDROP_DEFAULTS
+  const blurBackdrop = desktop ? d.blurBackdropFilterDesktop : d.blurBackdropFilterMobile
+  const mask = d.blurMaskImage
+
+  const blurLayerHeight = `calc(${SHARE_BAR_BLUR_ABOVE_BUTTONS_PX}px + ${SHARE_BAR_ROW_MIN_PX}px + ${SHARE_BAR_PADDING_BOTTOM_PX}px + env(safe-area-inset-bottom, 0px))`
+
+  /** Tall top padding gives the bottom-centered radial room to reach full transparency before the box edge (avoids a hard horizontal “shelf”). Buttons stay bottom-aligned via flex-end. */
+  const backdropStyle = {
+    alignItems: 'center',
+    background: d.background,
+    backdropFilter: d.backdropFilter,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    overflow: 'hidden',
+    paddingBottom: `calc(${SHARE_BAR_PADDING_BOTTOM_PX}px + env(safe-area-inset-bottom, 0px))`,
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingTop: 'clamp(140px, 32vh, 420px)',
+    position: 'relative',
+    WebkitBackdropFilter: d.WebkitBackdropFilter,
+    width: '100%',
+  }
+
+  return (
     <div
-      id="result-share-backdrop"
-      data-testid="result-share-backdrop"
+      className="result-share-floating"
+      id="result-share-floating-bar"
+      data-testid="result-share-floating-bar"
+      data-component="ShareFloatingBar"
       style={{
-        alignItems: 'center',
-        background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.58) 38%, rgba(0, 0, 0, 0.24) 72%, rgba(0, 0, 0, 0) 100%)',
-        backdropFilter: 'none',
-        display: 'flex',
-        justifyContent: 'center',
-        overflow: 'hidden',
-        padding: '16px 0',
-        position: 'relative',
-        WebkitBackdropFilter: 'none',
+        bottom: 0,
+        pointerEvents: 'none',
+        position: 'fixed',
+        left: 0,
+        right: 0,
         width: '100%',
+        zIndex: 24,
       }}
     >
       <div
-        aria-hidden="true"
-        style={{
-          backdropFilter: desktop ? 'blur(10px)' : 'blur(8px)',
-          inset: 0,
-          maskImage:
-            'linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.34) 10%, rgba(0, 0, 0, 0.62) 30%, rgba(0, 0, 0, 0.86) 62%, rgba(0, 0, 0, 1) 100%)',
-          pointerEvents: 'none',
-          position: 'absolute',
-          WebkitBackdropFilter: desktop ? 'blur(10px)' : 'blur(8px)',
-          WebkitMaskImage:
-            'linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.34) 10%, rgba(0, 0, 0, 0.62) 30%, rgba(0, 0, 0, 0.86) 62%, rgba(0, 0, 0, 1) 100%)',
-        }}
-      />
-      {children}
+        id="result-share-backdrop"
+        data-testid="result-share-backdrop"
+        style={backdropStyle}
+      >
+        <div
+          aria-hidden="true"
+          style={{
+            backdropFilter: blurBackdrop,
+            bottom: 0,
+            height: blurLayerHeight,
+            left: 0,
+            maskImage: mask,
+            pointerEvents: 'none',
+            position: 'absolute',
+            right: 0,
+            top: 'auto',
+            WebkitBackdropFilter: blurBackdrop,
+            WebkitMaskImage: mask,
+          }}
+        />
+        {children}
+      </div>
     </div>
-  </div>
-)
+  )
+}
+
+/** Chevron nudge + hover settle: RAF owns transform so CSS can transition to translateY(0). */
+const SCROLL_HINT_NUDGE_MS = 1800
+const SCROLL_HINT_AMP_PX = 6
+const SCROLL_HINT_SETTLE_MS = 280
+
+const ScrollDownHint = ({ onActivate, tabIndex }) => {
+  const buttonRef = useRef(null)
+  const svgRef = useRef(null)
+  const rafRef = useRef(null)
+  const phaseStartRef = useRef(null)
+  const yRef = useRef(0)
+  const [paused, setPaused] = useState(false)
+  const [reducedMotion, setReducedMotion] = useState(false)
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return undefined
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const sync = () => setReducedMotion(mq.matches)
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
+  }, [])
+
+  const resumeBounce = () => {
+    setPaused(false)
+    const el = svgRef.current
+    if (el) {
+      el.style.transition = ''
+      el.style.transform = ''
+    }
+    phaseStartRef.current = typeof performance !== 'undefined' ? performance.now() : null
+  }
+
+  // Idle: sine-derived bounce (same 0 → 6px → 0 rhythm as former keyframes, ~ease feel).
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined
+    if (paused || reducedMotion) return undefined
+    const el = svgRef.current
+    if (!el) return undefined
+    if (phaseStartRef.current === null) phaseStartRef.current = performance.now()
+
+    const tick = (now) => {
+      const start = phaseStartRef.current ?? now
+      const t = ((now - start) % SCROLL_HINT_NUDGE_MS) / SCROLL_HINT_NUDGE_MS
+      const y = (1 - Math.cos(t * 2 * Math.PI)) / 2 * SCROLL_HINT_AMP_PX
+      yRef.current = y
+      el.style.transition = 'none'
+      el.style.transform = `translateY(${y}px)`
+      rafRef.current = window.requestAnimationFrame(tick)
+    }
+    rafRef.current = window.requestAnimationFrame(tick)
+    return () => {
+      if (rafRef.current != null) window.cancelAnimationFrame(rafRef.current)
+      rafRef.current = null
+    }
+  }, [paused, reducedMotion])
+
+  // Hover/focus: transition from last RAF y to top (transform is fully under our control).
+  useLayoutEffect(() => {
+    if (!paused || reducedMotion || typeof window === 'undefined') return undefined
+    const el = svgRef.current
+    if (!el) return undefined
+
+    let cancelled = false
+    const fromY = yRef.current
+    el.style.transition = 'none'
+    el.style.transform = `translateY(${fromY}px)`
+    void el.offsetHeight
+    const id = window.requestAnimationFrame(() => {
+      if (cancelled) return
+      el.style.transition = `transform ${SCROLL_HINT_SETTLE_MS}ms cubic-bezier(0.22, 1, 0.36, 1)`
+      el.style.transform = 'translateY(0)'
+    })
+    return () => {
+      cancelled = true
+      window.cancelAnimationFrame(id)
+    }
+  }, [paused, reducedMotion])
+
+  const onPointerLeave = () => {
+    if (buttonRef.current && document.activeElement === buttonRef.current) return
+    resumeBounce()
+  }
+
+  return (
+    <button
+      ref={buttonRef}
+      type="button"
+      className="result-scroll-hint"
+      aria-label="Scroll down for more content"
+      data-testid="result-scroll-hint"
+      tabIndex={tabIndex}
+      onClick={onActivate}
+      onPointerEnter={() => setPaused(true)}
+      onPointerLeave={onPointerLeave}
+      onFocus={() => setPaused(true)}
+      onBlur={resumeBounce}
+      style={{
+        alignItems: 'center',
+        background: 'transparent',
+        border: 'none',
+        borderRadius: '8px',
+        color: yellow,
+        cursor: 'pointer',
+        display: 'inline-flex',
+        justifyContent: 'center',
+        padding: '8px 20px',
+        pointerEvents: 'auto',
+        position: 'relative',
+        touchAction: 'manipulation',
+        WebkitTapHighlightColor: 'transparent',
+        zIndex: 1,
+      }}
+    >
+      <svg
+        ref={svgRef}
+        width="48"
+        height="48"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </button>
+  )
+}
 
 const ShareButton = ({ title, text, desktop, shareImageUrl }) => {
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [showActions, setShowActions] = useState(false)
+  const [hasPageOverflow, setHasPageOverflow] = useState(true)
   const [preparedShareFile, setPreparedShareFile] = useState(null)
   const [hovered, setHovered] = useState(false)
   const [pressed, setPressed] = useState(false)
   const shareInFlightRef = useRef(false)
+  const shareIconSvgRef = useRef(null)
+  const shareIconAnimRef = useRef(null)
+  const shareIconHoverRef = useRef(false)
+  const shareIconFocusRef = useRef(false)
+  const [resetArrowWiggle, setResetArrowWiggle] = useState(false)
   const buttonBg = pressed ? '#AAAA3A' : hovered ? '#C2C24E' : yellow
+
+  const triggerResetArrowWiggle = useCallback(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return
+    }
+    setResetArrowWiggle(true)
+  }, [])
+
+  const handleResetArrowAnimationEnd = useCallback((e) => {
+    const name = (e.animationName || '').split(',')[0].trim()
+    if (name !== 'primary-cta-reset-wiggle') return
+    setResetArrowWiggle(false)
+  }, [])
+
+  const clearShareIconInline = useCallback(() => {
+    const svg = shareIconSvgRef.current
+    if (svg) {
+      svg.style.opacity = ''
+      svg.style.transform = ''
+    }
+  }, [])
+
+  const playShareIconAnimation = useCallback(() => {
+    const el = shareIconSvgRef.current
+    if (!el || typeof el.animate !== 'function') return
+    shareIconAnimRef.current?.cancel()
+    clearShareIconInline()
+    const anim = el.animate(SHARE_ICON_KEYFRAMES, {
+      duration: SHARE_ICON_ANIM_MS,
+      easing: SHARE_ICON_ANIM_EASING,
+      fill: 'forwards',
+    })
+    shareIconAnimRef.current = anim
+    anim.onfinish = () => {
+      if (shareIconAnimRef.current !== anim) return
+      try {
+        anim.cancel()
+      } catch (_) {}
+      clearShareIconInline()
+      shareIconAnimRef.current = null
+    }
+  }, [clearShareIconInline])
+
+  useEffect(() => {
+    return () => {
+      shareIconAnimRef.current?.cancel()
+      shareIconAnimRef.current = null
+    }
+  }, [])
+
+  /** Hover/focus in: start once; hover/focus out: always let the current run finish (no cancel/reverse). */
+  const applyShareIconPlayback = useCallback(() => {
+    if (shareIconPrefersReducedMotion()) return
+    const active = shareIconHoverRef.current || shareIconFocusRef.current
+    const el = shareIconSvgRef.current
+    if (!el || typeof el.animate !== 'function') return
+    if (!active) return
+
+    const anim = shareIconAnimRef.current
+    const runningFwd = anim && anim.playState === 'running' && anim.playbackRate > 0
+    if (runningFwd) return
+    playShareIconAnimation()
+  }, [playShareIconAnimation])
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined
     const threshold = desktop ? 320 : 160
-    const onScroll = () => setIsScrolled(window.scrollY > threshold)
+    const onScroll = () => setShowActions(window.scrollY > threshold)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [desktop])
+
+  useLayoutEffect(() => {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return undefined
+    const measureOverflow = () => {
+      const doc = document.documentElement
+      setHasPageOverflow(doc.scrollHeight > doc.clientHeight + 32)
+    }
+    measureOverflow()
+    window.addEventListener('resize', measureOverflow, { passive: true })
+    const debouncedLate = window.setTimeout(measureOverflow, 400)
+    let ro
+    if (typeof ResizeObserver !== 'undefined' && document.body) {
+      ro = new ResizeObserver(() => measureOverflow())
+      ro.observe(document.body)
+    }
+    return () => {
+      window.removeEventListener('resize', measureOverflow)
+      window.clearTimeout(debouncedLate)
+      ro?.disconnect()
+    }
+  }, [])
+
+  const showScrollCaret = !showActions && hasPageOverflow
+
+  const handleScrollDownHint = () => {
+    if (typeof window === 'undefined') return
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const delta = Math.min(Math.floor(window.innerHeight * 0.72), 520)
+    window.scrollBy({ top: delta, behavior: reduce ? 'auto' : 'smooth' })
+  }
 
   useEffect(() => {
     let cancelled = false
@@ -299,71 +593,142 @@ const ShareButton = ({ title, text, desktop, shareImageUrl }) => {
     }
   }
 
+  const actionsVisible = !showScrollCaret
+
   return (
-    <ShareFloatingBar isScrolled={isScrolled} desktop={desktop}>
+    <ShareFloatingBar desktop={desktop}>
       <div
-        id="result-share-button-row"
-        data-testid="result-share-button-row"
+        className="result-bottom-bar-swap"
+        data-testid="result-bottom-bar-swap"
         style={{
           alignItems: 'center',
           display: 'flex',
-          gap: '10px',
           justifyContent: 'center',
-          pointerEvents: 'auto',
+          minHeight: `${SHARE_BAR_ROW_MIN_PX}px`,
+          pointerEvents: 'none',
           position: 'relative',
+          width: '100%',
           zIndex: 1,
         }}
       >
-          <PrimaryCta to="/">Start over ↺</PrimaryCta>
-        <button
-          type="button"
-          className="result-share-trigger"
-          onClick={() => {
-            handleShare().catch(() => {})
-          }}
-          onTouchEnd={(event) => {
-            event.preventDefault()
-            setPressed(false)
-            handleShare().catch(() => {})
-          }}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => {
-            setHovered(false)
-            setPressed(false)
-          }}
-          onMouseDown={() => setPressed(true)}
-          onMouseUp={() => setPressed(false)}
-          onTouchStart={() => setPressed(true)}
-          aria-label="Share result"
-          style={{
-            alignItems: 'center',
-            backgroundColor: buttonBg,
-            border: 'none',
-            borderRadius: '4px',
-            color: '#000403',
-            cursor: 'pointer',
-            display: 'inline-flex',
-            fontFamily: fig,
-            fontSize: '16px',
-            gap: '8px',
-            justifyContent: 'center',
-            lineHeight: '46px',
-            minHeight: '46px',
-            padding: '0 22px',
-            pointerEvents: 'auto',
-            position: 'relative',
-            touchAction: 'manipulation',
-            transition: 'background-color 0.15s ease',
-            userSelect: 'none',
-            WebkitTapHighlightColor: 'transparent',
-            zIndex: 1,
-          }}
+        <div
+          className={`result-bottom-bar-layer${showScrollCaret ? ' result-bottom-bar-layer--visible' : ''}`}
+          aria-hidden={!showScrollCaret}
         >
-          <span>Share</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M8.49771 12.0103L10.0087 19.6895C10.2939 21.1393 12.2419 21.4278 12.9352 20.1229L20.2753 6.30624C20.5593 5.77171 20.5 5.18094 20.216 4.73115M8.49771 12.0103L3.00985 6.69763C1.99619 5.71634 2.69085 4 4.10169 4H18.889C19.4676 4 19.9445 4.30115 20.216 4.73115M8.49771 12.0103L20.216 4.73115M20.216 4.73115L20.3184 4.66752" stroke="#000403" strokeWidth="1.70531" />
-          </svg>
-        </button>
+          <ScrollDownHint onActivate={handleScrollDownHint} tabIndex={showScrollCaret ? undefined : -1} />
+        </div>
+        <div
+          className={`result-bottom-bar-layer${actionsVisible ? ' result-bottom-bar-layer--visible' : ''}`}
+          aria-hidden={!actionsVisible}
+        >
+          <div
+            id="result-share-button-row"
+            data-testid="result-share-button-row"
+            style={{
+              alignItems: 'center',
+              display: 'flex',
+              gap: '10px',
+              justifyContent: 'center',
+              minHeight: '46px',
+              pointerEvents: 'inherit',
+              position: 'relative',
+            }}
+          >
+            <PrimaryCta
+              to="/"
+              tabIndex={actionsVisible ? undefined : -1}
+              padding="0 18px 0 22px"
+              onMouseEnter={triggerResetArrowWiggle}
+              onTouchStart={triggerResetArrowWiggle}
+            >
+              Start over{' '}
+              <span
+                className={['primary-cta__reset-arrow', resetArrowWiggle && 'primary-cta__reset-arrow--wiggle']
+                  .filter(Boolean)
+                  .join(' ')}
+                aria-hidden="true"
+                onAnimationEnd={handleResetArrowAnimationEnd}
+              >
+                ↺
+              </span>
+            </PrimaryCta>
+            <button
+              type="button"
+              className="result-share-trigger"
+              onClick={() => {
+                handleShare().catch(() => {})
+              }}
+              onTouchEnd={(event) => {
+                event.preventDefault()
+                setPressed(false)
+                handleShare().catch(() => {})
+              }}
+              onMouseEnter={() => {
+                shareIconHoverRef.current = true
+                setHovered(true)
+                applyShareIconPlayback()
+              }}
+              onMouseLeave={() => {
+                shareIconHoverRef.current = false
+                setHovered(false)
+                setPressed(false)
+                applyShareIconPlayback()
+              }}
+              onFocus={() => {
+                shareIconFocusRef.current = true
+                applyShareIconPlayback()
+              }}
+              onBlur={() => {
+                shareIconFocusRef.current = false
+                setPressed(false)
+                applyShareIconPlayback()
+              }}
+              onMouseDown={() => setPressed(true)}
+              onMouseUp={() => setPressed(false)}
+              onTouchStart={() => setPressed(true)}
+              aria-label="Share result"
+              tabIndex={actionsVisible ? undefined : -1}
+              style={{
+                alignItems: 'center',
+                backgroundColor: buttonBg,
+                border: 'none',
+                borderRadius: '4px',
+                color: '#000403',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                fontFamily: fig,
+                fontSize: '16px',
+                gap: '5px',
+                justifyContent: 'center',
+                lineHeight: '46px',
+                minHeight: '46px',
+                padding: '0 16px 0 22px',
+                pointerEvents: 'auto',
+                position: 'relative',
+                touchAction: 'manipulation',
+                transition: 'background-color 250ms ease',
+                userSelect: 'none',
+                WebkitTapHighlightColor: 'transparent',
+                zIndex: 1,
+              }}
+            >
+              <span>Share</span>
+              <span className="result-share-trigger__icon-wrap" aria-hidden="true">
+                <svg
+                  ref={shareIconSvgRef}
+                  className="result-share-trigger__icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="17"
+                  height="17"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path d="M8.49771 12.0103L10.0087 19.6895C10.2939 21.1393 12.2419 21.4278 12.9352 20.1229L20.2753 6.30624C20.5593 5.77171 20.5 5.18094 20.216 4.73115M8.49771 12.0103L3.00985 6.69763C1.99619 5.71634 2.69085 4 4.10169 4H18.889C19.4676 4 19.9445 4.30115 20.216 4.73115M8.49771 12.0103L20.216 4.73115M20.216 4.73115L20.3184 4.66752" stroke="#000403" strokeWidth="1.70531" />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </ShareFloatingBar>
   )
@@ -393,6 +758,11 @@ const ResultPage = ({
 }) => {
   const desktop = useDesktopLayout()
   const fullReading = inPlainTerms ? `${tarotReading}\n\n${inPlainTerms}` : tarotReading
+
+  useEffect(() => {
+    document.documentElement.classList.add('page-results')
+    return () => document.documentElement.classList.remove('page-results')
+  }, [])
 
   if (desktop === null) {
     return (
