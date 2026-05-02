@@ -264,8 +264,12 @@ button.result-share-trigger:focus-visible {
 
 .hero-shell {
   position: relative;
-  padding-top: 24px;
+  padding-top: 0;
   padding-bottom: 24px;
+}
+
+.hero-shell > .page-shell {
+  padding-top: 24px;
 }
 
 .intro-brand-label {
@@ -322,8 +326,12 @@ button.result-share-trigger:focus-visible {
 
 @media (min-width: 640px) {
   .hero-shell {
-    padding-top: 48px;
+    padding-top: 0;
     padding-bottom: 24px;
+  }
+
+  .hero-shell > .page-shell {
+    padding-top: 48px;
   }
 
   .reading-panel {
@@ -429,8 +437,12 @@ button.result-share-trigger:focus-visible {
   }
 
   .hero-shell {
-    padding-top: 56px;
+    padding-top: 0;
     padding-bottom: 80px;
+  }
+
+  .hero-shell > .page-shell {
+    padding-top: 56px;
   }
 
   .intro-brand-label {
