@@ -155,13 +155,15 @@ a.primary-cta:focus-visible {
   outline-offset: 3px;
 }
 
-@keyframes primary-cta-reset-arrow {
+@keyframes primary-cta-reset-wiggle {
   0% {
     transform: rotate(0deg);
   }
-  45% {
+
+  50% {
     transform: rotate(-45deg);
   }
+
   100% {
     transform: rotate(0deg);
   }
@@ -176,15 +178,13 @@ a.primary-cta:focus-visible {
   transform-origin: 50% 55%;
 }
 
-a.primary-cta:hover .primary-cta__reset-arrow,
-a.primary-cta:focus-visible .primary-cta__reset-arrow {
-  animation: primary-cta-reset-arrow 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+.primary-cta__reset-arrow--wiggle {
+  animation: primary-cta-reset-wiggle 0.55s ease-in-out forwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  a.primary-cta:hover .primary-cta__reset-arrow,
-  a.primary-cta:focus-visible .primary-cta__reset-arrow {
-    animation: none;
+  .primary-cta__reset-arrow--wiggle {
+    animation: none !important;
   }
 }
 
@@ -200,38 +200,7 @@ button.result-share-trigger {
   justify-content: center;
 }
 
-@keyframes result-share-icon-hover {
-  0% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-  32% {
-    opacity: 0;
-    /* Exit past top-right of the button */
-    transform: translate3d(12px, -24px, 0);
-  }
-  32.01% {
-    opacity: 0;
-    /* Re-enter from bottom-left (keeps motion inside clipped backdrop) */
-    transform: translate3d(-14px, 22px, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-button.result-share-trigger:hover .result-share-trigger__icon,
-button.result-share-trigger:focus-visible .result-share-trigger__icon {
-  animation: result-share-icon-hover 1s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  button.result-share-trigger:hover .result-share-trigger__icon,
-  button.result-share-trigger:focus-visible .result-share-trigger__icon {
-    animation: none;
-  }
-}
+/** Share icon motion: Web Animations API in `ResultPage` (one-shot on hover/focus; pointer leave does not interrupt). */
 
 button.result-share-trigger:focus-visible {
   outline: 2px solid #ffe4f7;

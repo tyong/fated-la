@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import ClientOnlyDithering from './ClientOnlyDithering'
 import { PrimaryCta } from './PrimaryCta'
 import SpreadSectionExternal from './SpreadSection'
@@ -194,6 +194,33 @@ const SHARE_BACKDROP_DEFAULTS = {
     'linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.34) 10%, rgba(0, 0, 0, 0.62) 30%, rgba(0, 0, 0, 0.86) 62%, rgba(0, 0, 0, 1) 100%)',
   blurBackdropFilterDesktop: 'blur(10px)',
   blurBackdropFilterMobile: 'blur(8px)',
+}
+
+/** Share icon hover: one WAAPI timeline; mouse/focus out does not interrupt — it always runs to completion. */
+const SHARE_ICON_EXIT_MS = 640 // doubled from 320ms — slower motion toward top-right
+const SHARE_ICON_RETURN_MS = 680 // unchanged vs former 1000ms timeline (remainder after 320ms exit)
+const SHARE_ICON_ANIM_MS = SHARE_ICON_EXIT_MS + SHARE_ICON_RETURN_MS
+const SHARE_ICON_EXIT_END_OFFSET = SHARE_ICON_EXIT_MS / SHARE_ICON_ANIM_MS
+const SHARE_ICON_JUMP_OFFSET = SHARE_ICON_EXIT_END_OFFSET + 0.0001
+const SHARE_ICON_ANIM_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)'
+const SHARE_ICON_KEYFRAMES = [
+  { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+  {
+    opacity: 0,
+    transform: 'translate3d(12px, -24px, 0)',
+    offset: SHARE_ICON_EXIT_END_OFFSET,
+  },
+  {
+    opacity: 0,
+    transform: 'translate3d(-14px, 22px, 0)',
+    offset: SHARE_ICON_JUMP_OFFSET,
+  },
+  { opacity: 1, transform: 'translate3d(0, 0, 0)' },
+]
+
+function shareIconPrefersReducedMotion() {
+  if (typeof window === 'undefined') return true
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
 const ShareFloatingBar = ({ desktop, children }) => {
@@ -400,7 +427,75 @@ const ShareButton = ({ title, text, desktop, shareImageUrl }) => {
   const [hovered, setHovered] = useState(false)
   const [pressed, setPressed] = useState(false)
   const shareInFlightRef = useRef(false)
+  const shareIconSvgRef = useRef(null)
+  const shareIconAnimRef = useRef(null)
+  const shareIconHoverRef = useRef(false)
+  const shareIconFocusRef = useRef(false)
+  const [resetArrowWiggle, setResetArrowWiggle] = useState(false)
   const buttonBg = pressed ? '#AAAA3A' : hovered ? '#C2C24E' : yellow
+
+  const triggerResetArrowWiggle = useCallback(() => {
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return
+    }
+    setResetArrowWiggle(true)
+  }, [])
+
+  const handleResetArrowAnimationEnd = useCallback((e) => {
+    const name = (e.animationName || '').split(',')[0].trim()
+    if (name !== 'primary-cta-reset-wiggle') return
+    setResetArrowWiggle(false)
+  }, [])
+
+  const clearShareIconInline = useCallback(() => {
+    const svg = shareIconSvgRef.current
+    if (svg) {
+      svg.style.opacity = ''
+      svg.style.transform = ''
+    }
+  }, [])
+
+  const playShareIconAnimation = useCallback(() => {
+    const el = shareIconSvgRef.current
+    if (!el || typeof el.animate !== 'function') return
+    shareIconAnimRef.current?.cancel()
+    clearShareIconInline()
+    const anim = el.animate(SHARE_ICON_KEYFRAMES, {
+      duration: SHARE_ICON_ANIM_MS,
+      easing: SHARE_ICON_ANIM_EASING,
+      fill: 'forwards',
+    })
+    shareIconAnimRef.current = anim
+    anim.onfinish = () => {
+      if (shareIconAnimRef.current !== anim) return
+      try {
+        anim.cancel()
+      } catch (_) {}
+      clearShareIconInline()
+      shareIconAnimRef.current = null
+    }
+  }, [clearShareIconInline])
+
+  useEffect(() => {
+    return () => {
+      shareIconAnimRef.current?.cancel()
+      shareIconAnimRef.current = null
+    }
+  }, [])
+
+  /** Hover/focus in: start once; hover/focus out: always let the current run finish (no cancel/reverse). */
+  const applyShareIconPlayback = useCallback(() => {
+    if (shareIconPrefersReducedMotion()) return
+    const active = shareIconHoverRef.current || shareIconFocusRef.current
+    const el = shareIconSvgRef.current
+    if (!el || typeof el.animate !== 'function') return
+    if (!active) return
+
+    const anim = shareIconAnimRef.current
+    const runningFwd = anim && anim.playState === 'running' && anim.playbackRate > 0
+    if (runningFwd) return
+    playShareIconAnimation()
+  }, [playShareIconAnimation])
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined
@@ -539,9 +634,21 @@ const ShareButton = ({ title, text, desktop, shareImageUrl }) => {
               position: 'relative',
             }}
           >
-            <PrimaryCta to="/" tabIndex={actionsVisible ? undefined : -1} padding="0 18px 0 22px">
+            <PrimaryCta
+              to="/"
+              tabIndex={actionsVisible ? undefined : -1}
+              padding="0 18px 0 22px"
+              onMouseEnter={triggerResetArrowWiggle}
+              onTouchStart={triggerResetArrowWiggle}
+            >
               Start over{' '}
-              <span className="primary-cta__reset-arrow" aria-hidden="true">
+              <span
+                className={['primary-cta__reset-arrow', resetArrowWiggle && 'primary-cta__reset-arrow--wiggle']
+                  .filter(Boolean)
+                  .join(' ')}
+                aria-hidden="true"
+                onAnimationEnd={handleResetArrowAnimationEnd}
+              >
                 ↺
               </span>
             </PrimaryCta>
@@ -556,10 +663,25 @@ const ShareButton = ({ title, text, desktop, shareImageUrl }) => {
                 setPressed(false)
                 handleShare().catch(() => {})
               }}
-              onMouseEnter={() => setHovered(true)}
+              onMouseEnter={() => {
+                shareIconHoverRef.current = true
+                setHovered(true)
+                applyShareIconPlayback()
+              }}
               onMouseLeave={() => {
+                shareIconHoverRef.current = false
                 setHovered(false)
                 setPressed(false)
+                applyShareIconPlayback()
+              }}
+              onFocus={() => {
+                shareIconFocusRef.current = true
+                applyShareIconPlayback()
+              }}
+              onBlur={() => {
+                shareIconFocusRef.current = false
+                setPressed(false)
+                applyShareIconPlayback()
               }}
               onMouseDown={() => setPressed(true)}
               onMouseUp={() => setPressed(false)}
@@ -593,6 +715,7 @@ const ShareButton = ({ title, text, desktop, shareImageUrl }) => {
               <span>Share</span>
               <span className="result-share-trigger__icon-wrap" aria-hidden="true">
                 <svg
+                  ref={shareIconSvgRef}
                   className="result-share-trigger__icon"
                   xmlns="http://www.w3.org/2000/svg"
                   width="17"
