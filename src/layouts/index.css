@@ -268,8 +268,7 @@ button.result-scroll-hint:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .home-hero-star,
-  .result-hero-star,
-  .question-hero-star {
+  .result-hero-star {
     animation: none !important;
   }
 
