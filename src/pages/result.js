@@ -3,6 +3,17 @@ import { navigate } from 'gatsby'
 import { STORAGE_KEY, SPREAD_KEY } from '../data/scores'
 import { getQuizResultPath } from '../utils/getQuizResultPath'
 
+export const Head = () => (
+  <>
+    <title>Redirecting to your result — Fated LA</title>
+    <meta
+      name="description"
+      content="Taking you to your Fated LA quiz result."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+  </>
+)
+
 /**
  * Redirect hub after quiz completion. Returning null left no main height, so SiteFooter
  * sat in the viewport — a visible flash between question 10 and the result page.

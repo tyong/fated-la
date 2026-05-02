@@ -41,6 +41,7 @@ export const createResultHead = ({
   return (
     <>
       <title>{pageTitle}</title>
+      {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
       <meta name="description" content={description} />
       <meta property="og:type" content="website" />
       <meta property="og:title" content={pageTitle} />
