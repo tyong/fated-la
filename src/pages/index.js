@@ -171,10 +171,10 @@ const IntroPage = () => {
               </h1>
               <div style={{ color: '#FFFFFF', fontFamily: fig, fontWeight: heroBodyWeight, fontSize: `calc(clamp(16px, 1.45vw, 24px) * ${heroBodyScale})`, lineHeight: 1.4, margin: '0 0 30px', maxWidth: '430px' }}>
                 <p style={{ margin: '0 0 16px' }}>10 questions. 5 top mayoral candidates.</p>
-                <p style={{ margin: '0 0 16px' }}>L.A.'s primary election is June 2, 2026.</p>
-                <p style={{ margin: 0 }}>Learn which candidate shares your views.</p>
+                <p style={{ margin: '0 0 16px' }}>L.A.&apos;s primary election on June 2.</p>
+                <p style={{ margin: 0 }}>Surrender your expectations.</p>
               </div>
-              <PrimaryCta to="/question-01">Let&apos;s go ➝</PrimaryCta>
+              <PrimaryCta to="/question-01">Begin your reading ➝</PrimaryCta>
             </div>
 
             <div
@@ -227,14 +227,14 @@ const IntroPage = () => {
             </div>
           </div>
           <div className="content-column" style={{ maxWidth: '510px' }}>
-            <h2 style={h2Style}>How It Works</h2>
+            <h2 style={h2Style}>Channel your intuition</h2>
             <p style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-md)', lineHeight: 1.5, whiteSpace: 'pre-wrap' }}>
-              Answer 10 questions revealing your feelings on LA issues. The fires, the tents, the Olympics, AI.{'\n\n'}
-              There are no wrong answers. Just answer how you feel.{'\n\n'}
-              At the end, we'll reveal which candidate matches your answers best.
+              Answer 10 questions about Los Angeles - its fires, its failures, its possible futures.{'\n\n'}
+              In the end, your Fated reading will name the candidate whose vision most closely aligns with your own.{'\n\n'}
+              Your cards do not tell you what to believe. They mirror what you already feel.
             </p>
             <div style={{ marginTop: '16px' }}>
-              <PrimaryCta to="/question-01">I&apos;m ready ➝</PrimaryCta>
+              <PrimaryCta to="/question-01">Let&apos;s go ➝</PrimaryCta>
             </div>
           </div>
         </div>
@@ -253,9 +253,9 @@ const IntroPage = () => {
             style={{ position: 'absolute', inset: 0, zIndex: 0 }}
           />
           <div style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
-            <h2 style={h2Style}>Your Reading</h2>
+            <h2 style={h2Style}>Reveal your desire</h2>
             <p className="reading-intro-copy" style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-lg)', lineHeight: 1.45, maxWidth: '620px', marginLeft: 'auto', marginRight: 'auto' }}>
-              After you answer 10 questions, you get your result. No email required.
+              Your Fated reading shows your truth.
             </p>
             <div className="reading-grid">
               <ReadingItem
@@ -288,7 +288,7 @@ const IntroPage = () => {
               </ReadingItem>
             </div>
             <div className="reading-cta">
-              <PrimaryCta to="/question-01">See my fate ➝</PrimaryCta>
+              <PrimaryCta to="/question-01">Follow fate ➝</PrimaryCta>
             </div>
           </div>
         </div>
