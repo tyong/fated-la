@@ -182,8 +182,8 @@ const IntroPage = () => {
               style={{
                 overflow: 'hidden',
                 marginTop: '8px',
-                width: 'calc(100% + (var(--page-gutter) * 2))',
-                marginLeft: 'calc(var(--page-gutter) * -1)',
+                width: 'calc(100% + (var(--site-gutter-x) * 2))',
+                marginLeft: 'calc(var(--site-gutter-x) * -1)',
               }}
             >
               <div className="home-card-rail" style={{ animation: 'scrollCards 20s linear infinite', display: 'flex', width: 'fit-content' }}>
@@ -241,7 +241,7 @@ const IntroPage = () => {
       </section>
 
       <section className="page-shell" style={{ paddingBottom: 0 }}>
-        <div className="reading-panel" style={{ backgroundColor: '#264988', borderRadius: 0, position: 'relative', overflow: 'hidden', width: 'calc(100% + (var(--page-gutter) * 2))', marginLeft: 'calc(var(--page-gutter) * -1)' }}>
+        <div className="reading-panel" style={{ backgroundColor: '#264988', borderRadius: 0, position: 'relative', overflow: 'hidden', width: 'calc(100% + (var(--site-gutter-x) * 2))', marginLeft: 'calc(var(--site-gutter-x) * -1)' }}>
           <ClientOnlyDithering
             speed={1}
             shape="wave"

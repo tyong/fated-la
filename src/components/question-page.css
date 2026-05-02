@@ -55,13 +55,13 @@
   transition: width 0.55s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Mobile — Question 01 - Mobile (16E-0): meta top area, title 92, body 166, choices top 373, gap 11 */
+/* Mobile — horizontal inset is only `.question-page` + `--site-gutter-x` (matches TopBar); no extra side padding */
 .question-page__header {
   align-items: flex-start;
   display: flex;
   justify-content: flex-start;
   margin-bottom: 0;
-  padding: 23px 8px 0;
+  padding: 23px 0 0;
 }
 
 .question-page__header-meta {
@@ -79,11 +79,11 @@
   font-weight: 400;
   line-height: 1.1;
   margin: 0 0 21px;
-  padding: 0 10px;
+  padding: 0;
 }
 
 .question-page__intro {
-  padding: 0 10px;
+  padding: 0;
 }
 
 .question-page__intro-p {
@@ -104,7 +104,7 @@
   font-size: clamp(16px, 1.4vw, 20px);
   line-height: 22px;
   margin: 22px 0 32px;
-  padding: 0 10px 0;
+  padding: 0;
 }
 
 .question-page__choice-title {
@@ -122,7 +122,7 @@
   display: flex;
   flex-direction: column;
   gap: 11px;
-  padding: 0 10px 60px;
+  padding: 0 0 60px;
 }
 
 .question-page__choice-card {
@@ -143,34 +143,6 @@
 .question-page__choice-card:focus-visible {
   outline: 2px solid #ffe4f7;
   outline-offset: 2px;
-}
-
-/* Tablet — strip inner horizontal padding; outer gutter is var(--site-gutter-x) */
-@media (min-width: 768px) and (max-width: 899px) {
-  .question-page__header {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .question-page__title {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .question-page__intro {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .question-page__prompt {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .question-page__choices {
-    padding-left: 0;
-    padding-right: 0;
-  }
 }
 
 @media (min-width: 900px) {
