@@ -19,9 +19,6 @@ const dark    = '#2A009C'
 const yellow  = '#D2D260'
 const offPink = '#F2CACE'
 const largeCardShadow = '0 18px 32px 8px rgba(29, 13, 50, 0.8)'
-const mobileTopControlOffset = TOP_BAR_HEIGHT_MOBILE + 39
-const mobileSideControlOffset = 16
-
 const starSpinStyle = { animation: 'spinStar 10s linear infinite', transformOrigin: '50% 50%' }
 
 const StarIcon = ({ size = 24, style = {}, className }) => (
@@ -173,19 +170,77 @@ const BodyText = ({ children, desktop }) => (
   </div>
 )
 
-const ShareButton = ({ title, text, desktop, shareImageUrl, floating = false }) => {
+const ShareFloatingBar = ({ isScrolled, desktop, children }) => (
+  <div
+    className="result-share-floating"
+    id="result-share-floating-bar"
+    data-testid="result-share-floating-bar"
+    data-component="ShareFloatingBar"
+    style={{
+      bottom: 0,
+      opacity: isScrolled ? 1 : 0,
+      pointerEvents: 'none',
+      position: 'fixed',
+      left: 0,
+      right: 0,
+      transform: isScrolled ? 'translateY(0)' : 'translateY(calc(100% + 40px))',
+      transition:
+        'transform 520ms cubic-bezier(0.16, 1, 0.3, 1), opacity 320ms cubic-bezier(0.22, 1, 0.36, 1)',
+      width: '100%',
+      zIndex: 24,
+    }}
+  >
+    <div
+      id="result-share-backdrop"
+      data-testid="result-share-backdrop"
+      style={{
+        alignItems: 'center',
+        background: 'linear-gradient(0deg, rgba(0, 0, 0, 0.58) 38%, rgba(0, 0, 0, 0.24) 72%, rgba(0, 0, 0, 0) 100%)',
+        backdropFilter: 'none',
+        display: 'flex',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        padding: '16px 0',
+        position: 'relative',
+        WebkitBackdropFilter: 'none',
+        width: '100%',
+      }}
+    >
+      <div
+        aria-hidden="true"
+        style={{
+          backdropFilter: desktop ? 'blur(10px)' : 'blur(8px)',
+          inset: 0,
+          maskImage:
+            'linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.34) 10%, rgba(0, 0, 0, 0.62) 30%, rgba(0, 0, 0, 0.86) 62%, rgba(0, 0, 0, 1) 100%)',
+          pointerEvents: 'none',
+          position: 'absolute',
+          WebkitBackdropFilter: desktop ? 'blur(10px)' : 'blur(8px)',
+          WebkitMaskImage:
+            'linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.34) 10%, rgba(0, 0, 0, 0.62) 30%, rgba(0, 0, 0, 0.86) 62%, rgba(0, 0, 0, 1) 100%)',
+        }}
+      />
+      {children}
+    </div>
+  </div>
+)
+
+const ShareButton = ({ title, text, desktop, shareImageUrl }) => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [preparedShareFile, setPreparedShareFile] = useState(null)
+  const [hovered, setHovered] = useState(false)
+  const [pressed, setPressed] = useState(false)
   const shareInFlightRef = useRef(false)
+  const buttonBg = pressed ? '#AAAA3A' : hovered ? '#C2C24E' : yellow
 
   useEffect(() => {
-    if (!floating || typeof window === 'undefined') return undefined
+    if (typeof window === 'undefined') return undefined
     const threshold = desktop ? 320 : 160
     const onScroll = () => setIsScrolled(window.scrollY > threshold)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [desktop, floating])
+  }, [desktop])
 
   useEffect(() => {
     let cancelled = false
@@ -244,77 +299,73 @@ const ShareButton = ({ title, text, desktop, shareImageUrl, floating = false }) 
     }
   }
 
-  const pos = floating
-    ? {
-      bottom: '32px',
-      left: '50%',
-      opacity: isScrolled ? 1 : 0,
-      pointerEvents: isScrolled ? 'auto' : 'none',
-      position: 'fixed',
-      transform: isScrolled ? 'translate(-50%, 0)' : 'translate(-50%, calc(100% + 40px))',
-      transition:
-        'transform 520ms cubic-bezier(0.16, 1, 0.3, 1), opacity 480ms cubic-bezier(0.22, 1, 0.36, 1)',
-      zIndex: 24,
-    }
-    : desktop
-      ? { position: 'absolute', right: 96, top: TOP_BAR_HEIGHT_DESKTOP + 66, zIndex: 2 }
-      : { position: 'absolute', right: mobileSideControlOffset, top: mobileTopControlOffset, zIndex: 2 }
-
   return (
-    <button
-      type="button"
-      className={floating ? 'result-share-trigger result-share-floating' : 'result-share-trigger'}
-      onClick={() => {
-        handleShare().catch(() => {})
-      }}
-      onTouchEnd={(event) => {
-        event.preventDefault()
-        handleShare().catch(() => {})
-      }}
-      aria-label="Share result"
-      style={{
-        background: 'none',
-        border: 'none',
-        cursor: 'pointer',
-        padding: 0,
-        touchAction: 'manipulation',
-        WebkitTapHighlightColor: 'transparent',
-        ...pos,
-      }}
-    >
-      {floating ? (
-        <div
+    <ShareFloatingBar isScrolled={isScrolled} desktop={desktop}>
+      <div
+        id="result-share-button-row"
+        data-testid="result-share-button-row"
+        style={{
+          alignItems: 'center',
+          display: 'flex',
+          gap: '10px',
+          justifyContent: 'center',
+          pointerEvents: 'auto',
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >
+          <PrimaryCta to="/">Start over ↺</PrimaryCta>
+        <button
+          type="button"
+          className="result-share-trigger"
+          onClick={() => {
+            handleShare().catch(() => {})
+          }}
+          onTouchEnd={(event) => {
+            event.preventDefault()
+            setPressed(false)
+            handleShare().catch(() => {})
+          }}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => {
+            setHovered(false)
+            setPressed(false)
+          }}
+          onMouseDown={() => setPressed(true)}
+          onMouseUp={() => setPressed(false)}
+          onTouchStart={() => setPressed(true)}
+          aria-label="Share result"
           style={{
             alignItems: 'center',
-            backgroundColor: yellow,
-            borderRadius: '100px',
-            boxShadow: `${largeCardShadow}, inset 0 -2px 4px 0 rgba(0, 0, 0, 0.2)`,
-            color: '#291543',
-            display: 'flex',
-            fontFamily: noirBold,
-            fontSize: '24px',
-            height: '62px',
-            justifyContent: 'space-between',
-            lineHeight: '30px',
-            padding: '0 30px 0 32px',
-            width: '153px',
+            backgroundColor: buttonBg,
+            border: 'none',
+            borderRadius: '4px',
+            color: '#000403',
+            cursor: 'pointer',
+            display: 'inline-flex',
+            fontFamily: fig,
+            fontSize: '16px',
+            gap: '8px',
+            justifyContent: 'center',
+            lineHeight: '46px',
+            minHeight: '46px',
+            padding: '0 22px',
+            pointerEvents: 'auto',
+            position: 'relative',
+            touchAction: 'manipulation',
+            transition: 'background-color 0.15s ease',
+            userSelect: 'none',
+            WebkitTapHighlightColor: 'transparent',
+            zIndex: 1,
           }}
         >
           <span>Share</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M8.49771 12.0103L10.0087 19.6895C10.2939 21.1393 12.2419 21.4278 12.9352 20.1229L20.2753 6.30624C20.5593 5.77171 20.5 5.18094 20.216 4.73115M8.49771 12.0103L3.00985 6.69763C1.99619 5.71634 2.69085 4 4.10169 4H18.889C19.4676 4 19.9445 4.30115 20.216 4.73115M8.49771 12.0103L20.216 4.73115M20.216 4.73115L20.3184 4.66752" stroke="#291543" strokeWidth="1.70531" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M8.49771 12.0103L10.0087 19.6895C10.2939 21.1393 12.2419 21.4278 12.9352 20.1229L20.2753 6.30624C20.5593 5.77171 20.5 5.18094 20.216 4.73115M8.49771 12.0103L3.00985 6.69763C1.99619 5.71634 2.69085 4 4.10169 4H18.889C19.4676 4 19.9445 4.30115 20.216 4.73115M8.49771 12.0103L20.216 4.73115M20.216 4.73115L20.3184 4.66752" stroke="#000403" strokeWidth="1.70531" />
           </svg>
-        </div>
-      ) : desktop ? (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" style={{ width: 48, height: 48, display: 'block' }}>
-          <path d="M8.49771 12.0103L10.0087 19.6895C10.2939 21.1393 12.2419 21.4278 12.9352 20.1229L20.2753 6.30624C20.5593 5.77171 20.5 5.18094 20.216 4.73115M8.49771 12.0103L3.00985 6.69763C1.99619 5.71634 2.69085 4 4.10169 4H18.889C19.4676 4 19.9445 4.30115 20.216 4.73115M8.49771 12.0103L20.216 4.73115M20.216 4.73115L20.3184 4.66752" stroke={yellow} strokeWidth="1.70531" />
-        </svg>
-      ) : (
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M8.49771 12.0103L10.0087 19.6895C10.2939 21.1393 12.2419 21.4278 12.9352 20.1229L20.2753 6.30624C20.5593 5.77171 20.5 5.18094 20.216 4.73115M8.49771 12.0103L3.00985 6.69763C1.99619 5.71634 2.69085 4 4.10169 4H18.889C19.4676 4 19.9445 4.30115 20.216 4.73115M8.49771 12.0103L20.216 4.73115M20.216 4.73115L20.3184 4.66752" stroke={yellow} strokeWidth="1.70531" />
-        </svg>
-      )}
-    </button>
+        </button>
+      </div>
+    </ShareFloatingBar>
   )
 }
 
@@ -413,12 +464,11 @@ const ResultPage = ({
             style={{ backgroundColor: '#291543', height: '1031px', left: 0, position: 'absolute', top: 0, width: '100%', zIndex: 0 }}
           />
           <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop shareImageUrl={shareImage} />
-          <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop floating shareImageUrl={shareImage} />
-          <div style={{ boxSizing: 'border-box', paddingTop: `${TOP_BAR_HEIGHT_DESKTOP + 108}px`, position: 'relative', textAlign: 'center', zIndex: 1, width: '100%', maxWidth: '572px', margin: '0 auto' }}>
+          <div style={{ boxSizing: 'border-box', paddingTop: '96px', position: 'relative', textAlign: 'center', zIndex: 1, width: '100%', maxWidth: '572px', margin: '0 auto' }}>
             <div style={{ color: offPink, fontFamily: noirBold, fontSize: '48px', lineHeight: '52px' }}>
               {drewEyebrow}
             </div>
-            <div style={{ marginTop: '40px' }}>
+            <div style={{ marginTop: '32px' }}>
               <div style={{ color: '#FFFFFF', fontFamily: noirBold, fontSize: '70px', lineHeight: '80px', whiteSpace: 'pre-wrap' }}>
                 {drewTitleDisplay}
               </div>
@@ -545,9 +595,6 @@ const ResultPage = ({
           <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '20px', lineHeight: '28px', margin: '40px auto 0', maxWidth: '500px', whiteSpace: 'pre-wrap', width: '500px' }}>
             {charge}
           </div>
-          <div style={{ margin: '48px auto 0', textAlign: 'center', width: '100%' }}>
-            <PrimaryCta to="/">Start over ↺</PrimaryCta>
-          </div>
         </div>
       </main>
     )
@@ -584,11 +631,9 @@ const ResultPage = ({
           colorFront="#274988"
           style={{ backgroundColor: '#291543', height: '823px', left: 0, position: 'absolute', top: 0, width: '100%', zIndex: 0 }}
         />
-
         <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop={false} shareImageUrl={shareImage} />
-        <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop={false} floating shareImageUrl={shareImage} />
 
-        <div style={{ position: 'relative', zIndex: 1 }}>
+        <div style={{ paddingTop: `${TOP_BAR_HEIGHT_MOBILE}px`, position: 'relative', zIndex: 1 }}>
 
           <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '40px', marginTop: '-16px', textAlign: 'center', whiteSpace: 'pre-wrap' }}>
             {(drew || '').replace(/\.\s*$/, '').trim()}
@@ -713,9 +758,6 @@ const ResultPage = ({
               }}
             >
               {charge}
-            </div>
-            <div style={{ margin: '48px auto 0', textAlign: 'center', width: '100%' }}>
-              <PrimaryCta to="/">Start over ↺</PrimaryCta>
             </div>
           </div>
 
