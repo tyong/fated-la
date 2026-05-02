@@ -7,6 +7,8 @@ import React from 'react'
 
 export { wrapPageElement } from './src/wrap-page-element'
 
+const CRITICAL_SHELL_BG_KEY = 'critical-shell-bg'
+
 const criticalFonts = [
   '/fonts/NoirEnBlanc/noiretblanc-webfont.woff2',
   '/fonts/NoirEnBlanc/noiretblanc_medium_bold-webfont.woff2',
@@ -25,8 +27,60 @@ const forceHttpsScript = (
   />
 )
 
-export const onRenderBody = ({ setHeadComponents }) => {
+/** Normalize Gatsby path (may include trailing slash). */
+function normalizedPath(pathname) {
+  const p = (pathname || '').replace(/\/$/, '')
+  return p === '' ? '/' : p
+}
+
+/**
+ * Matches hero dither chrome on home (`src/pages/index.js`) and results (`ResultPage` on `/result`)
+ * so first paint matches `#264A89` swirl-on-purple before JS/CSS bundles.
+ */
+function criticalShellBackgroundCss(pathname) {
+  const base = 'html{background-color:#291543}body{margin:0;background-color:#291543}'
+  const p = normalizedPath(pathname)
+  const heroDitherPages = p === '/' || p === '/result'
+  if (!heroDitherPages) return base
+  return `${base}body{background-image:radial-gradient(ellipse 130% 90% at 50% 0%,rgba(38,74,137,.42) 0%,rgba(41,21,67,0) 58%)}`
+}
+
+/**
+ * After Gatsby merges head, move shell background `<style>` before the first font/script preload
+ * so the parser applies paint rules before kicking off optional font fetches.
+ */
+export const onPreRenderHTML = ({ getHeadComponents, replaceHeadComponents }) => {
+  const head = getHeadComponents().filter(Boolean)
+  const ci = head.findIndex((c) => React.isValidElement(c) && c.key === CRITICAL_SHELL_BG_KEY)
+  if (ci === -1) return
+
+  const critical = head[ci]
+  const rest = head.filter((_, i) => i !== ci)
+
+  let insertAt = rest.findIndex((c) => {
+    if (!React.isValidElement(c) || c.type !== 'link') return false
+    const rel = c.props?.rel
+    return rel === 'preload' || rel === 'prefetch' || rel === 'modulepreload'
+  })
+
+  if (insertAt === -1) {
+    insertAt = rest.findIndex(
+      (c) => React.isValidElement(c) && c.type !== 'meta' && c.type !== 'title'
+    )
+  }
+  if (insertAt === -1) insertAt = rest.length
+
+  replaceHeadComponents([...rest.slice(0, insertAt), critical, ...rest.slice(insertAt)])
+}
+
+export const onRenderBody = ({ setHeadComponents, pathname }) => {
   setHeadComponents([
+    <style
+      key={CRITICAL_SHELL_BG_KEY}
+      dangerouslySetInnerHTML={{
+        __html: criticalShellBackgroundCss(pathname || ''),
+      }}
+    />,
     forceHttpsScript,
     ...criticalFonts.map((href) => (
       <link

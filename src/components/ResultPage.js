@@ -385,6 +385,9 @@ const ResultPage = ({
         id="main-content"
         style={{
           backgroundColor: '#291543',
+          /* Matches hero dither (#264A89) for first paint before WebGL (`src/pages/index.js`) */
+          backgroundImage:
+            'radial-gradient(ellipse 130% 90% at 50% 0%, rgba(38, 74, 137, 0.42) 0%, rgba(41, 21, 67, 0) 58%)',
           boxSizing: 'border-box',
           fontSynthesis: 'none',
           margin: '0 auto',
@@ -558,6 +561,8 @@ const ResultPage = ({
       id="main-content"
       style={{
         backgroundColor: '#291543',
+        backgroundImage:
+          'radial-gradient(ellipse 130% 90% at 50% 0%, rgba(38, 74, 137, 0.42) 0%, rgba(41, 21, 67, 0) 58%)',
         fontSynthesis: 'none',
         margin: '0 auto',
         maxWidth: '1440px',
