@@ -318,8 +318,49 @@ button.result-scroll-hint:focus-visible {
   --hero-dither-top: 0px;
 }
 
+/*
+ * Quiz question intro + result-page Fig body copy — same scale as `.question-page__intro-p`
+ * (clamp until 900px, then 16px / 22px). Result `BodyText`, shadow, charge, and result footer prose use `.quiz-body-prose`.
+ */
+.question-page__intro-p,
+.quiz-body-prose {
+  font-family: "FigGrotesk0.3Trial-Regular", "FigGrotesk 0.3 Trial", system-ui, sans-serif;
+  font-size: clamp(16px, 1.5vw, 20px);
+  line-height: 22px;
+}
+
+@media (min-width: 900px) {
+  .question-page__intro-p,
+  .quiz-body-prose {
+    font-size: 16px;
+    line-height: 22px;
+  }
+}
+
 .site-footer {
   padding-bottom: 80px;
+}
+
+/**
+ * Default footer prose. On result routes, `.site-footer--result` matches quiz body scale
+ * (`.quiz-body-prose` — 900px breakpoint). `.site-footer--result` is set from `Layout` via
+ * `isResultPagePath` so sizing applies on first paint.
+ */
+.site-footer__prose {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.site-footer--result .site-footer__prose {
+  font-size: clamp(16px, 1.5vw, 20px);
+  line-height: 22px;
+}
+
+@media (min-width: 900px) {
+  .site-footer--result .site-footer__prose {
+    font-size: 16px;
+    line-height: 22px;
+  }
 }
 
 .site-footer-link {
@@ -379,6 +420,8 @@ html.page-results .site-footer {
 }
 
 .city-image-block {
+  display: flex;
+  justify-content: center;
   order: 2;
 }
 
@@ -549,6 +592,10 @@ html.page-results .site-footer {
 @media (max-width: 767px) {
   :root {
     --site-gutter-x: 24px;
+  }
+
+  .city-image-block {
+    display: none;
   }
 }
 

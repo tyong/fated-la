@@ -165,16 +165,15 @@ const IntroPage = () => {
         />
         <div className="page-shell" style={{ position: 'relative', zIndex: 1 }}>
           <div className="desktop-grid-2 hero-grid" style={{ alignItems: 'start', gap: '24px' }}>
-            <div className="content-column hero-content-column" style={{ maxWidth: '580px', paddingBottom: '24px' }}>
+            <div className="content-column hero-content-column" style={{ maxWidth: '580px', paddingBottom: '48px' }}>
               <h1 style={{ color: offPink, fontFamily: noirBold, fontWeight: 400, fontSize: 'calc(clamp(42px, 6vw, 76px) * 0.91)', lineHeight: 1.2, margin: '0 0 24px', letterSpacing: '-0.01em' }}>
                 Which mayoral candidate aligns with your soul?
               </h1>
               <div style={{ color: '#FFFFFF', fontFamily: fig, fontWeight: heroBodyWeight, fontSize: `calc(clamp(16px, 1.45vw, 24px) * ${heroBodyScale})`, lineHeight: 1.4, margin: '0 0 30px', maxWidth: '430px' }}>
                 <p style={{ margin: '0 0 16px' }}>10 questions. 5 top mayoral candidates.</p>
-                <p style={{ margin: '0 0 16px' }}>L.A.&apos;s primary election is on June 2.</p>
-                <p style={{ margin: 0 }}>Surrender your expectations.</p>
+                <p style={{ margin: '0 0 28px' }}>L.A.&apos;s primary election on June 2.</p>
+                <PrimaryCta to="/question-01">Begin your reading ➝</PrimaryCta>
               </div>
-              <PrimaryCta to="/question-01">Begin your reading ➝</PrimaryCta>
             </div>
 
             <div
@@ -206,7 +205,7 @@ const IntroPage = () => {
 
       <section className="page-shell intro-how-it-works-shell" style={{ paddingBottom: 'clamp(40px, 6vw, 80px)' }}>
         <div className="desktop-grid-2" style={{ alignItems: 'center', gap: 'clamp(24px, 4vw, 64px)' }}>
-          <div className="city-image-block" style={{ display: 'flex', justifyContent: 'center' }}>
+          <div className="city-image-block">
             <div
               className="city-image-inner"
               style={{

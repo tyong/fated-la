@@ -126,19 +126,26 @@ const LargeCard = ({ name, arcana, img, imgWidth = 225, imgHeight = 362, imgLeft
           >
             <div style={titleStyle}>{name}</div>
             {img && (
-              <img
-                alt={name ? `${name} illustration` : 'Tarot card illustration'}
-                src={img}
+              <div
                 style={{
+                  aspectRatio: `${imgWidth} / ${imgHeight}`,
                   borderRadius: '4px',
-                  display: 'block',
-                  height: 'auto',
-                  maxWidth: '100%',
-                  objectFit: 'contain',
                   outline: `1px solid ${purple}`,
+                  overflow: 'hidden',
                   width: '100%',
                 }}
-              />
+              >
+                <img
+                  alt={name ? `${name} illustration` : 'Tarot card illustration'}
+                  src={img}
+                  style={{
+                    display: 'block',
+                    height: '100%',
+                    objectFit: 'cover',
+                    width: '100%',
+                  }}
+                />
+              </div>
             )}
             <div style={titleStyle}>{arcana}</div>
           </div>
@@ -157,20 +164,18 @@ const Section = ({ title, children }) => (
       zIndex: 1,
     }}
   >
-    <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '90px', textAlign: 'center' }}>
+    <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '90px', textAlign: 'left' }}>
       {title}
     </div>
     {children}
   </div>
 )
 
-const BodyText = ({ children, desktop }) => (
+const BodyText = ({ children }) => (
   <div
+    className="quiz-body-prose"
     style={{
       color: pink,
-      fontFamily: fig,
-      fontSize: desktop ? '20px' : '16px',
-      lineHeight: desktop ? '28px' : '24px',
       textAlign: 'left',
       whiteSpace: 'pre-wrap',
     }}
@@ -407,8 +412,8 @@ const ScrollDownHint = ({ onActivate, tabIndex }) => {
     >
       <svg
         ref={svgRef}
-        width="48"
-        height="48"
+        width="32"
+        height="32"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -888,19 +893,21 @@ const ResultPage = ({
           </div>
         </div>
 
-        <div style={{ backgroundColor: '#291543', padding: '64px 0 64px', position: 'relative', textAlign: 'center', zIndex: 1 }}>
-          <div style={{ color: pink, fontFamily: noirBold, fontSize: '48px', lineHeight: '90px' }}>
-            Your Tarot Reading
-          </div>
+        <div style={{ backgroundColor: '#291543', padding: '64px 0 64px', position: 'relative', zIndex: 1 }}>
           <div
             style={{
               boxSizing: 'border-box',
-              margin: '24px auto 0',
+              margin: '0 auto',
               padding: '0 clamp(16px, 5vw, 24px)',
               width: 'min(100%, 640px)',
             }}
           >
-            <BodyText desktop>{fullReading}</BodyText>
+            <div style={{ color: pink, fontFamily: noirBold, fontSize: '48px', lineHeight: '90px', textAlign: 'left' }}>
+              Your Tarot Reading
+            </div>
+            <div style={{ marginTop: '24px' }}>
+              <BodyText>{fullReading}</BodyText>
+            </div>
           </div>
         </div>
 
@@ -963,13 +970,11 @@ const ResultPage = ({
             </div>
 
             <div
+              className="quiz-body-prose"
               style={{
                 backgroundColor: '#291543',
                 boxSizing: 'border-box',
                 color: pink,
-                fontFamily: fig,
-                fontSize: '20px',
-                lineHeight: '28px',
                 margin: '0 auto',
                 maxWidth: '600px',
                 padding: '48px 0 64px',
@@ -991,7 +996,16 @@ const ResultPage = ({
           <div style={{ color: '#FFFFFF', fontFamily: noirBold, fontSize: '48px', lineHeight: '56px', margin: '8px auto 0', textAlign: 'center', width: '500px' }}>
             Your Charge
           </div>
-          <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '20px', lineHeight: '28px', margin: '40px auto 0', maxWidth: '600px', whiteSpace: 'pre-wrap', width: '600px' }}>
+          <div
+            className="quiz-body-prose"
+            style={{
+              color: '#FFFFFF',
+              margin: '40px auto 0',
+              maxWidth: '600px',
+              whiteSpace: 'pre-wrap',
+              width: '600px',
+            }}
+          >
             {charge}
           </div>
         </div>
@@ -1052,7 +1066,7 @@ const ResultPage = ({
 
           <div style={{ marginTop: 'clamp(56px, 7vw, 92px)' }}>
             <Section title="Your Tarot Reading">
-              <BodyText desktop={false}>{fullReading}</BodyText>
+              <BodyText>{fullReading}</BodyText>
             </Section>
           </div>
         </div>
@@ -1089,13 +1103,11 @@ const ResultPage = ({
               </div>
 
               <div
+                className="quiz-body-prose"
                 style={{
                   backgroundColor: '#291543',
                   boxSizing: 'border-box',
                   color: pink,
-                  fontFamily: fig,
-                  fontSize: '16px',
-                  lineHeight: '24px',
                   padding: '24px var(--site-gutter-x) 48px',
                   position: 'relative',
                   whiteSpace: 'pre-wrap',
@@ -1146,11 +1158,9 @@ const ResultPage = ({
               Your Charge
             </div>
             <div
+              className="quiz-body-prose"
               style={{
                 color: '#FFFFFF',
-                fontFamily: fig,
-                fontSize: '16px',
-                lineHeight: '24px',
                 margin: '24px auto 0',
                 maxWidth: '500px',
                 whiteSpace: 'pre-wrap',

@@ -7,6 +7,11 @@
   width: 100%;
 }
 
+/* Quiz only: no hairline under header — progress strip provides the break */
+.question-page__top-wrap .top-bar {
+  border-bottom: none;
+}
+
 /* Full-bleed progress strip — outside max-width `<main>` */
 .question-page__progress-wrap {
   background-color: #291543;
@@ -88,9 +93,7 @@
 
 .question-page__intro-p {
   color: #ffe4f7;
-  font-family: "FigGrotesk0.3Trial-Regular", "FigGrotesk 0.3 Trial", system-ui, sans-serif;
-  font-size: clamp(16px, 1.5vw, 20px);
-  line-height: 22px;
+  /* font-size / line-height / font-family: shared with `.quiz-body-prose` in `index.css` */
   margin: 0 0 22px;
 }
 
@@ -193,8 +196,6 @@
   }
 
   .question-page__intro-p {
-    font-size: 16px;
-    line-height: 22px;
     margin-bottom: 22px;
   }
 

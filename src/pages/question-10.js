@@ -23,7 +23,7 @@ export default () => (
     ]}
     question="What should the city do?"
     choices={[
-      { title: 'Enforce the laws that already exist.', body: 'Rent increases are supposed to be capped at 3–4%. Get landlords mandatory relocation payments when they kick people out for no reason.' },
+      { title: 'Enforce the laws that already exist.', body: 'Rent increases are supposed to be capped at 3—4%. Get landlords mandatory relocation payments when they kick people out for no reason.' },
       { title: 'Build more housing near transit.', body: 'Also: cap the rent increases, and strengthen eviction protections.' },
       { title: "Tax people who buy buildings & flip 'em.", body: "Build housing the city owns so the market can't do this to people." },
       { title: 'Faster permits to build more housing.', body: "When there are more places to live, landlords can't get away with this." },
