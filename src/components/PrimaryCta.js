@@ -11,6 +11,7 @@ export function PrimaryCta({
   className = '',
   tabIndex,
   padding = '0 22px',
+  fontSize = '16px',
   onMouseEnter: onMouseEnterProp,
   onTouchStart: onTouchStartProp,
 }) {
@@ -29,7 +30,7 @@ export function PrimaryCta({
         cursor: 'pointer',
         display: 'inline-block',
         fontFamily: fig,
-        fontSize: '16px',
+        fontSize,
         lineHeight: '46px',
         minHeight: '46px',
         padding,

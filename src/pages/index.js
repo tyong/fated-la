@@ -107,12 +107,11 @@ const DesktopCandidateCard = ({ name, arcana, img }) => (
 const ReadingItem = ({ title, body, children }) => (
   <div className="reading-item">
     <div className="reading-item-media">{children}</div>
-    <div className="reading-item-content">
+      <div className="reading-item-content">
       <h3
         style={{
           color: offPink,
           fontFamily: noirBold,
-          fontSize: 'clamp(28px, 2.2vw, 36px)',
           fontWeight: 500,
           letterSpacing: '0.015em',
           lineHeight: 1.1,
@@ -121,13 +120,16 @@ const ReadingItem = ({ title, body, children }) => (
       >
         {title}
       </h3>
-      <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-md)', lineHeight: 1.5, maxWidth: '342px' }}>{body}</div>
+      <div className="reading-item__body" style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-md)', lineHeight: 1.5 }}>
+        {body}
+      </div>
     </div>
   </div>
 )
 
 const IntroPage = () => {
   const cardRail = useMemo(() => [...candidates, ...candidates], [])
+  const heroIntroFontSize = `calc(clamp(16px, 1.45vw, 24px) * ${heroBodyScale})`
   const h2Style = {
     color: offPink,
     fontFamily: noirBold,
@@ -169,10 +171,12 @@ const IntroPage = () => {
               <h1 style={{ color: offPink, fontFamily: noirBold, fontWeight: 400, fontSize: 'calc(clamp(42px, 6vw, 76px) * 0.91)', lineHeight: 1.2, margin: '0 0 24px', letterSpacing: '-0.01em' }}>
                 Which mayoral candidate aligns with your soul?
               </h1>
-              <div style={{ color: '#FFFFFF', fontFamily: fig, fontWeight: heroBodyWeight, fontSize: `calc(clamp(16px, 1.45vw, 24px) * ${heroBodyScale})`, lineHeight: 1.4, margin: '0 0 30px', maxWidth: '430px' }}>
+              <div style={{ color: '#FFFFFF', fontFamily: fig, fontWeight: heroBodyWeight, fontSize: heroIntroFontSize, lineHeight: 1.4, margin: '0 0 30px', maxWidth: '430px' }}>
                 <p style={{ margin: '0 0 16px' }}>10 questions. 5 top mayoral candidates.</p>
                 <p style={{ margin: '0 0 28px' }}>L.A.&apos;s primary election on June 2.</p>
-                <PrimaryCta to="/question-01">Begin your reading ➝</PrimaryCta>
+                <PrimaryCta to="/question-01" fontSize={heroIntroFontSize}>
+                  Begin your reading ➝
+                </PrimaryCta>
               </div>
             </div>
 
@@ -228,11 +232,10 @@ const IntroPage = () => {
           <div className="content-column" style={{ maxWidth: '510px' }}>
             <h2 style={h2Style}>Channel your intuition</h2>
             <p style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-md)', lineHeight: 1.5, whiteSpace: 'pre-wrap' }}>
-              Answer 10 questions about Los Angeles - its fires, its failures, its possible futures.{'\n\n'}
-              In the end, your Fated reading will name the candidate whose vision most closely aligns with your own.{'\n\n'}
-              Your cards do not tell you what to believe. They mirror what you already feel.
+              Answer 10 questions about Los Angeles—its fires, its failures, its possible futures.{'\n\n'}
+              In the end, your Fated reading will name the candidate whose vision most closely aligns with your own.
             </p>
-            <div style={{ marginTop: '16px' }}>
+            <div style={{ marginTop: '24px' }}>
               <PrimaryCta to="/question-01">Let&apos;s go ➝</PrimaryCta>
             </div>
           </div>
@@ -253,7 +256,7 @@ const IntroPage = () => {
           />
           <div className="page-shell" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
             <h2 style={h2Style}>Reveal your desire</h2>
-            <p className="reading-intro-copy" style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-lg)', lineHeight: 1.45, maxWidth: '620px', marginLeft: 'auto', marginRight: 'auto' }}>
+            <p className="reading-intro-copy" style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-md)', lineHeight: 1.45, maxWidth: '620px', marginLeft: 'auto', marginRight: 'auto' }}>
               Your Fated reading shows your truth.
             </p>
             <div className="reading-grid">

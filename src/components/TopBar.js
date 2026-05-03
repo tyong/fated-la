@@ -48,6 +48,7 @@ const TopBar = () => {
         <Link
           to="/"
           className="top-bar__brand top-bar__brand-link"
+          aria-label="Fated LA home"
           onMouseEnter={() => setStarSpinDurationMs(starRef.current, STAR_SPIN_FAST_MS)}
           onMouseLeave={() => setStarSpinDurationMs(starRef.current, STAR_SPIN_SLOW_MS)}
         >
@@ -64,7 +65,6 @@ const TopBar = () => {
           >
             <path d={starPath} fill="#D2D260" />
           </svg>
-          <span className="top-bar__logo-text">Fated</span>
         </Link>
         <div className="top-bar__election-wrap">
           <span className="top-bar__divider" aria-hidden="true" />

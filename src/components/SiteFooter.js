@@ -32,10 +32,8 @@ const SiteFooter = ({ resultTypography = false }) => {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '48px', width: '100%' }}>
           <div>
             <div className="site-footer__prose" style={{ color: pink, fontFamily: figBold, marginBottom: desktop ? '24px' : '16px' }}>About</div>
-            <div className="site-footer__prose" style={{ color: '#C2CAF2', fontFamily: fig, whiteSpace: 'pre-wrap' }}>
-              {`Fated was made by Tabitha Yong, Will Peng & Yvonne Leow.
-
-We're non-clairvoyant Angelenos who wanted to create a fun, nonpartisan way to fulfill our civic duty this election.`}
+            <div className="site-footer__prose" style={{ color: '#C2CAF2', fontFamily: fig }}>
+              {`Fated was made by Tabitha Yong, Will Peng & Yvonne Leow. We're non-clairvoyant Angelenos who wanted to create a fun, nonpartisan way to fulfill our civic duty this election.`}
             </div>
             <div className="site-footer__prose" style={{ color: pink, fontFamily: figBold, marginBottom: '24px', marginTop: '32px' }}>Connect</div>
             <div className="site-footer__prose" style={{ color: '#C2CAF2', fontFamily: fig }}>
@@ -49,7 +47,7 @@ We're non-clairvoyant Angelenos who wanted to create a fun, nonpartisan way to f
             </div>
           </div>
           <div>
-            <div className="site-footer__prose" style={{ color: '#fff', fontFamily: figBold, marginBottom: '24px' }}>Methodology</div>
+            <div className="site-footer__prose" style={{ color: pink, fontFamily: figBold, marginBottom: '24px' }}>Methodology</div>
             <div className="site-footer__prose" style={{ color: '#C2CAF2', fontFamily: fig, whiteSpace: 'pre-wrap' }}>
               {`For simplicity's sake, Fated's readings are limited to the top 5 mayoral candidates who have received official endorsements. `}
               <a
