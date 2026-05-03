@@ -36,7 +36,6 @@
   align-items: center;
   color: #d1d160;
   display: inline-flex;
-  gap: 8px;
 }
 
 .top-bar__brand-link {
@@ -52,19 +51,9 @@
 
 .top-bar__star {
   animation: topBarStarSpin 10s linear infinite;
+  display: block;
   height: auto;
   width: 15px;
-}
-
-.top-bar__logo-text {
-  color: #d1d160;
-  font-family: "BigIssueXWideTRIAL-Regular", "Big Issue XWide TRIAL", "NOIRetBLANCMediumBold", "NOIR et BLANC Medium Bold", system-ui, sans-serif;
-  font-size: 20px;
-  font-stretch: expanded;
-  line-height: 22px;
-  position: relative;
-  top: 1px;
-  white-space: nowrap;
 }
 
 .top-bar__election-wrap {

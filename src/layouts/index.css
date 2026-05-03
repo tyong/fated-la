@@ -135,11 +135,11 @@ a {
   pointer-events: auto;
 }
 
+/* Home “Channel your intuition” city image — hidden below 640px, visible from 640px up */
 @media (max-width: 639px) {
   .city-image-block {
     display: none;
   }
-
 }
 
 /* Primary yellow link CTAs (home, result “Start over”, etc.) */
@@ -394,7 +394,8 @@ html.page-results .site-footer {
 
 .hero-content-column {
   padding-left: 0;
-  padding-top: 24px;
+  /* 24px base + 48px extra space below TopBar / shell padding */
+  padding-top: 72px;
 }
 
 .desktop-grid-2,
@@ -448,25 +449,29 @@ html.page-results .site-footer {
   font-size: 14px;
 }
 
+/* “Reveal your desire” — mobile: one column, thumbnail left / copy right; ≥640px: three columns */
 .reading-grid {
+  align-items: stretch;
   display: grid;
-  grid-template-columns: 1fr;
   gap: 28px;
-  align-items: start;
+  grid-template-columns: 1fr;
 }
 
 .reading-item {
+  align-items: start;
   display: grid;
+  gap: 16px;
   grid-template-columns: auto 1fr;
-  align-items: center;
-  gap: 24px;
+  min-width: 0;
   text-align: left;
 }
 
 .reading-item-media {
+  display: block;
+  flex-shrink: 0;
+  height: auto;
+  overflow: visible;
   width: 81.9px;
-  height: 152.75px;
-  overflow: hidden;
 }
 
 .reading-item-media > div {
@@ -474,18 +479,21 @@ html.page-results .site-footer {
 }
 
 .reading-item-content {
-  min-height: 152.75px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: block;
+  min-height: 0;
+  width: 100%;
+}
+
+.reading-item__body {
+  max-width: 100%;
 }
 
 .reading-item-content h3 {
-  font-size: 22px !important;
+  font-size: clamp(17px, 2.8vw, 22px) !important;
 }
 
 .reading-intro-copy {
-  margin: 0 0 32px;
+  margin: 0 0 48px;
 }
 
 .reading-cta {
@@ -539,7 +547,7 @@ html.page-results .site-footer {
   }
 
   .reading-item-content h3 {
-    font-size: clamp(28px, 2.2vw, 36px) !important;
+    font-size: clamp(22px, 2.5vw, 36px) !important;
   }
 
   .desktop-grid-2 {
@@ -552,50 +560,27 @@ html.page-results .site-footer {
   }
 
   .reading-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px;
+    align-items: start;
+    gap: 28px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .reading-item {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
     gap: 24px;
+    text-align: center;
   }
 
   .reading-item-media {
     width: auto;
-    height: auto;
-    margin-bottom: 0;
-    display: block;
-  }
-
-  .reading-item-media > div {
-    transform: none;
-  }
-
-  .reading-item-content {
-    min-height: 0;
-    display: block;
-  }
-}
-
-@media (min-width: 640px) and (max-width: 899px) {
-  .reading-grid .reading-item:nth-child(3) {
-    grid-column: 1 / -1;
-    justify-self: center;
-    width: min(100%, 360px);
   }
 }
 
 @media (max-width: 767px) {
   :root {
     --site-gutter-x: 24px;
-  }
-
-  .city-image-block {
-    display: none;
   }
 }
 
@@ -620,9 +605,15 @@ html.page-results .site-footer {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  /* Match `.hero-content-column` h1 inset so the home star lines up with the hero headline */
+  .hero-shell > .top-bar .top-bar__brand {
+    margin-left: 16px;
+  }
+
   .hero-content-column {
     padding-left: 16px;
-    padding-top: 72px;
+    /* 72px + 48px — hero headline + CTA sit lower on large screens */
+    padding-top: 120px;
   }
 
   .hero-shell {
@@ -660,9 +651,10 @@ html.page-results .site-footer {
   }
 
   .reading-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 42px;
   }
 
-  .reading-item { gap: 32px; }
+  .reading-item {
+    gap: 32px;
+  }
 }
