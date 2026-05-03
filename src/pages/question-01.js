@@ -8,7 +8,7 @@ import {
 
 export const Head = () =>
   createResultHead({
-    pageTitle: questionPageTitle(1, 'The Fires'),
+    pageTitle: questionPageTitle(1, 'Ash & Ember'),
     imageUrl: defaultLinkPreviewImage,
     path: '/question-01/',
   })
@@ -16,7 +16,7 @@ export const Head = () =>
 export default () => (
   <QuestionPage
     number={1}
-    title="The Fires"
+    title="Ash & Ember"
     paragraphs={[
       '2025. The Palisades and Altadena burned. The mayor was in Ghana.',
       'The fire department had empty positions nobody filled. Hydrants ran dry. Thousands of people lost everything.',
