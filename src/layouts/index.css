@@ -12,8 +12,7 @@
 
 @font-face {
   font-family: 'Apercu-Mono';
-  src: url('/fonts/ApercuMonoProRegular/font.woff2') format('woff2'),
-       url('/fonts/ApercuMonoProRegular/font.woff') format('woff');
+  src: url('/fonts/ApercuMonoProRegular/font.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -21,8 +20,7 @@
 
 @font-face {
   font-family: 'ApercuMonoPro-Regular';
-  src: url('/fonts/ApercuMonoProRegular/font.woff2') format('woff2'),
-       url('/fonts/ApercuMonoProRegular/font.woff') format('woff');
+  src: url('/fonts/ApercuMonoProRegular/font.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -30,8 +28,7 @@
 
 @font-face {
   font-family: 'NOIRetBLANC-Regular';
-  src: url('/fonts/NoirEnBlanc/noiretblanc-webfont.woff2') format('woff2'),
-       url('/fonts/NoirEnBlanc/noiretblanc-webfont.woff') format('woff');
+  src: url('/fonts/NoirEnBlanc/noiretblanc-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -39,8 +36,7 @@
 
 @font-face {
   font-family: 'NOIRetBLANCMediumBold';
-  src: url('/fonts/NoirEnBlanc/noiretblanc_medium_bold-webfont.woff2') format('woff2'),
-       url('/fonts/NoirEnBlanc/noiretblanc_medium_bold-webfont.woff') format('woff');
+  src: url('/fonts/NoirEnBlanc/noiretblanc_medium_bold-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -48,8 +44,7 @@
 
 @font-face {
   font-family: 'FigGrotesk0.3Trial-Regular';
-  src: url('/fonts/FigGrotesk/FigGrotesk-Regular.woff2') format('woff2'),
-       url('/fonts/FigGrotesk/FigGrotesk-Regular.woff') format('woff');
+  src: url('/fonts/FigGrotesk/FigGrotesk-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -57,8 +52,7 @@
 
 @font-face {
   font-family: 'FigGrotesk0.3Trial-Bold';
-  src: url('/fonts/FigGrotesk/FigGrotesk-Bold.woff2') format('woff2'),
-       url('/fonts/FigGrotesk/FigGrotesk-Bold.woff') format('woff');
+  src: url('/fonts/FigGrotesk/FigGrotesk-Bold.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -66,8 +60,7 @@
 
 @font-face {
   font-family: 'FigGrotesk0.3Trial-Book';
-  src: url('/fonts/FigGrotesk/FigGrotesk-Book.woff2') format('woff2'),
-       url('/fonts/FigGrotesk/FigGrotesk-Book.woff') format('woff');
+  src: url('/fonts/FigGrotesk/FigGrotesk-Book.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -456,8 +449,23 @@ html.page-results .site-footer {
   margin-top: 35px;
 }
 
+/**
+ * Full-bleed band for the home reading strip: `.page-shell` caps at --page-max (1440px),
+ * so the dither canvas would otherwise stop at that width on ultra-wide viewports.
+ */
+.reading-shell {
+  box-sizing: border-box;
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/** Horizontal inset comes from inner `.page-shell` so content matches other sections on ultra-wide viewports */
 .reading-panel {
-  padding: 56px 36px;
+  padding: 56px 0;
 }
 
 @media (min-width: 640px) {
@@ -471,7 +479,7 @@ html.page-results .site-footer {
   }
 
   .reading-panel {
-    padding: 58px 36px 90px;
+    padding: 58px 0 90px;
   }
 
   .city-image-inner {

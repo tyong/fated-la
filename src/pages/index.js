@@ -240,8 +240,8 @@ const IntroPage = () => {
         </div>
       </section>
 
-      <section className="page-shell" style={{ paddingBottom: 0 }}>
-        <div className="reading-panel" style={{ backgroundColor: '#264988', borderRadius: 0, position: 'relative', overflow: 'hidden', width: 'calc(100% + (var(--site-gutter-x) * 2))', marginLeft: 'calc(var(--site-gutter-x) * -1)' }}>
+      <section className="reading-shell" style={{ paddingBottom: 0 }}>
+        <div className="reading-panel" style={{ backgroundColor: '#264988', borderRadius: 0, position: 'relative', overflow: 'hidden' }}>
           <ClientOnlyDithering
             speed={1}
             shape="wave"
@@ -252,7 +252,7 @@ const IntroPage = () => {
             colorFront="#291543"
             style={{ position: 'absolute', inset: 0, zIndex: 0 }}
           />
-          <div style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
+          <div className="page-shell" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
             <h2 style={h2Style}>Reveal your desire</h2>
             <p className="reading-intro-copy" style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-lg)', lineHeight: 1.45, maxWidth: '620px', marginLeft: 'auto', marginRight: 'auto' }}>
               Your Fated reading shows your truth.

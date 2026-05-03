@@ -129,14 +129,15 @@ export default function SpreadSection({ desktop = false }) {
           width: '100%',
         }}
       >
-        <div style={{ color: spreadCyan, fontFamily: noirBold, fontSize: '48px', lineHeight: '1.1', width: '100%', maxWidth: '1248px', margin: '0 auto' }}>
+        <div style={{ boxSizing: 'border-box', marginLeft: 'auto', marginRight: 'auto', maxWidth: '600px', width: '100%' }}>
+        <div style={{ color: spreadCyan, fontFamily: noirBold, fontSize: '48px', lineHeight: '1.1', width: '100%' }}>
           Your Spread
         </div>
-        <div style={{ color: spreadBody, fontFamily: fig, fontSize: '20px', lineHeight: '30px', marginTop: '24px', maxWidth: '1248px', marginLeft: 'auto', marginRight: 'auto' }}>
+        <div style={{ color: spreadBody, fontFamily: fig, fontSize: '20px', lineHeight: '30px', marginTop: '24px' }}>
           {"Here's where your choice aligned with each candidate's position, per issue."}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', marginTop: '40px', maxWidth: '1248px', marginLeft: 'auto', marginRight: 'auto', width: '100%', gap: '56px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', marginTop: '40px', width: '100%', gap: '56px' }}>
           <section ref={candidateRef}>
             <h3 style={desktopSectionHeading}>By Candidate</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginTop: '24px' }}>
@@ -170,6 +171,7 @@ export default function SpreadSection({ desktop = false }) {
             </div>
           </section>
         </div>
+        </div>
       </div>
     )
   }
@@ -183,6 +185,7 @@ export default function SpreadSection({ desktop = false }) {
         width: '100%',
       }}
     >
+      <div style={{ boxSizing: 'border-box', marginLeft: 'auto', marginRight: 'auto', maxWidth: '600px', width: '100%' }}>
       <div style={{ color: spreadCyan, fontFamily: noirBold, fontSize: '30px', marginBottom: '16px' }}>
         Your Spread
       </div>
@@ -222,6 +225,7 @@ export default function SpreadSection({ desktop = false }) {
             </div>
           ))}
         </section>
+      </div>
       </div>
     </div>
   )
