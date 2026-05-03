@@ -10,21 +10,21 @@ export { wrapPageElement } from './src/wrap-page-element'
 const CRITICAL_SHELL_BG_KEY = 'critical-shell-bg'
 
 const criticalFonts = [
-  '/fonts/NoirEnBlanc/noiretblanc-webfont.woff2',
-  '/fonts/NoirEnBlanc/noiretblanc_medium_bold-webfont.woff2',
-  '/fonts/FigGrotesk/FigGrotesk-Regular.woff2',
-  '/fonts/FigGrotesk/FigGrotesk-Bold.woff2',
-  '/fonts/FigGrotesk/FigGrotesk-Book.woff2',
+  '/fonts/NoirEnBlanc/noiretblanc-webfont.woff',
+  '/fonts/NoirEnBlanc/noiretblanc_medium_bold-webfont.woff',
+  '/fonts/FigGrotesk/FigGrotesk-Regular.woff',
+  '/fonts/FigGrotesk/FigGrotesk-Bold.woff',
+  '/fonts/FigGrotesk/FigGrotesk-Book.woff',
 ]
 
-/** Plain HTTP (non-localhost) → HTTPS before first paint; preserves path/query/hash and host. */
+/** Plain HTTP → HTTPS before first paint (dev: includes localhost; prod: LAN/Vercel only). */
+const forceHttpsInline =
+  process.env.NODE_ENV === 'development'
+    ? `(function(){if(location.protocol==="http:")location.replace("https://"+location.host+location.pathname+location.search+location.hash)})();`
+    : `(function(){var h=location.hostname;if(h==="localhost"||h==="127.0.0.1"||h==="[::1]")return;if(location.protocol==="http:")location.replace("https://"+location.host+location.pathname+location.search+location.hash)})();`
+
 const forceHttpsScript = (
-  <script
-    key="force-https"
-    dangerouslySetInnerHTML={{
-      __html: `(function(){var h=location.hostname;if(h==="localhost"||h==="127.0.0.1"||h==="[::1]")return;if(location.protocol==="http:")location.replace("https://"+location.host+location.pathname+location.search+location.hash)})();`,
-    }}
-  />
+  <script key="force-https" dangerouslySetInnerHTML={{ __html: forceHttpsInline }} />
 )
 
 /** Normalize Gatsby path (may include trailing slash). */
@@ -88,7 +88,7 @@ export const onRenderBody = ({ setHeadComponents, pathname }) => {
         rel="preload"
         href={href}
         as="font"
-        type="font/woff2"
+        type="font/woff"
         crossOrigin="anonymous"
       />
     )),

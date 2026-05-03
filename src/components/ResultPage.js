@@ -834,8 +834,6 @@ const ResultPage = ({
             'radial-gradient(ellipse 130% 90% at 50% 0%, rgba(39, 73, 136, 0.42) 0%, rgba(41, 21, 67, 0) 58%)',
           boxSizing: 'border-box',
           fontSynthesis: 'none',
-          margin: '0 auto',
-          maxWidth: '1440px',
           MozOsxFontSmoothing: 'grayscale',
           overflow: 'hidden',
           position: 'relative',
@@ -853,7 +851,16 @@ const ResultPage = ({
             scale={1}
             colorBack="#00000000"
             colorFront="#274988"
-            style={{ backgroundColor: '#291543', height: '1031px', left: 0, position: 'absolute', top: 0, width: '100%', zIndex: 0 }}
+            style={{
+              backgroundColor: '#291543',
+              height: '1031px',
+              left: '50%',
+              position: 'absolute',
+              top: 0,
+              transform: 'translateX(-50%)',
+              width: '100vw',
+              zIndex: 0,
+            }}
           />
           <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop shareImageUrl={shareImage} />
           <div style={{ boxSizing: 'border-box', paddingTop: '96px', position: 'relative', textAlign: 'center', zIndex: 1, width: '100%', maxWidth: '572px', margin: '0 auto' }}>
@@ -964,11 +971,11 @@ const ResultPage = ({
                 fontSize: '20px',
                 lineHeight: '28px',
                 margin: '0 auto',
-                maxWidth: '500px',
+                maxWidth: '600px',
                 padding: '48px 0 64px',
                 position: 'relative',
                 whiteSpace: 'pre-wrap',
-                width: '500px',
+                width: '600px',
                 zIndex: 1,
               }}
             >
@@ -984,7 +991,7 @@ const ResultPage = ({
           <div style={{ color: '#FFFFFF', fontFamily: noirBold, fontSize: '48px', lineHeight: '56px', margin: '8px auto 0', textAlign: 'center', width: '500px' }}>
             Your Charge
           </div>
-          <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '20px', lineHeight: '28px', margin: '40px auto 0', maxWidth: '500px', whiteSpace: 'pre-wrap', width: '500px' }}>
+          <div style={{ color: '#FFFFFF', fontFamily: fig, fontSize: '20px', lineHeight: '28px', margin: '40px auto 0', maxWidth: '600px', whiteSpace: 'pre-wrap', width: '600px' }}>
             {charge}
           </div>
         </div>
@@ -1000,8 +1007,6 @@ const ResultPage = ({
         backgroundImage:
           'radial-gradient(ellipse 130% 90% at 50% 0%, rgba(39, 73, 136, 0.42) 0%, rgba(41, 21, 67, 0) 58%)',
         fontSynthesis: 'none',
-        margin: '0 auto',
-        maxWidth: '1440px',
         MozOsxFontSmoothing: 'grayscale',
         overflow: 'hidden',
         padding: 0,
