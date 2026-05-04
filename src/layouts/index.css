@@ -320,20 +320,20 @@ button.result-scroll-hint:focus-visible {
 
 /*
  * Quiz question intro + result-page Fig body copy — same scale as `.question-page__intro-p`
- * (clamp until 900px, then 16px / 22px). Result `BodyText`, shadow, charge, and result footer prose use `.quiz-body-prose`.
+ * (clamp until 900px, then 16px / 24px). Result `BodyText`, shadow, charge, and result footer prose use `.quiz-body-prose`.
  */
 .question-page__intro-p,
 .quiz-body-prose {
   font-family: "FigGrotesk0.3Trial-Regular", "FigGrotesk 0.3 Trial", system-ui, sans-serif;
   font-size: clamp(16px, 1.5vw, 20px);
-  line-height: 22px;
+  line-height: 24px;
 }
 
 @media (min-width: 900px) {
   .question-page__intro-p,
   .quiz-body-prose {
     font-size: 16px;
-    line-height: 22px;
+    line-height: 24px;
   }
 }
 
@@ -348,18 +348,18 @@ button.result-scroll-hint:focus-visible {
  */
 .site-footer__prose {
   font-size: 16px;
-  line-height: 24px;
+  line-height: 26px;
 }
 
 .site-footer--result .site-footer__prose {
   font-size: clamp(16px, 1.5vw, 20px);
-  line-height: 22px;
+  line-height: 24px;
 }
 
 @media (min-width: 900px) {
   .site-footer--result .site-footer__prose {
     font-size: 16px;
-    line-height: 22px;
+    line-height: 24px;
   }
 }
 
@@ -485,6 +485,7 @@ html.page-results .site-footer {
 }
 
 .reading-item__body {
+  line-height: calc(1.5em + 2px);
   max-width: 100%;
 }
 
@@ -493,6 +494,7 @@ html.page-results .site-footer {
 }
 
 .reading-intro-copy {
+  line-height: calc(1.45em + 2px);
   margin: 0 0 48px;
 }
 

@@ -1,0 +1,161 @@
+/* Sources page — matches site purple shell, Fig body, Noir display */
+
+.sources-page {
+  background-color: #291543;
+  background-image: radial-gradient(
+    ellipse 130% 90% at 50% 0%,
+    rgba(39, 73, 136, 0.42) 0%,
+    rgba(41, 21, 67, 0) 58%
+  );
+  color: #ffffff;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.sources-page__shell {
+  padding-top: 24px;
+  padding-bottom: clamp(48px, 8vw, 96px);
+}
+
+.sources-page__h1 {
+  color: #f2cace;
+  font-family: 'NOIRetBLANCMediumBold', 'NOIR et BLANC Medium Bold', 'Instrument Serif', Georgia, serif;
+  font-size: calc(clamp(42px, 6vw, 76px) * 0.91);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin: 0 0 20px;
+}
+
+.sources-page__intro {
+  color: #c2caf2;
+  margin: 0 0 40px;
+  max-width: 52rem;
+}
+
+.sources-page__section-title {
+  color: #ffe4f7;
+  font-family: 'FigGrotesk0.3Trial-Bold', 'FigGrotesk 0.3 Trial', system-ui, sans-serif;
+  font-size: clamp(14px, 1.2vw, 16px);
+  letter-spacing: 0.12em;
+  margin: 48px 0 16px;
+}
+
+.sources-page__section-title:first-of-type {
+  margin-top: 8px;
+}
+
+.sources-page__table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 8px;
+}
+
+.sources-page__table {
+  border-collapse: collapse;
+  font-family: 'FigGrotesk0.3Trial-Regular', 'FigGrotesk 0.3 Trial', system-ui, sans-serif;
+  font-size: clamp(15px, 1.2vw, 17px);
+  line-height: 1.45;
+  min-width: min(100%, 560px);
+  width: 100%;
+}
+
+.sources-page__table th,
+.sources-page__table td {
+  border-bottom: 1px solid rgba(194, 202, 242, 0.18);
+  padding: 14px 16px 14px 0;
+  text-align: left;
+  vertical-align: top;
+}
+
+.sources-page__table th {
+  color: #9eb0f0;
+  font-family: 'FigGrotesk0.3Trial-Bold', 'FigGrotesk 0.3 Trial', system-ui, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.sources-page__table th:first-child {
+  width: 46%;
+  padding-right: 24px;
+}
+
+@media (min-width: 768px) {
+  .sources-page__table th:first-child {
+    width: 48%;
+  }
+}
+
+.sources-page__claim {
+  color: #ffffff;
+  padding-right: 20px;
+}
+
+.sources-page__links {
+  min-width: 0;
+}
+
+.sources-page__links a {
+  display: inline;
+  word-break: break-word;
+}
+
+.sources-page__links-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sources-page__note {
+  color: #c2caf2;
+  font-size: 0.95em;
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .sources-page__table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .sources-page__table tr {
+    display: block;
+    margin-bottom: 20px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(194, 202, 242, 0.22);
+  }
+
+  .sources-page__table td {
+    display: block;
+    border: none;
+    padding: 6px 0;
+    width: 100%;
+  }
+
+  .sources-page__table td.sources-page__claim {
+    color: #ffffff;
+    font-size: clamp(15px, 1.2vw, 17px);
+    padding-bottom: 10px;
+  }
+
+  .sources-page__table td.sources-page__links::before {
+    content: 'Sources';
+    display: block;
+    color: #9eb0f0;
+    font-family: 'FigGrotesk0.3Trial-Bold', 'FigGrotesk 0.3 Trial', system-ui, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+}

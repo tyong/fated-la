@@ -65,6 +65,7 @@ const TopBar = () => {
           >
             <path d={starPath} fill="#D2D260" />
           </svg>
+          <span className="top-bar__wordmark">Fated</span>
         </Link>
         <div className="top-bar__election-wrap">
           <span className="top-bar__divider" aria-hidden="true" />

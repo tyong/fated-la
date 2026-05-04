@@ -26,8 +26,8 @@ export default () => (
       { title: 'Make sure EVERYONE benefits from AI.', body: 'Not just the people already winning.' },
       { title: 'Accountability first.', body: "If an AI system is affecting people's housing, jobs, or safety, the public has a right to see how it works and challenge it." },
       { title: "Don't just hand AI to private companies.", body: 'Build public AI alternatives. Otherwise the power just concentrates further in fewer hands.' },
-      { title: 'LA should be LEADING on AI.', body: 'Not writing regulations that scare away the industry. The cities that win the future embrace new technology.' },
-      { title: 'Use AI to update lagging city tech.', body: 'Responsible use of AI could make permitting, infra, and services faster and cheaper.' },
+      { title: 'AI helps with creativity.', body: 'Even if direct human interaction is preferred to relying on algorithms, no doubt that AI can accelerate movements.' },
+      { title: 'LA should be a leader in AI innovation.', body: 'Responsible use of AI could make permitting, infra, and services faster and cheaper.' },
     ]}
     nextPath="/question-05"
   />

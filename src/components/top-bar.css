@@ -34,8 +34,9 @@
 
 .top-bar__brand {
   align-items: center;
-  color: #d1d160;
+  color: #d2d260;
   display: inline-flex;
+  gap: 8px;
 }
 
 .top-bar__brand-link {
@@ -45,7 +46,7 @@
 .top-bar__brand-link:visited,
 .top-bar__brand-link:hover,
 .top-bar__brand-link:active {
-  color: #d1d160;
+  color: #d2d260;
   text-decoration: none;
 }
 
@@ -73,14 +74,22 @@
   width: 0.5px;
 }
 
-.top-bar__election-text {
-  color: #fff;
+.top-bar__election-text,
+.top-bar__wordmark {
   font-family: "ApercuMonoPro-Regular", "Apercu Mono Pro", system-ui, sans-serif;
   font-size: 12px;
   line-height: 22px;
-  text-align: right;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.top-bar__election-text {
+  color: #fff;
+  text-align: right;
+}
+
+.top-bar__wordmark {
+  color: #d2d260;
 }
 
 /* Full title from 900px up; short “L.A.” label below that (mobile / narrow). */
@@ -116,7 +125,8 @@
     gap: 0;
   }
 
-  .top-bar__election-text {
+  .top-bar__election-text,
+  .top-bar__wordmark {
     font-size: 14px;
   }
 
