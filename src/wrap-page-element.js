@@ -1,5 +1,6 @@
 import React from 'react'
 import { Agentation } from 'agentation'
+import { Analytics } from '@vercel/analytics/react'
 import Layout from './layouts'
 
 const showAgentation =
@@ -10,6 +11,7 @@ export const wrapPageElement = ({ element, props }) => (
     <>
       {element}
       {showAgentation ? <Agentation endpoint="http://localhost:4747" /> : null}
+      <Analytics />
     </>
   </Layout>
 )
