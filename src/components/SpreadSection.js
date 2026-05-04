@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { SCORES, CANDIDATES, SPREAD_KEY, ISSUE_LABELS } from '../data/scores'
 
 const noirBold = '"NOIRetBLANCMediumBold", "NOIR et BLANC Medium Bold", "Instrument Serif", Georgia, serif'
-const fig     = '"FigGrotesk0.3Trial-Regular", "FigGrotesk 0.3 Trial", system-ui, sans-serif'
 const purple  = '#3F00DB'
 const dark    = '#2A009C'
 const spreadCyan = '#05B6D7'
@@ -115,9 +114,6 @@ export default function SpreadSection({ desktop = false }) {
       flexBasis: '0%',
       flexGrow: 1,
       flexShrink: 1,
-      fontFamily: fig,
-      fontSize: '20px',
-      lineHeight: '24px',
     }
     return (
       <div
@@ -130,10 +126,10 @@ export default function SpreadSection({ desktop = false }) {
         }}
       >
         <div style={{ boxSizing: 'border-box', marginLeft: 'auto', marginRight: 'auto', maxWidth: '600px', width: '100%' }}>
-        <div style={{ color: spreadCyan, fontFamily: noirBold, fontSize: '48px', lineHeight: '1.1', width: '100%' }}>
+        <div style={{ color: '#FFFFFF', fontFamily: noirBold, fontSize: '48px', lineHeight: '1.1', width: '100%' }}>
           Your Spread
         </div>
-        <div style={{ color: spreadBody, fontFamily: fig, fontSize: '20px', lineHeight: '30px', marginTop: '24px' }}>
+        <div className="quiz-body-prose" style={{ color: spreadBody, marginTop: '24px' }}>
           {"Here's where your choice aligned with each candidate's position, per issue."}
         </div>
 
@@ -145,7 +141,7 @@ export default function SpreadSection({ desktop = false }) {
                 const widthPct = maxCandidatePoints === 0 ? 0 : (points / maxCandidatePoints) * 100
                 return (
                   <div key={key} style={{ alignItems: 'center', display: 'grid', gap: '16px', gridTemplateColumns: '220px 1fr' }}>
-                    <div style={{ color: spreadBody, fontFamily: fig, fontSize: '20px', lineHeight: '24px' }}>{name}</div>
+                    <div className="quiz-body-prose" style={{ color: spreadBody }}>{name}</div>
                     <div style={{ backgroundColor: '#1D0673', borderRadius: '999px', height: '14px', overflow: 'hidden' }}>
                       <div style={{ backgroundColor: color, borderRadius: '999px', height: '100%', minWidth: barsAnimated && points > 0 ? '8px' : '0', transition: `width 700ms cubic-bezier(0.16, 1, 0.3, 1) ${i * 80}ms`, width: barsAnimated ? `${widthPct}%` : '0%' }} />
                     </div>
@@ -159,13 +155,13 @@ export default function SpreadSection({ desktop = false }) {
             <h3 style={desktopSectionHeading}>By Issue</h3>
             <div style={{ display: 'flex', flexDirection: 'column', marginTop: '16px' }}>
               <div style={{ ...rowBase, paddingBlock: '16px' }}>
-                <div style={{ ...cell, color: spreadCyan }}>Issue</div>
-                <div style={{ ...cell, color: spreadCyan }}>Your choice</div>
+                <div className="quiz-body-prose" style={{ ...cell, color: spreadCyan }}>Issue</div>
+                <div className="quiz-body-prose" style={{ ...cell, color: spreadCyan }}>Your choice</div>
               </div>
               {byIssueRows.map(({ issue, candidate }, i) => (
                 <div key={i} style={{ ...rowBase, borderBottom: i === byIssueRows.length - 1 ? 'none' : rowBase.borderBottom }}>
-                  <div style={cell}>{issue}</div>
-                  <div style={cell}>{candidate}</div>
+                  <div className="quiz-body-prose" style={cell}>{issue}</div>
+                  <div className="quiz-body-prose" style={cell}>{candidate}</div>
                 </div>
               ))}
             </div>
@@ -186,10 +182,10 @@ export default function SpreadSection({ desktop = false }) {
       }}
     >
       <div style={{ boxSizing: 'border-box', marginLeft: 'auto', marginRight: 'auto', maxWidth: '600px', width: '100%' }}>
-      <div style={{ color: spreadCyan, fontFamily: noirBold, fontSize: '30px', marginBottom: '16px' }}>
+      <div style={{ color: '#FFFFFF', fontFamily: noirBold, fontSize: '30px', marginBottom: '16px' }}>
         Your Spread
       </div>
-      <div style={{ color: spreadBody, fontFamily: fig, fontSize: '16px', lineHeight: '24px', paddingBottom: '32px' }}>
+      <div className="quiz-body-prose" style={{ color: spreadBody, paddingBottom: '32px' }}>
         {"Here's where your choice aligned with each candidate's position, per issue."}
       </div>
 
@@ -201,7 +197,7 @@ export default function SpreadSection({ desktop = false }) {
               const widthPct = maxCandidatePoints === 0 ? 0 : (points / maxCandidatePoints) * 100
               return (
                 <div key={key} style={{ display: 'grid', gridTemplateColumns: 'minmax(128px, 1fr) minmax(80px, 2fr)', gap: '10px', alignItems: 'center' }}>
-                  <div style={{ color: spreadBody, fontFamily: fig, fontSize: '16px', lineHeight: '22px' }}>{name}</div>
+                  <div className="quiz-body-prose" style={{ color: spreadBody }}>{name}</div>
                   <div style={{ backgroundColor: '#1D0673', borderRadius: '999px', height: '10px', overflow: 'hidden' }}>
                     <div style={{ backgroundColor: color, borderRadius: '999px', height: '100%', minWidth: barsAnimated && points > 0 ? '6px' : '0', transition: `width 700ms cubic-bezier(0.16, 1, 0.3, 1) ${i * 80}ms`, width: barsAnimated ? `${widthPct}%` : '0%' }} />
                   </div>
@@ -214,14 +210,14 @@ export default function SpreadSection({ desktop = false }) {
           <section>
             <h3 style={desktopSectionHeading}>By Issue</h3>
           <div style={{ borderBottom: `1px solid ${purple}`, display: 'flex', justifyContent: 'space-between', marginTop: '12px', paddingBottom: '12px' }}>
-            <div style={{ color: spreadCyan, fontFamily: fig, fontSize: '16px', lineHeight: '22px', letterSpacing: '0.05em' }}>Issue</div>
-            <div style={{ color: spreadCyan, fontFamily: fig, fontSize: '16px', lineHeight: '22px', letterSpacing: '0.05em' }}>Your choice</div>
+            <div className="quiz-body-prose" style={{ color: spreadCyan, letterSpacing: '0.05em' }}>Issue</div>
+            <div className="quiz-body-prose" style={{ color: spreadCyan, letterSpacing: '0.05em' }}>Your choice</div>
           </div>
 
           {byIssueRows.map(({ issue, candidate }, i) => (
             <div key={i} style={{ borderBottom: i === byIssueRows.length - 1 ? 'none' : `1px solid ${purple}`, display: 'grid', gridTemplateColumns: 'minmax(150px, 1fr) minmax(120px, 220px)', gap: '16px', padding: '20px 0', alignItems: 'start' }}>
-              <div style={{ color: spreadBody, fontFamily: fig, fontSize: '16px', lineHeight: '22px' }}>{issue}</div>
-              <div style={{ color: spreadBody, fontFamily: fig, fontSize: '16px', lineHeight: '22px', textAlign: 'right' }}>{candidate}</div>
+              <div className="quiz-body-prose" style={{ color: spreadBody }}>{issue}</div>
+              <div className="quiz-body-prose" style={{ color: spreadBody, textAlign: 'right' }}>{candidate}</div>
             </div>
           ))}
         </section>

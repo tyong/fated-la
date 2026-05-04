@@ -36,7 +36,19 @@ const StarIcon = ({ size = 24, style = {}, className }) => (
   </svg>
 )
 
-const LargeCard = ({ name, arcana, img, imgWidth = 225, imgHeight = 362, imgLeft = 33, imgTop = 70, desktop, fluid, fluidMargin }) => {
+const LargeCard = ({
+  name,
+  arcana,
+  img,
+  imgWidth = 225,
+  imgHeight = 362,
+  imgLeft = 33,
+  imgTop = 70,
+  imgObjectPosition,
+  desktop,
+  fluid,
+  fluidMargin,
+}) => {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -62,7 +74,21 @@ const LargeCard = ({ name, arcana, img, imgWidth = 225, imgHeight = 362, imgLeft
                 {name}
               </div>
               {img && (
-                <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundSize: 'cover', borderRadius: '4px', height: `${imgHeight}px`, left: `${imgLeft}px`, outline: `1px solid ${purple}`, position: 'absolute', top: `${imgTop}px`, width: `${imgWidth}px`, zIndex: 1 }} />
+                <div
+                  style={{
+                    backgroundImage: `url(${img})`,
+                    backgroundPosition: imgObjectPosition || 'center',
+                    backgroundSize: 'cover',
+                    borderRadius: '4px',
+                    height: `${imgHeight}px`,
+                    left: `${imgLeft}px`,
+                    outline: `1px solid ${purple}`,
+                    position: 'absolute',
+                    top: `${imgTop}px`,
+                    width: `${imgWidth}px`,
+                    zIndex: 1,
+                  }}
+                />
               )}
               <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: '50%', letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 461, transform: 'translateX(-50%)', width: 294, zIndex: 1 }}>
                 {arcana}
@@ -142,6 +168,7 @@ const LargeCard = ({ name, arcana, img, imgWidth = 225, imgHeight = 362, imgLeft
                     display: 'block',
                     height: '100%',
                     objectFit: 'cover',
+                    objectPosition: imgObjectPosition || '50% 50%',
                     width: '100%',
                   }}
                 />
@@ -772,6 +799,7 @@ const ResultPage = ({
   heroImgHeight,
   heroImgLeft,
   heroImgTop,
+  heroImgObjectPosition,
   shareImage,
   tarotReading,
   inPlainTerms,
@@ -869,14 +897,14 @@ const ResultPage = ({
           />
           <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop shareImageUrl={shareImage} />
           <div style={{ boxSizing: 'border-box', paddingTop: '96px', position: 'relative', textAlign: 'center', zIndex: 1, width: '100%', maxWidth: '572px', margin: '0 auto' }}>
-            <div style={{ color: offPink, fontFamily: noirBold, fontSize: '48px', lineHeight: '52px' }}>
+            <div style={{ color: offPink, fontFamily: noirBold, fontSize: '48px', lineHeight: '48px' }}>
               {drewEyebrow}
             </div>
-            <div style={{ marginTop: '32px' }}>
-              <div style={{ color: '#FFFFFF', fontFamily: noirBold, fontSize: '70px', lineHeight: '80px', whiteSpace: 'pre-wrap' }}>
+            <div style={{ marginTop: '10px' }}>
+              <div style={{ color: '#FFFFFF', fontFamily: noirBold, fontSize: '70px', lineHeight: '74px', whiteSpace: 'pre-wrap' }}>
                 {drewTitleDisplay}
               </div>
-              <div style={{ color: offPink, fontFamily: fig, fontSize: '24px', lineHeight: '36px', marginTop: '24px' }}>
+              <div style={{ color: offPink, fontFamily: fig, fontSize: '24px', lineHeight: '38px', marginTop: '24px' }}>
                 {soulCandidate}
               </div>
               <LargeCard
@@ -888,6 +916,7 @@ const ResultPage = ({
                 imgHeight={heroImgHeight}
                 imgLeft={heroImgLeft}
                 imgTop={heroImgTop}
+                imgObjectPosition={heroImgObjectPosition}
               />
             </div>
           </div>
@@ -1046,10 +1075,13 @@ const ResultPage = ({
 
         <div style={{ paddingTop: `${TOP_BAR_HEIGHT_MOBILE}px`, position: 'relative', zIndex: 1 }}>
 
-          <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '40px', marginTop: '-16px', textAlign: 'center', whiteSpace: 'pre-wrap' }}>
-            {(drew || '').replace(/\.\s*$/, '').trim()}
+          <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '32px', marginTop: '-16px', textAlign: 'center' }}>
+            {drewEyebrow}
           </div>
-          <div style={{ color: offPink, fontFamily: fig, fontSize: '16px', lineHeight: '20px', marginTop: '12px', textAlign: 'center' }}>
+          <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '34px', marginTop: '8px', textAlign: 'center', whiteSpace: 'pre-wrap' }}>
+            {drewTitleDisplay}
+          </div>
+          <div style={{ color: offPink, fontFamily: fig, fontSize: '16px', lineHeight: '22px', marginTop: '12px', textAlign: 'center' }}>
             {soulCandidate}
           </div>
 
@@ -1061,6 +1093,7 @@ const ResultPage = ({
             imgHeight={heroImgHeight}
             imgLeft={heroImgLeft}
             imgTop={heroImgTop}
+            imgObjectPosition={heroImgObjectPosition}
             desktop={false}
           />
 

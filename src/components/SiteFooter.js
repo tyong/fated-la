@@ -1,3 +1,4 @@
+import { Link } from 'gatsby'
 import React from 'react'
 import { getCandidatesListUrl, getContactMailtoHref, getFooterLegalLine, getSourcesUrl } from '../utils/footerLegalLine'
 import { useDesktopLayout } from '../hooks/useDesktopLayout'
@@ -16,6 +17,8 @@ const dark = '#2A009C'
 const SiteFooter = ({ resultTypography = false }) => {
   const desktopLayout = useDesktopLayout()
   const desktop = desktopLayout === true
+  const sourcesUrl = getSourcesUrl()
+  const sourcesIsInternal = sourcesUrl.startsWith('/')
 
   return (
     <div
@@ -61,18 +64,24 @@ const SiteFooter = ({ resultTypography = false }) => {
               {`
 
 Candidate positions are based on publicly accessible information, like their campaigns or their constituents' experiences. Like our fates, they might change in time. `}
-              <a
-                href={getSourcesUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="site-footer-link"
-              >
-                See our sources. ➝
-              </a>
+              {sourcesIsInternal ? (
+                <Link to={sourcesUrl} className="site-footer-link">
+                  See our sources. ➝
+                </Link>
+              ) : (
+                <a
+                  href={sourcesUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="site-footer-link"
+                >
+                  See our sources. ➝
+                </a>
+              )}
             </div>
           </div>
         </div>
-        <div style={{ color: '#C2CAF2', fontFamily: fig, fontSize: '12px', lineHeight: '20px', marginTop: '48px', width: '100%' }}>
+        <div style={{ color: '#C2CAF2', fontFamily: fig, fontSize: '12px', lineHeight: '22px', marginTop: '48px', width: '100%' }}>
           {getFooterLegalLine()}
         </div>
       </div>

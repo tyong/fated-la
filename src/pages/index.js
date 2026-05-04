@@ -56,17 +56,18 @@ const candidates = [
   {
     name: 'KAREN BASS',
     arcana: 'THE EMPRESS',
-    img: 'https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAZTMV23XJGYQFMHR3SP8EK.png',
+    img: '/cards/karen-bass-the-empress.png',
   },
   {
     name: 'NITHYA RAMAN',
     arcana: 'THE HIGH PRIESTESS',
-    img: 'https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAZTW3WNKPAVTQQY3QWWEXK.png',
+    img: '/cards/nithya-raman-high-priestess.png',
   },
   {
     name: 'RAE HUANG',
     arcana: 'THE STAR',
-    img: 'https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAY29KREV8F0ZSQYVN8EVRM.png',
+    img: '/cards/rae-huang-the-star.png',
+    imgPosition: 'center 26%',
   },
   {
     name: 'SPENCER PRATT',
@@ -76,28 +77,28 @@ const candidates = [
   {
     name: 'ADAM MILLER',
     arcana: 'THE MAGICIAN',
-    img: 'https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQB0P3CE16AJN0Q8T1NE95M9.png',
+    img: '/cards/adam-miller-the-magician.png',
   },
 ]
 
-const CarouselCard = ({ name, arcana, img }) => (
+const CarouselCard = ({ name, arcana, img, imgPosition }) => (
   <div style={{ backgroundColor: pink, boxShadow: `0 0 0 1px ${purple}`, borderRadius: '6px', flexShrink: 0, height: '292px', marginRight: '10px', position: 'relative', width: '155px' }}>
     <div style={{ color: purple, fontFamily: monoPro, fontSize: '10px', left: 0, letterSpacing: '0.05em', lineHeight: '12px', position: 'absolute', textAlign: 'center', top: 12, width: '100%' }}>
       {name}
     </div>
-    {img && <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundSize: 'cover', borderRadius: '2px', boxShadow: `0 0 0 1px ${purple}`, height: '214px', left: 21, position: 'absolute', top: 37, width: '114px' }} />}
+    {img && <div style={{ backgroundImage: `url(${img})`, backgroundPosition: imgPosition || 'center', backgroundSize: 'cover', borderRadius: '2px', boxShadow: `0 0 0 1px ${purple}`, height: '214px', left: 21, position: 'absolute', top: 37, width: '114px' }} />}
     <div style={{ color: purple, fontFamily: monoPro, fontSize: '10px', left: 0, letterSpacing: '0.05em', lineHeight: '12px', position: 'absolute', textAlign: 'center', top: 266, width: '100%' }}>
       {arcana}
     </div>
   </div>
 )
 
-const DesktopCandidateCard = ({ name, arcana, img }) => (
+const DesktopCandidateCard = ({ name, arcana, img, imgPosition }) => (
   <div style={{ backgroundColor: pink, boxShadow: `0 0 0 1px ${purple}`, borderRadius: '6px', position: 'relative', width: '156px', height: '292px', flexShrink: 0 }}>
     <div style={{ color: purple, fontFamily: monoPro, fontSize: '10px', letterSpacing: '0.05em', lineHeight: '12px', textAlign: 'center', position: 'absolute', left: 'calc(50% + 3px)', top: 13, width: '136px', transform: 'translateX(-50%)' }}>
       {name}
     </div>
-    <div style={{ backgroundImage: `url(${img})`, backgroundPosition: 'center', backgroundSize: 'cover', borderRadius: '2px', boxShadow: `0 0 0 1px ${purple}`, width: '114px', height: '214px', position: 'absolute', left: 21, top: 37 }} />
+    <div style={{ backgroundImage: `url(${img})`, backgroundPosition: imgPosition || 'center', backgroundSize: 'cover', borderRadius: '2px', boxShadow: `0 0 0 1px ${purple}`, width: '114px', height: '214px', position: 'absolute', left: 21, top: 37 }} />
     <div style={{ color: purple, fontFamily: monoPro, fontSize: '10px', letterSpacing: '0.05em', lineHeight: '12px', textAlign: 'center', position: 'absolute', left: '50%', top: 266, width: '136px', transform: 'translateX(-50%)' }}>
       {arcana}
     </div>
@@ -120,7 +121,7 @@ const ReadingItem = ({ title, body, children }) => (
       >
         {title}
       </h3>
-      <div className="reading-item__body" style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-md)', lineHeight: 1.5 }}>
+      <div className="reading-item__body" style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-md)' }}>
         {body}
       </div>
     </div>
@@ -171,7 +172,7 @@ const IntroPage = () => {
               <h1 style={{ color: offPink, fontFamily: noirBold, fontWeight: 400, fontSize: 'calc(clamp(42px, 6vw, 76px) * 0.91)', lineHeight: 1.2, margin: '0 0 24px', letterSpacing: '-0.01em' }}>
                 Which mayoral candidate aligns with your soul?
               </h1>
-              <div style={{ color: '#FFFFFF', fontFamily: fig, fontWeight: heroBodyWeight, fontSize: heroIntroFontSize, lineHeight: 1.4, margin: '0 0 30px', maxWidth: '430px' }}>
+              <div style={{ color: '#FFFFFF', fontFamily: fig, fontWeight: heroBodyWeight, fontSize: heroIntroFontSize, lineHeight: 'calc(1.4em + 2px)', margin: '0 0 30px', maxWidth: '430px' }}>
                 <p style={{ margin: '0 0 16px' }}>10 questions. 5 top mayoral candidates.</p>
                 <p style={{ margin: '0 0 28px' }}>L.A.&apos;s primary election on June 2.</p>
                 <PrimaryCta to="/question-01" fontSize={heroIntroFontSize}>
@@ -231,7 +232,7 @@ const IntroPage = () => {
           </div>
           <div className="content-column" style={{ maxWidth: '510px' }}>
             <h2 style={h2Style}>Channel your intuition</h2>
-            <p style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-md)', lineHeight: 1.5, whiteSpace: 'pre-wrap' }}>
+            <p style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-md)', lineHeight: 'calc(1.5em + 2px)', whiteSpace: 'pre-wrap' }}>
               Answer 10 questions about Los Angeles—its fires, its failures, its possible futures.{'\n\n'}
               In the end, your Fated reading will name the candidate whose vision most closely aligns with your own.
             </p>
@@ -256,7 +257,7 @@ const IntroPage = () => {
           />
           <div className="page-shell" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
             <h2 style={h2Style}>Reveal your desire</h2>
-            <p className="reading-intro-copy" style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-md)', lineHeight: 1.45, maxWidth: '620px', marginLeft: 'auto', marginRight: 'auto' }}>
+            <p className="reading-intro-copy" style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-md)', maxWidth: '620px', marginLeft: 'auto', marginRight: 'auto' }}>
               Your Fated reading shows your truth.
             </p>
             <div className="reading-grid">
@@ -265,7 +266,7 @@ const IntroPage = () => {
                 body="Based on your 10 answers, see the archetype and mayoral candidate that best aligns with your soul."
               >
                 <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '81.9px', height: '152.75px', position: 'relative' }}>
-                  <div style={{ backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQAZTMV23XJGYQFMHR3SP8EK.png)', backgroundPosition: 'center', backgroundSize: 'cover', width: '61.1px', height: '129.35px', position: 'absolute', left: '10.4px', top: '12.13px', outline: `1px solid ${purple}` }} />
+                  <div style={{ backgroundImage: 'url(/cards/karen-bass-the-empress.png)', backgroundPosition: 'center', backgroundSize: 'cover', width: '61.1px', height: '129.35px', position: 'absolute', left: '10.4px', top: '12.13px', outline: `1px solid ${purple}` }} />
                 </div>
               </ReadingItem>
               <ReadingItem
@@ -285,7 +286,7 @@ const IntroPage = () => {
                 body="The candidate that you may not have expected to align with, but who shares more in common than you think."
               >
                 <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '81.9px', height: '152.75px', position: 'relative' }}>
-                  <div style={{ backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQE2XM03E3BPB1JDF571WARY.png)', backgroundPosition: 'center', backgroundSize: 'cover', width: '61.1px', height: '129.35px', position: 'absolute', left: '10.4px', top: '12.13px', outline: `1px solid ${purple}` }} />
+                  <div style={{ backgroundImage: 'url(/cards/nithya-raman-high-priestess.png)', backgroundPosition: 'center', backgroundSize: 'cover', width: '61.1px', height: '129.35px', position: 'absolute', left: '10.4px', top: '12.13px', outline: `1px solid ${purple}` }} />
                 </div>
               </ReadingItem>
             </div>
