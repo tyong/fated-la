@@ -136,7 +136,8 @@ a {
 }
 
 /*
- * Hero “oval” chrome — radial gradient + WebGL dither — hidden at ≤640px.
+ * Hero “oval” CSS fallbacks — radial gradient on body/main — off at ≤640px.
+ * WebGL hero dither (`.site-hero-dither`) stays visible; keep gradient off to avoid double paint.
  * (Includes 640px so responsive presets / drag resize at the breakpoint match.)
  */
 @media (max-width: 640px) {
@@ -147,11 +148,6 @@ a {
   main.home-page,
   html.page-results #main-content {
     background-image: none !important;
-  }
-
-  /* Shader layer reads as the soft blue oval / blob behind hero copy */
-  .site-hero-dither {
-    display: none !important;
   }
 
   /* Must win over base `.city-image-block { display: flex }` later in this file */
