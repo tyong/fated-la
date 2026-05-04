@@ -52,7 +52,7 @@ const SiteFooter = ({ resultTypography = false }) => {
           <div>
             <div className="site-footer__prose" style={{ color: pink, fontFamily: figBold, marginBottom: '24px' }}>Methodology</div>
             <div className="site-footer__prose" style={{ color: '#C2CAF2', fontFamily: fig, whiteSpace: 'pre-wrap' }}>
-              {`For simplicity's sake, Fated's readings are limited to the top 5 mayoral candidates who have received official endorsements. `}
+              {`For simplicity, we limited readings to the top 5 mayoral candidates who have received official endorsements. `}
               <a
                 href={getCandidatesListUrl()}
                 target="_blank"

@@ -211,6 +211,29 @@ const BodyText = ({ children }) => (
   </div>
 )
 
+/** “In Plain Terms” — same pink as “Your Tarot Reading”; spacing below tarot body / above plain prose. */
+const plainTermsSubheadDesktop = {
+  color: pink,
+  fontFamily: noirBold,
+  fontSize: 'clamp(28px, 2.2vw, 36px)',
+  fontWeight: 500,
+  letterSpacing: '0.015em',
+  lineHeight: 1.1,
+  margin: '56px 0 32px',
+  textAlign: 'left',
+}
+
+const plainTermsSubheadMobile = {
+  color: pink,
+  fontFamily: noirBold,
+  fontSize: 'clamp(28px, 2.2vw, 36px)',
+  fontWeight: 500,
+  letterSpacing: '0.015em',
+  lineHeight: 1.1,
+  margin: '56px 0 32px',
+  textAlign: 'left',
+}
+
 /** Must stay in sync with `result-bottom-bar-swap` minHeight — blur strip height uses this + offsets below. */
 const SHARE_BAR_ROW_MIN_PX = 54
 const SHARE_BAR_PADDING_BOTTOM_PX = 16
@@ -812,7 +835,6 @@ const ResultPage = ({
   charge,
 }) => {
   const desktop = useDesktopLayout()
-  const fullReading = inPlainTerms ? `${tarotReading}\n\n${inPlainTerms}` : tarotReading
 
   useEffect(() => {
     document.documentElement.classList.add('page-results')
@@ -877,6 +899,7 @@ const ResultPage = ({
         <div style={{ boxSizing: 'border-box', minHeight: '1031px', overflow: 'hidden', position: 'relative', width: '100%' }}>
           <TopBar />
           <ClientOnlyDithering
+            className="site-hero-dither"
             speed={0.27}
             shape="warp"
             type="4x4"
@@ -935,7 +958,13 @@ const ResultPage = ({
               Your Tarot Reading
             </div>
             <div style={{ marginTop: '24px' }}>
-              <BodyText>{fullReading}</BodyText>
+              <BodyText>{tarotReading}</BodyText>
+              {inPlainTerms ? (
+                <>
+                  <h3 style={plainTermsSubheadDesktop}>In Plain Terms</h3>
+                  <BodyText>{inPlainTerms}</BodyText>
+                </>
+              ) : null}
             </div>
           </div>
         </div>
@@ -1018,7 +1047,7 @@ const ResultPage = ({
           </>
         )}
 
-        <div style={{ backgroundColor: '#5E67AC', borderTop: `1px solid ${purple}`, padding: '56px 0 64px' }}>
+        <div style={{ backgroundColor: '#5E67AC', borderTop: `1px solid ${purple}`, padding: '56px 0 100px' }}>
           <div style={{ color: '#BDC4EB', fontFamily: noirBold, fontSize: '32px', lineHeight: '44px', margin: '0 auto', textAlign: 'center', width: '500px' }}>
             How should you act?
           </div>
@@ -1062,6 +1091,7 @@ const ResultPage = ({
         <TopBar />
 
         <ClientOnlyDithering
+          className="site-hero-dither"
           speed={0.27}
           shape="warp"
           type="4x4"
@@ -1099,7 +1129,13 @@ const ResultPage = ({
 
           <div style={{ marginTop: 'clamp(56px, 7vw, 92px)' }}>
             <Section title="Your Tarot Reading">
-              <BodyText>{fullReading}</BodyText>
+              <BodyText>{tarotReading}</BodyText>
+              {inPlainTerms ? (
+                <>
+                  <h3 style={plainTermsSubheadMobile}>In Plain Terms</h3>
+                  <BodyText>{inPlainTerms}</BodyText>
+                </>
+              ) : null}
             </Section>
           </div>
         </div>
@@ -1158,7 +1194,7 @@ const ResultPage = ({
               backgroundColor: '#5E67AC',
               borderTop: `1px solid ${purple}`,
               boxSizing: 'border-box',
-              padding: '48px var(--site-gutter-x) 56px',
+              padding: '48px var(--site-gutter-x) 100px',
               width: '100%',
             }}
           >
