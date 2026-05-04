@@ -135,10 +135,28 @@ a {
   pointer-events: auto;
 }
 
-/* Home “Channel your intuition” city image — hidden below 640px, visible from 640px up */
-@media (max-width: 639px) {
+/*
+ * Hero “oval” chrome — radial gradient + WebGL dither — hidden at ≤640px.
+ * (Includes 640px so responsive presets / drag resize at the breakpoint match.)
+ */
+@media (max-width: 640px) {
+  body {
+    background-image: none !important;
+  }
+
+  main.home-page,
+  html.page-results #main-content {
+    background-image: none !important;
+  }
+
+  /* Shader layer reads as the soft blue oval / blob behind hero copy */
+  .site-hero-dither {
+    display: none !important;
+  }
+
+  /* Must win over base `.city-image-block { display: flex }` later in this file */
   .city-image-block {
-    display: none;
+    display: none !important;
   }
 }
 
@@ -429,6 +447,50 @@ html.page-results .site-footer {
 .city-image-inner {
   padding-left: 32px;
   padding-right: 32px;
+}
+
+/*
+ * Intro illustration — elliptical window rotated on screen; inner layer is counter-rotated
+ * so the bitmap stays upright (tilted oval, straight art).
+ */
+.city-image-tilt-frame {
+  --city-tilt: 12deg;
+  aspect-ratio: 1 / 1;
+  clip-path: ellipse(50% 35.5% at 50% 50%);
+  overflow: hidden;
+  position: relative;
+  transform: rotate(calc(-1 * var(--city-tilt)));
+  width: 100%;
+}
+
+.city-image-art {
+  background-position: center;
+  background-size: cover;
+  height: 128%;
+  left: 50%;
+  margin-left: -64%;
+  margin-top: -64%;
+  position: absolute;
+  top: 50%;
+  transform: rotate(var(--city-tilt));
+  transform-origin: center center;
+  width: 128%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .city-image-tilt-frame {
+    transform: none;
+  }
+
+  .city-image-art {
+    height: 100%;
+    left: 0;
+    margin-left: 0;
+    margin-top: 0;
+    top: 0;
+    transform: none;
+    width: 100%;
+  }
 }
 
 .intro-how-it-works-shell {

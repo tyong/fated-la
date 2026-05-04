@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import ClientOnlyDithering from '../components/ClientOnlyDithering'
 import { PrimaryCta } from '../components/PrimaryCta'
 import TopBar from '../components/TopBar'
@@ -72,7 +72,7 @@ const candidates = [
   {
     name: 'SPENCER PRATT',
     arcana: 'THE TOWER',
-    img: 'https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQB04KNZBKPHBTP0A70KEHZ7.png',
+    img: '/cards/spencer-pratt-the-tower.png',
   },
   {
     name: 'ADAM MILLER',
@@ -80,6 +80,41 @@ const candidates = [
     img: '/cards/adam-miller-the-magician.png',
   },
 ]
+
+/** Order for the “Your Draw” teaser: cycles every 3s on the home page */
+const YOUR_DRAW_CYCLE = [
+  { img: '/cards/karen-bass-the-empress.png' },
+  { img: '/cards/nithya-raman-high-priestess.png' },
+  { img: '/cards/spencer-pratt-the-tower.png' },
+  { img: '/cards/adam-miller-the-magician.png' },
+  { img: '/cards/rae-huang-the-star.png', imgPosition: 'center 26%' },
+]
+
+const TEASER_CARD_COUNT = YOUR_DRAW_CYCLE.length
+
+const TeaserCardStack = ({ activeIndex }) => (
+  <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '81.9px', height: '152.75px', position: 'relative' }}>
+    {YOUR_DRAW_CYCLE.map((c, i) => (
+      <div
+        key={c.img}
+        style={{
+          backgroundImage: `url(${c.img})`,
+          backgroundPosition: c.imgPosition || 'center',
+          backgroundSize: 'cover',
+          width: '61.1px',
+          height: '129.35px',
+          position: 'absolute',
+          left: '10.4px',
+          top: '12.13px',
+          outline: `1px solid ${purple}`,
+          opacity: i === activeIndex ? 1 : 0,
+          transition: 'opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1)',
+          zIndex: i === activeIndex ? 2 : 1,
+        }}
+      />
+    ))}
+  </div>
+)
 
 const CarouselCard = ({ name, arcana, img, imgPosition }) => (
   <div style={{ backgroundColor: pink, boxShadow: `0 0 0 1px ${purple}`, borderRadius: '6px', flexShrink: 0, height: '292px', marginRight: '10px', position: 'relative', width: '155px' }}>
@@ -129,6 +164,18 @@ const ReadingItem = ({ title, body, children }) => (
 )
 
 const IntroPage = () => {
+  const [teaserIndices, setTeaserIndices] = useState({ draw: 0, shadow: 1 })
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTeaserIndices(({ draw, shadow }) => {
+        const newDraw = (draw + 1) % TEASER_CARD_COUNT
+        let nextShadow = (shadow + 1) % TEASER_CARD_COUNT
+        if (nextShadow === newDraw) nextShadow = (nextShadow + 1) % TEASER_CARD_COUNT
+        return { draw: newDraw, shadow: nextShadow }
+      })
+    }, 3000)
+    return () => clearInterval(id)
+  }, [])
   const cardRail = useMemo(() => [...candidates, ...candidates], [])
   const heroIntroFontSize = `calc(clamp(16px, 1.45vw, 24px) * ${heroBodyScale})`
   const h2Style = {
@@ -143,6 +190,7 @@ const IntroPage = () => {
   return (
     <main
       id="main-content"
+      className="home-page"
       style={{
         backgroundColor: '#291543',
         /* Matches hero dither (Paper Intro — Desktop, #274988 on #291543) for first paint / SSR */
@@ -157,6 +205,7 @@ const IntroPage = () => {
       <section className="hero-shell" aria-label="Introduction">
         <TopBar />
         <ClientOnlyDithering
+          className="site-hero-dither"
           speed={0.27}
           shape="warp"
           type="4x4"
@@ -218,16 +267,14 @@ const IntroPage = () => {
                 maxWidth: '629px',
               }}
             >
-              <div
-                className="city-image-art"
-                style={{
-                  width: '100%',
-                  aspectRatio: '629 / 446',
-                  backgroundImage: 'url(https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQDWX0Q1H665G5WFBEDK8PQF.png)',
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}
-              />
+              <div className="city-image-tilt-frame">
+                <div
+                  className="city-image-art"
+                  style={{
+                    backgroundImage: 'url(/intro-la-skyline.png)',
+                  }}
+                />
+              </div>
             </div>
           </div>
           <div className="content-column" style={{ maxWidth: '510px' }}>
@@ -236,7 +283,7 @@ const IntroPage = () => {
               Answer 10 questions about Los Angeles—its fires, its failures, its possible futures.{'\n\n'}
               In the end, your Fated reading will name the candidate whose vision most closely aligns with your own.
             </p>
-            <div style={{ marginTop: '24px' }}>
+            <div style={{ marginTop: '24px', marginBottom: '48px' }}>
               <PrimaryCta to="/question-01">Let&apos;s go ➝</PrimaryCta>
             </div>
           </div>
@@ -265,9 +312,7 @@ const IntroPage = () => {
                 title="Your Draw"
                 body="Based on your 10 answers, see the archetype and mayoral candidate that best aligns with your soul."
               >
-                <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '81.9px', height: '152.75px', position: 'relative' }}>
-                  <div style={{ backgroundImage: 'url(/cards/karen-bass-the-empress.png)', backgroundPosition: 'center', backgroundSize: 'cover', width: '61.1px', height: '129.35px', position: 'absolute', left: '10.4px', top: '12.13px', outline: `1px solid ${purple}` }} />
-                </div>
+                <TeaserCardStack activeIndex={teaserIndices.draw} />
               </ReadingItem>
               <ReadingItem
                 title="Your Spread"
@@ -285,9 +330,7 @@ const IntroPage = () => {
                 title="Your Shadow"
                 body="The candidate that you may not have expected to align with, but who shares more in common than you think."
               >
-                <div style={{ backgroundColor: pink, borderRadius: '2px', outline: `1px solid ${purple}`, width: '81.9px', height: '152.75px', position: 'relative' }}>
-                  <div style={{ backgroundImage: 'url(/cards/nithya-raman-high-priestess.png)', backgroundPosition: 'center', backgroundSize: 'cover', width: '61.1px', height: '129.35px', position: 'absolute', left: '10.4px', top: '12.13px', outline: `1px solid ${purple}` }} />
-                </div>
+                <TeaserCardStack activeIndex={teaserIndices.shadow} />
               </ReadingItem>
             </div>
             <div className="reading-cta">

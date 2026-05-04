@@ -116,6 +116,10 @@
 }
 
 @media (max-width: 640px) {
+  .sources-page {
+    background-image: none;
+  }
+
   .sources-page__table thead {
     position: absolute;
     width: 1px;

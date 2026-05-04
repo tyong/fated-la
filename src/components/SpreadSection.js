@@ -115,6 +115,10 @@ export default function SpreadSection({ desktop = false }) {
       flexGrow: 1,
       flexShrink: 1,
     }
+    const cellChoice = {
+      ...cell,
+      textAlign: 'right',
+    }
     return (
       <div
         style={{
@@ -156,12 +160,12 @@ export default function SpreadSection({ desktop = false }) {
             <div style={{ display: 'flex', flexDirection: 'column', marginTop: '16px' }}>
               <div style={{ ...rowBase, paddingBlock: '16px' }}>
                 <div className="quiz-body-prose" style={{ ...cell, color: spreadCyan }}>Issue</div>
-                <div className="quiz-body-prose" style={{ ...cell, color: spreadCyan }}>Your choice</div>
+                <div className="quiz-body-prose" style={{ ...cell, ...cellChoice, color: spreadCyan }}>You align with</div>
               </div>
               {byIssueRows.map(({ issue, candidate }, i) => (
                 <div key={i} style={{ ...rowBase, borderBottom: i === byIssueRows.length - 1 ? 'none' : rowBase.borderBottom }}>
                   <div className="quiz-body-prose" style={cell}>{issue}</div>
-                  <div className="quiz-body-prose" style={cell}>{candidate}</div>
+                  <div className="quiz-body-prose" style={cellChoice}>{candidate}</div>
                 </div>
               ))}
             </div>
@@ -209,9 +213,18 @@ export default function SpreadSection({ desktop = false }) {
 
           <section>
             <h3 style={desktopSectionHeading}>By Issue</h3>
-          <div style={{ borderBottom: `1px solid ${purple}`, display: 'flex', justifyContent: 'space-between', marginTop: '12px', paddingBottom: '12px' }}>
+          <div
+            style={{
+              borderBottom: `1px solid ${purple}`,
+              display: 'grid',
+              gridTemplateColumns: 'minmax(150px, 1fr) minmax(120px, 220px)',
+              gap: '16px',
+              marginTop: '12px',
+              paddingBottom: '12px',
+            }}
+          >
             <div className="quiz-body-prose" style={{ color: spreadCyan, letterSpacing: '0.05em' }}>Issue</div>
-            <div className="quiz-body-prose" style={{ color: spreadCyan, letterSpacing: '0.05em' }}>Your choice</div>
+            <div className="quiz-body-prose" style={{ color: spreadCyan, letterSpacing: '0.05em', textAlign: 'right' }}>You align with</div>
           </div>
 
           {byIssueRows.map(({ issue, candidate }, i) => (

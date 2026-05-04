@@ -34,6 +34,7 @@ const prefersReducedMotion = () => {
 
 export default function ClientOnlyDithering({
   style,
+  className,
   shape,
   revealVariant = 'auto',
   revealDuration,
@@ -88,7 +89,7 @@ export default function ClientOnlyDithering({
   }, [isSwirlReveal, mounted, reduceMotion, revealed])
 
   if (!mounted) {
-    return <div style={style} />
+    return <div className={className} style={style} />
   }
 
   const webgl2Ok = canUseWebGL2()
@@ -98,6 +99,7 @@ export default function ClientOnlyDithering({
 
   return (
     <div
+      className={className}
       style={{
         ...style,
         position: (style && style.position) || 'relative',
