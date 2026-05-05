@@ -19,6 +19,9 @@ const dark    = '#2A009C'
 const yellow  = '#D2D260'
 const offPink = '#F2CACE'
 const largeCardShadow = '0 18px 32px 8px rgba(29, 13, 50, 0.8)'
+/** Native Share API (result pages): no image attachment; funnel copy only. */
+const RESULT_NATIVE_SHARE_TITLE = 'Fated LA'
+const RESULT_NATIVE_SHARE_TEXT = 'Fated: Which LA mayoral candidate aligns with your soul?'
 const starSpinStyle = { animation: 'spinStar 10s linear infinite', transformOrigin: '50% 50%' }
 
 const StarIcon = ({ size = 24, style = {}, className }) => (
@@ -497,10 +500,9 @@ const ScrollDownHint = ({ onActivate, tabIndex }) => {
   )
 }
 
-const ShareButton = ({ title, text, desktop, shareImageUrl }) => {
+const ShareButton = ({ title, text, desktop }) => {
   const [showActions, setShowActions] = useState(false)
   const [hasPageOverflow, setHasPageOverflow] = useState(true)
-  const [preparedShareFile, setPreparedShareFile] = useState(null)
   const [hovered, setHovered] = useState(false)
   const [pressed, setPressed] = useState(false)
   const shareInFlightRef = useRef(false)
@@ -622,32 +624,6 @@ const ShareButton = ({ title, text, desktop, shareImageUrl }) => {
     window.scrollBy({ top: delta, behavior: reduce ? 'auto' : 'smooth' })
   }
 
-  useEffect(() => {
-    let cancelled = false
-    if (!shareImageUrl || typeof window === 'undefined') {
-      setPreparedShareFile(null)
-      return () => {}
-    }
-
-    const prepareShareFile = async () => {
-      try {
-        const res = await fetch(shareImageUrl)
-        if (!res.ok) return
-        const blob = await res.blob()
-        const ext = blob.type.includes('png') ? 'png' : 'jpg'
-        const file = new File([blob], `fated-la-result.${ext}`, { type: blob.type || 'image/png' })
-        if (!cancelled) setPreparedShareFile(file)
-      } catch (_) {
-        if (!cancelled) setPreparedShareFile(null)
-      }
-    }
-
-    prepareShareFile().catch(() => {})
-    return () => {
-      cancelled = true
-    }
-  }, [shareImageUrl])
-
   const handleShare = async () => {
     if (typeof navigator === 'undefined' || typeof window === 'undefined') return
     if (shareInFlightRef.current) return
@@ -656,21 +632,12 @@ const ShareButton = ({ title, text, desktop, shareImageUrl }) => {
 
     try {
       if (navigator.share) {
-        const fileShareAvailable =
-          !!preparedShareFile &&
-          navigator.canShare &&
-          navigator.canShare({ files: [preparedShareFile] })
-
         const btnEl = shareTriggerBtnRef.current
         shareNativeSheetPendingRef.current = true
         if (btnEl) btnEl.style.pointerEvents = 'none'
 
         try {
-          if (fileShareAvailable) {
-            await navigator.share({ title, text, url, files: [preparedShareFile] })
-          } else {
-            await navigator.share({ title, text, url })
-          }
+          await navigator.share({ title, text, url })
         } finally {
           if (typeof performance !== 'undefined') {
             shareIconSuppressPlaybackUntilRef.current = performance.now() + 1800
@@ -836,7 +803,6 @@ const ShareButton = ({ title, text, desktop, shareImageUrl }) => {
 const ResultPage = ({
   drew,
   soulCandidate,
-  shareText,
   heroName,
   heroArcana,
   heroImg,
@@ -845,7 +811,6 @@ const ResultPage = ({
   heroImgLeft,
   heroImgTop,
   heroImgObjectPosition,
-  shareImage,
   tarotReading,
   inPlainTerms,
   shadowTitle,
@@ -941,7 +906,7 @@ const ResultPage = ({
               zIndex: 0,
             }}
           />
-          <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop shareImageUrl={shareImage} />
+          <ShareButton title={RESULT_NATIVE_SHARE_TITLE} text={RESULT_NATIVE_SHARE_TEXT} desktop />
           <div style={{ boxSizing: 'border-box', paddingTop: '96px', position: 'relative', textAlign: 'center', zIndex: 1, width: '100%', maxWidth: '572px', margin: '0 auto' }}>
             <div style={{ color: offPink, fontFamily: noirBold, fontSize: '48px', lineHeight: '48px' }}>
               {drewEyebrow}
@@ -1182,7 +1147,7 @@ const ResultPage = ({
           colorFront="#291543"
           style={{ backgroundColor: '#274988', height: '823px', left: 0, position: 'absolute', top: 0, width: '100%', zIndex: 0 }}
         />
-        <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop={false} shareImageUrl={shareImage} />
+        <ShareButton title={RESULT_NATIVE_SHARE_TITLE} text={RESULT_NATIVE_SHARE_TEXT} desktop={false} />
 
         <div style={{ paddingTop: `${TOP_BAR_HEIGHT_MOBILE}px`, position: 'relative', zIndex: 1 }}>
 
