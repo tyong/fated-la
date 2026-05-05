@@ -1,5 +1,20 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "fated-la.vercel.app" }],
+      "destination": "https://fated.vote/",
+      "permanent": true
+    },
+    {
+      "source": "/:path+",
+      "has": [{ "type": "host", "value": "fated-la.vercel.app" }],
+      "destination": "https://fated.vote/:path",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

@@ -119,11 +119,11 @@ const TeaserCardStack = ({ activeIndex }) => (
 const CarouselCard = ({ name, arcana, img, imgPosition }) => (
   <div style={{ backgroundColor: pink, boxShadow: `0 0 0 1px ${purple}`, borderRadius: '6px', flexShrink: 0, height: '292px', marginRight: '10px', position: 'relative', width: '155px' }}>
     <div style={{ color: purple, fontFamily: monoPro, fontSize: '10px', left: 0, letterSpacing: '0.05em', lineHeight: '12px', position: 'absolute', textAlign: 'center', top: 12, width: '100%' }}>
-      {name}
+      {arcana}
     </div>
     {img && <div style={{ backgroundImage: `url(${img})`, backgroundPosition: imgPosition || 'center', backgroundSize: 'cover', borderRadius: '2px', boxShadow: `0 0 0 1px ${purple}`, height: '214px', left: 21, position: 'absolute', top: 37, width: '114px' }} />}
     <div style={{ color: purple, fontFamily: monoPro, fontSize: '10px', left: 0, letterSpacing: '0.05em', lineHeight: '12px', position: 'absolute', textAlign: 'center', top: 266, width: '100%' }}>
-      {arcana}
+      {name}
     </div>
   </div>
 )
@@ -131,11 +131,11 @@ const CarouselCard = ({ name, arcana, img, imgPosition }) => (
 const DesktopCandidateCard = ({ name, arcana, img, imgPosition }) => (
   <div style={{ backgroundColor: pink, boxShadow: `0 0 0 1px ${purple}`, borderRadius: '6px', position: 'relative', width: '156px', height: '292px', flexShrink: 0 }}>
     <div style={{ color: purple, fontFamily: monoPro, fontSize: '10px', letterSpacing: '0.05em', lineHeight: '12px', textAlign: 'center', position: 'absolute', left: 'calc(50% + 3px)', top: 13, width: '136px', transform: 'translateX(-50%)' }}>
-      {name}
+      {arcana}
     </div>
     <div style={{ backgroundImage: `url(${img})`, backgroundPosition: imgPosition || 'center', backgroundSize: 'cover', borderRadius: '2px', boxShadow: `0 0 0 1px ${purple}`, width: '114px', height: '214px', position: 'absolute', left: 21, top: 37 }} />
     <div style={{ color: purple, fontFamily: monoPro, fontSize: '10px', letterSpacing: '0.05em', lineHeight: '12px', textAlign: 'center', position: 'absolute', left: '50%', top: 266, width: '136px', transform: 'translateX(-50%)' }}>
-      {arcana}
+      {name}
     </div>
   </div>
 )
@@ -206,14 +206,15 @@ const IntroPage = () => {
         <TopBar />
         <ClientOnlyDithering
           className="site-hero-dither"
+          instantReveal
           speed={0.27}
           shape="warp"
           type="4x4"
           size={0.2}
           scale={1}
-          colorBack="#00000000"
-          colorFront="#274988"
-          style={{ backgroundColor: '#291543', position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 'var(--hero-dither-top, 0px)', width: '100vw', height: '760px', zIndex: 0 }}
+          colorBack="#274988"
+          colorFront="#291543"
+          style={{ backgroundColor: '#274988', position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 'var(--hero-dither-top, 0px)', width: '100vw', height: '760px', zIndex: 0 }}
         />
         <div className="page-shell" style={{ position: 'relative', zIndex: 1 }}>
           <div className="desktop-grid-2 hero-grid" style={{ alignItems: 'start', gap: '24px' }}>
@@ -223,7 +224,7 @@ const IntroPage = () => {
               </h1>
               <div style={{ color: '#FFFFFF', fontFamily: fig, fontWeight: heroBodyWeight, fontSize: heroIntroFontSize, lineHeight: 'calc(1.4em + 2px)', margin: '0 0 30px', maxWidth: '430px' }}>
                 <p style={{ margin: '0 0 16px' }}>10 questions. 5 top mayoral candidates.</p>
-                <p style={{ margin: '0 0 28px' }}>L.A.&apos;s primary election on June 2.</p>
+                <p style={{ margin: '0 0 28px' }}>Vote with intention on June 2.</p>
                 <PrimaryCta to="/question-01" fontSize={heroIntroFontSize}>
                   Begin your reading ➝
                 </PrimaryCta>
@@ -257,39 +258,6 @@ const IntroPage = () => {
         </div>
       </section>
 
-      <section className="page-shell intro-how-it-works-shell" style={{ paddingBottom: 'clamp(40px, 6vw, 80px)' }}>
-        <div className="desktop-grid-2" style={{ alignItems: 'center', gap: 'clamp(24px, 4vw, 64px)' }}>
-          <div className="city-image-block">
-            <div
-              className="city-image-inner"
-              style={{
-                width: '100%',
-                maxWidth: '629px',
-              }}
-            >
-              <div className="city-image-tilt-frame">
-                <div
-                  className="city-image-art"
-                  style={{
-                    backgroundImage: 'url(/intro-la-skyline.png)',
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="content-column" style={{ maxWidth: '510px' }}>
-            <h2 style={h2Style}>Channel your intuition</h2>
-            <p style={{ color: '#FFFFFF', fontFamily: fig, fontSize: 'var(--body-md)', lineHeight: 'calc(1.5em + 2px)', whiteSpace: 'pre-wrap' }}>
-              Answer 10 questions about Los Angeles—its fires, its failures, its possible futures.{'\n\n'}
-              In the end, your Fated reading will name the candidate whose vision most closely aligns with your own.
-            </p>
-            <div style={{ marginTop: '24px', marginBottom: '48px' }}>
-              <PrimaryCta to="/question-01">Let&apos;s go ➝</PrimaryCta>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="reading-shell" style={{ paddingBottom: 0 }}>
         <div className="reading-panel" style={{ backgroundColor: '#264988', borderRadius: 0, position: 'relative', overflow: 'hidden' }}>
           <ClientOnlyDithering
@@ -298,7 +266,7 @@ const IntroPage = () => {
             type="4x4"
             size={1}
             scale={1.2}
-            colorBack="#00000000"
+            colorBack="#264988"
             colorFront="#291543"
             style={{ position: 'absolute', inset: 0, zIndex: 0 }}
           />
@@ -334,7 +302,7 @@ const IntroPage = () => {
               </ReadingItem>
             </div>
             <div className="reading-cta">
-              <PrimaryCta to="/question-01">Follow fate ➝</PrimaryCta>
+              <PrimaryCta to="/question-01">Follow your fate ➝</PrimaryCta>
             </div>
           </div>
         </div>
