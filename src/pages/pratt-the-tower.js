@@ -10,11 +10,9 @@ export default () => (
   <ResultPage
     drew={"You drew \nThe Tower."}
     soulCandidate="Your soul candidate is Spencer Pratt."
-    shareText="My soul candidate for the LA Election 2026 is Spencer Pratt, The Tower."
     heroName="SPENCER PRATT"
     heroArcana="THE TOWER"
     heroImg="/cards/spencer-pratt-the-tower.png"
-    shareImage="/share/pratt-the-tower.png"
     heroImgWidth={225}
     heroImgHeight={362}
     heroImgLeft={33}
