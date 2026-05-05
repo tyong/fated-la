@@ -212,9 +212,9 @@ const IntroPage = () => {
           type="4x4"
           size={0.2}
           scale={1}
-          colorBack="#274988"
-          colorFront="#291543"
-          style={{ backgroundColor: '#274988', position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 'var(--hero-dither-top, 0px)', width: '100vw', height: '760px', zIndex: 0 }}
+          colorBack="#291543"
+          colorFront="#274988"
+          style={{ backgroundColor: '#291543', position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: 'var(--hero-dither-top, 0px)', width: '100vw', height: '760px', zIndex: 0 }}
         />
         <div className="page-shell" style={{ position: 'relative', zIndex: 1 }}>
           <div className="desktop-grid-2 hero-grid" style={{ alignItems: 'start', gap: '24px' }}>
@@ -266,8 +266,8 @@ const IntroPage = () => {
             type="4x4"
             size={1}
             scale={1.2}
-            colorBack="#264988"
-            colorFront="#291543"
+            colorBack="#291543"
+            colorFront="#264988"
             style={{ position: 'absolute', inset: 0, zIndex: 0 }}
           />
           <div className="page-shell" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
