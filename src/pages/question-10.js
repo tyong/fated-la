@@ -18,16 +18,16 @@ export default () => (
     number={10}
     title="The Landlord"
     paragraphs={[
-      "You've lived in your apartment for 11 years. This morning you got a notice: your rent is going up 15%.",
-      'The building was just sold to an LLC registered in Delaware. You have no idea who owns your home now.',
+      "You've lived in your apartment for 11 years. This morning: a 15% rent increase notice.",
+      'An LLC registered in Delaware bought your building. You have no idea who owns your home now. The city has tenant protections, but they didn\'t protect you from this.',
     ]}
-    question="What should the city do?"
+    question="What is your first move?"
     choices={[
-      { title: 'Enforce the laws that already exist.', body: 'Rent increases are supposed to be capped at 3—4%. Get landlords mandatory relocation payments when they kick people out for no reason.' },
-      { title: 'Build more housing near transit.', body: 'Also: cap the rent increases, and strengthen eviction protections.' },
-      { title: "Tax people who buy buildings & flip 'em.", body: "Build housing the city owns so the market can't do this to people." },
-      { title: 'Faster permits to build more housing.', body: "When there are more places to live, landlords can't get away with this." },
-      { title: 'Protect renters now AND build housing.', body: 'The landlord only wins when you have nowhere else to go.' },
+      { title: 'Call the city hotline.', body: 'Know your tenant rights. Landlords should not be able to hide behind shell companies. The rules exist for a reason.' },
+      { title: 'Document everything.', body: 'Save the notice. Find out when the building sold. What happened to you may be illegal.' },
+      { title: 'Don\'t pay it. Mobilize your neighbors.', body: 'Do not pay that increase without a fight. Knock on every door in your building.' },
+      { title: 'Read your lease. Then read the law.', body: 'If your building isn\'t covered by rent control, the city cannot help.' },
+      { title: 'Look into tenant services.', body: "You shouldn't need a lawyer to understand if you're being illegally evicted. Help exists." },
     ]}
     replaceNextPath
   />

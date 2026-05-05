@@ -23,11 +23,11 @@ export default () => (
     ]}
     question="What should the mayor focus on?"
     choices={[
-      { title: 'Using the Olympics spotlight.', body: 'This could be PR to show the world what LA is doing right on sustainability.' },
-      { title: 'Carbon neutrality by 2030.', body: "The Olympics doesn't change the deadline for our planet." },
-      { title: 'Not bulldozing homes for stadiums.', body: "Poorer communities always pay for this stuff. Make sure they don't this time." },
-      { title: "Cashing in to raise LA's economy.", body: 'The Olympics is a massive economic opportunity for all local businesses.' },
-      { title: 'Fast-tracking stuck reforms.', body: 'The city has two years to prove it can actually execute something. Permitting, infrastructure, services — everything can move because of the Olympics clock.' },
+      { title: "All of the above, because that's the job.", body: "The Olympics is an accelerator to our climate goals, we don't have to choose." },
+      { title: 'Making LA more sustainable and livable.', body: "If we're only fixing streets and planting trees where cameras will be, we've missed the point entirely." },
+      { title: 'Reaching carbon neutrality by 2030.', body: "The Olympics doesn't change the deadline for preserving our planet." },
+      { title: 'Cleaning up LA streets.', body: 'This could be PR to show the world that LA is doing right on sustainability.' },
+      { title: "Cashing in to grow LA's economy.", body: 'The Olympics is a massive economic opportunity for local businesses.' },
     ]}
     nextPath="/question-03"
   />

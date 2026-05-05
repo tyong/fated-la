@@ -10,7 +10,7 @@ const TheMoon = () => (
   <ResultPage
     drew={"You drew \nThe Moon."}
     soulCandidate="No one candidate speaks to you."
-    shareText="My soul candidate for the LA Election 2026 is no one candidate, The Moon."
+    shareText="My soul candidate for the 2026 LA mayoral election is The Moon. What\u2019s yours?"
     heroName="IN CONFLICT"
     heroArcana="THE MOON"
     heroImg="https://app.paper.design/file-assets/01KQ8CCT4BGDP6VM53M8HC0F9H/01KQDNHM92DH4PAHRSQD9Y7QAE.png"
@@ -36,7 +36,7 @@ export default TheMoon
 export const Head = () =>
   createResultHead({
     pageTitle: resultPageTitle('The Moon', 'No one candidate'),
-    description: 'My soul candidate for the LA Election 2026 is no one candidate, The Moon.',
+    description: 'My soul candidate for the 2026 LA mayoral election is The Moon. What\u2019s yours?',
     imageUrl: defaultLinkPreviewImage,
     path: '/the-moon/',
   })

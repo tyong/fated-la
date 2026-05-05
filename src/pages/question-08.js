@@ -24,11 +24,11 @@ export default () => (
     ]}
     question="What does the city need?"
     choices={[
-      { title: 'Hire more officers.', body: 'Response time is a basic thing a city should provide.' },
-      { title: 'Smarter deployment.', body: "A mental health crisis doesn't need a gun. Send the right type of responder to the right call." },
-      { title: 'Fund prevention, not response.', body: 'Safety comes from housing, healthcare, and jobs — not just more cops.' },
-      { title: 'Get stricter.', body: 'Enforce the laws. Stop letting political pressure make the city less safe.' },
-      { title: 'Fix the dispatch system.', body: "Better routing, better call triage, better use of non-emergency options. You can improve response times without adding cops." },
+      { title: 'Hire more officers.', body: "Close the 1,000+ officer hiring gap. We can't fix a department by hollowing it out." },
+      { title: 'Audit the department.', body: 'Appoint a new police chief. Misconduct is a culture problem, not a staffing one.' },
+      { title: 'Invest in community.', body: 'Public safety comes from safe housing, mental health response, and youth programs — not more cops.' },
+      { title: 'Rebuild the department.', body: 'Implement zero-tolerance for theft, graffiti, and animal abuse.' },
+      { title: 'Double police patrols', body: "Residents don't feel safe. Bring staffing levels back and focus on accountability." },
     ]}
     nextPath="/question-09"
   />

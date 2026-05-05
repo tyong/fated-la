@@ -23,11 +23,11 @@ export default () => (
     ]}
     question="What's your top takeaway?"
     choices={[
-      { title: 'This was bad luck and systemic failure.', body: "It's not one person's fault that a freak event exposed decades of bad decisions. But the mayor should ensure it never happens like this again." },
-      { title: "The city didn't take climate seriously.", body: "The city was not prepared for a climate disaster it knew was likely coming. That's not bad luck. That's a choice." },
+      { title: 'The city was unprepared.', body: "It's not one person's fault that a natural disaster exposed a series of bad decisions. But the mayor is responsible for planning and prevention." },
+      { title: 'LA lacked a sense of urgency.', body: "The wildfires didn't just expose a failure of preparation - it exposed a disconnect between City Hall and residents." },
       { title: 'Rebuilding has to be about justice.', body: "The people who had the least, lost the most. We can't just put the expensive neighborhoods back the way they were." },
-      { title: 'This was 100% a leadership failure.', body: 'People died. The mayor was on a trip. That\'s not "systemic", it\'s irresponsible.' },
-      { title: 'Hold specific leaders accountable.', body: "There's a paper trail. Fire agency calls. Equipment purchases. Follow it to the specific people who made the specific calls that led to insufficient response." },
+      { title: 'This was 100% a leadership failure.', body: "People died. The mayor was on a trip. This wasn't incompetence, this was corruption." },
+      { title: 'City Hall mismanaged everything', body: 'LA had the warning signs, technology, and resources, but we failed to effectively respond.' },
     ]}
     nextPath="/question-02"
   />

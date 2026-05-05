@@ -25,11 +25,11 @@ export default () => (
     ]}
     question="What should the mayor do?"
     choices={[
-      { title: 'Use every legal tool available.', body: 'Limit city cooperation with ICE. Get lawyers out there. Make noise at the federal level.' },
-      { title: 'Cut whatever is helping ICE find people.', body: 'Go through every city contract and data agreement between city agencies and federal enforcement.' },
-      { title: 'Mobilize resistance.', body: 'Show up to that school. Stand in front of those families. Call it what it is. Then help the whole city show up together.' },
-      { title: 'Stay back.', body: "The federal government has the legal right to enforce immigration law. The mayor's job is to run the city — not pick fights with Washington." },
-      { title: 'Get better services for immigrants.', body: 'Fast permitting, legal help, services you can access without showing papers.' },
+      { title: 'Use every legal tool available.', body: 'Forbid city cooperation with ICE. Get lawyers out there. Make noise at the federal level.' },
+      { title: 'Block LAPD from helping ICE', body: 'Review every policy to prevent data sharing between city and federal law enforcement.' },
+      { title: 'Mobilize resistance to abolish ICE.', body: 'Show up at that school. Rally the city to show up together to protest ICE.' },
+      { title: 'Partner with ICE.', body: 'Collaborate with federal officers to crack down on crime and enforce the law.' },
+      { title: 'Improve immigrant services.', body: "Faster permitting and legal support for people to access without showing papers." },
     ]}
     nextPath="/question-07"
   />
