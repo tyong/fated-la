@@ -188,19 +188,51 @@ const LargeCard = ({
   )
 }
 
+/** Shared with “In Plain Terms”; same typography as main tarot-reading heading. */
+const tarotSectionSubheadTypography = {
+  color: pink,
+  fontFamily: noirBold,
+  fontSize: 'clamp(28px, 2.2vw, 36px)',
+  fontWeight: 500,
+  letterSpacing: '0.015em',
+  lineHeight: 1.1,
+  textAlign: 'left',
+}
+
+const RESULT_TAROT_SECTION_TITLE = 'Your soul has chosen.'
+
+/** “In Plain Terms”; spacing below tarot body / above plain prose. */
+const plainTermsSubheadDesktop = {
+  ...tarotSectionSubheadTypography,
+  margin: '56px 0 32px',
+}
+
+const plainTermsSubheadMobile = {
+  ...tarotSectionSubheadTypography,
+  margin: '56px 0 32px',
+}
+
 const Section = ({ title, children }) => (
   <div
     style={{
       backgroundColor: '#291543',
-      padding: '24px var(--site-gutter-x) 32px',
+      padding: '72px var(--site-gutter-x) 32px',
       position: 'relative',
       zIndex: 1,
     }}
   >
-    <div style={{ color: pink, fontFamily: noirBold, fontSize: '30px', lineHeight: '90px', textAlign: 'left' }}>
-      {title}
+    <div
+      style={{
+        boxSizing: 'border-box',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        maxWidth: '600px',
+        width: '100%',
+      }}
+    >
+      <h2 style={{ ...tarotSectionSubheadTypography, margin: 0 }}>{title}</h2>
+      <div style={{ marginTop: '24px' }}>{children}</div>
     </div>
-    {children}
   </div>
 )
 
@@ -216,29 +248,6 @@ const BodyText = ({ children }) => (
     {children}
   </div>
 )
-
-/** “In Plain Terms” — same pink as “Your Tarot Reading”; spacing below tarot body / above plain prose. */
-const plainTermsSubheadDesktop = {
-  color: pink,
-  fontFamily: noirBold,
-  fontSize: 'clamp(28px, 2.2vw, 36px)',
-  fontWeight: 500,
-  letterSpacing: '0.015em',
-  lineHeight: 1.1,
-  margin: '56px 0 32px',
-  textAlign: 'left',
-}
-
-const plainTermsSubheadMobile = {
-  color: pink,
-  fontFamily: noirBold,
-  fontSize: 'clamp(28px, 2.2vw, 36px)',
-  fontWeight: 500,
-  letterSpacing: '0.015em',
-  lineHeight: 1.1,
-  margin: '56px 0 32px',
-  textAlign: 'left',
-}
 
 /** Must stay in sync with `result-bottom-bar-swap` minHeight — blur strip height uses this + offsets below. */
 const SHARE_BAR_ROW_MIN_PX = 54
@@ -959,23 +968,30 @@ const ResultPage = ({
           </div>
         </div>
 
-        <div style={{ backgroundColor: '#291543', padding: '64px 0 64px', position: 'relative', zIndex: 1 }}>
+        <div
+          style={{
+            backgroundColor: '#291543',
+            boxSizing: 'border-box',
+            padding: '112px 96px 64px',
+            position: 'relative',
+            width: '100%',
+            zIndex: 1,
+          }}
+        >
           <div
             style={{
               boxSizing: 'border-box',
               margin: '0 auto',
-              padding: '0 clamp(16px, 5vw, 24px)',
-              width: 'min(100%, 640px)',
+              maxWidth: '600px',
+              width: '100%',
             }}
           >
-            <div style={{ color: pink, fontFamily: noirBold, fontSize: '48px', lineHeight: '90px', textAlign: 'left' }}>
-              Your Tarot Reading
-            </div>
+            <h2 style={{ ...tarotSectionSubheadTypography, margin: 0 }}>{RESULT_TAROT_SECTION_TITLE}</h2>
             <div style={{ marginTop: '24px' }}>
               <BodyText>{tarotReading}</BodyText>
               {inPlainTerms ? (
                 <>
-                  <h3 style={plainTermsSubheadDesktop}>In Plain Terms</h3>
+                  <h3 style={plainTermsSubheadDesktop}>Okay, but really.</h3>
                   <BodyText>{inPlainTerms}</BodyText>
                 </>
               ) : null}
@@ -1065,24 +1081,61 @@ const ResultPage = ({
           </>
         )}
 
-        <div style={{ backgroundColor: '#5E67AC', borderTop: `1px solid ${purple}`, padding: '56px 0 100px' }}>
-          <div style={{ color: '#BDC4EB', fontFamily: noirBold, fontSize: '32px', lineHeight: '44px', margin: '0 auto', textAlign: 'center', width: '500px' }}>
-            How should you act?
-          </div>
-          <div style={{ color: '#FFFFFF', fontFamily: noirBold, fontSize: '48px', lineHeight: '56px', margin: '8px auto 0', textAlign: 'center', width: '500px' }}>
-            Your Charge
-          </div>
+        <div
+          style={{
+            backgroundColor: '#5E67AC',
+            borderTop: `1px solid ${purple}`,
+            boxSizing: 'border-box',
+            padding: '56px 96px 100px',
+            width: '100%',
+          }}
+        >
           <div
-            className="quiz-body-prose"
             style={{
-              color: '#FFFFFF',
-              margin: '40px auto 0',
+              boxSizing: 'border-box',
+              marginLeft: 'auto',
+              marginRight: 'auto',
               maxWidth: '600px',
-              whiteSpace: 'pre-wrap',
-              width: '600px',
+              width: '100%',
             }}
           >
-            {charge}
+            <div
+              style={{
+                color: '#BDC4EB',
+                fontFamily: noirBold,
+                fontSize: '32px',
+                lineHeight: '44px',
+                margin: 0,
+                textAlign: 'center',
+                width: '100%',
+              }}
+            >
+              How should you act?
+            </div>
+            <div
+              style={{
+                color: '#FFFFFF',
+                fontFamily: noirBold,
+                fontSize: '48px',
+                lineHeight: '56px',
+                margin: '8px 0 0',
+                textAlign: 'center',
+                width: '100%',
+              }}
+            >
+              Your Charge
+            </div>
+            <div
+              className="quiz-body-prose"
+              style={{
+                color: '#FFFFFF',
+                margin: '40px 0 0',
+                whiteSpace: 'pre-wrap',
+                width: '100%',
+              }}
+            >
+              {charge}
+            </div>
           </div>
         </div>
         <div
@@ -1156,11 +1209,11 @@ const ResultPage = ({
           />
 
           <div style={{ marginTop: 'clamp(56px, 7vw, 92px)' }}>
-            <Section title="Your Tarot Reading">
+            <Section title={RESULT_TAROT_SECTION_TITLE}>
               <BodyText>{tarotReading}</BodyText>
               {inPlainTerms ? (
                 <>
-                  <h3 style={plainTermsSubheadMobile}>In Plain Terms</h3>
+                  <h3 style={plainTermsSubheadMobile}>Okay, but really.</h3>
                   <BodyText>{inPlainTerms}</BodyText>
                 </>
               ) : null}
@@ -1244,43 +1297,50 @@ const ResultPage = ({
           >
             <div
               style={{
-                color: '#BDC4EB',
-                fontFamily: noirBold,
-                fontSize: '24px',
-                lineHeight: '32px',
-                margin: '0 auto',
-                maxWidth: '500px',
-                textAlign: 'center',
+                boxSizing: 'border-box',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                maxWidth: '600px',
                 width: '100%',
               }}
             >
-              How should you act?
-            </div>
-            <div
-              style={{
-                color: '#FFFFFF',
-                fontFamily: noirBold,
-                fontSize: '32px',
-                lineHeight: '40px',
-                margin: '8px auto 0',
-                maxWidth: '500px',
-                textAlign: 'center',
-                width: '100%',
-              }}
-            >
-              Your Charge
-            </div>
-            <div
-              className="quiz-body-prose"
-              style={{
-                color: '#FFFFFF',
-                margin: '24px auto 0',
-                maxWidth: '500px',
-                whiteSpace: 'pre-wrap',
-                width: '100%',
-              }}
-            >
-              {charge}
+              <div
+                style={{
+                  color: '#BDC4EB',
+                  fontFamily: noirBold,
+                  fontSize: '24px',
+                  lineHeight: '32px',
+                  margin: 0,
+                  textAlign: 'center',
+                  width: '100%',
+                }}
+              >
+                How should you act?
+              </div>
+              <div
+                style={{
+                  color: '#FFFFFF',
+                  fontFamily: noirBold,
+                  fontSize: '32px',
+                  lineHeight: '40px',
+                  margin: '8px 0 0',
+                  textAlign: 'center',
+                  width: '100%',
+                }}
+              >
+                Your Charge
+              </div>
+              <div
+                className="quiz-body-prose"
+                style={{
+                  color: '#FFFFFF',
+                  margin: '24px 0 0',
+                  whiteSpace: 'pre-wrap',
+                  width: '100%',
+                }}
+              >
+                {charge}
+              </div>
             </div>
           </div>
           <div

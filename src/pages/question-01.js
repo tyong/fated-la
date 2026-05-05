@@ -27,7 +27,7 @@ export default () => (
       { title: 'LA lacked a sense of urgency.', body: "The wildfires didn't just expose a failure of preparation - it exposed a disconnect between City Hall and residents." },
       { title: 'Rebuilding has to be about justice.', body: "The people who had the least, lost the most. We can't just put the expensive neighborhoods back the way they were." },
       { title: 'This was 100% a leadership failure.', body: "People died. The mayor was on a trip. This wasn't incompetence, this was corruption." },
-      { title: 'City Hall mismanaged everything', body: 'LA had the warning signs, technology, and resources, but we failed to effectively respond.' },
+      { title: 'City Hall mismanaged everything.', body: 'LA had the warning signs, technology, and resources, but we failed to effectively respond.' },
     ]}
     nextPath="/question-02"
   />

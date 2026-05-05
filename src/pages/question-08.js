@@ -28,7 +28,7 @@ export default () => (
       { title: 'Audit the department.', body: 'Appoint a new police chief. Misconduct is a culture problem, not a staffing one.' },
       { title: 'Invest in community.', body: 'Public safety comes from safe housing, mental health response, and youth programs — not more cops.' },
       { title: 'Rebuild the department.', body: 'Implement zero-tolerance for theft, graffiti, and animal abuse.' },
-      { title: 'Double police patrols', body: "Residents don't feel safe. Bring staffing levels back and focus on accountability." },
+      { title: 'Double police patrols.', body: "Residents don't feel safe. Bring staffing levels back and focus on accountability." },
     ]}
     nextPath="/question-09"
   />
