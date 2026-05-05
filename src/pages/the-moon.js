@@ -8,7 +8,7 @@ const TheMoon = () => (
     soulCandidate="No one candidate speaks to you."
     heroName="IN CONFLICT"
     heroArcana="THE MOON"
-    heroImg="/cards/the-moon.png"
+    heroImg="/share/the-moon.png"
     heroImgWidth={225}
     heroImgHeight={362}
     heroImgLeft={33}
