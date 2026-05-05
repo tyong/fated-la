@@ -812,6 +812,7 @@ const ResultPage = ({
   heroImgTop,
   heroImgObjectPosition,
   tarotReading,
+  tarotSectionTitle = RESULT_TAROT_SECTION_TITLE,
   inPlainTerms,
   shadowTitle,
   shadowName,
@@ -951,7 +952,7 @@ const ResultPage = ({
               width: '100%',
             }}
           >
-            <h2 style={{ ...tarotSectionSubheadTypography, margin: 0 }}>{RESULT_TAROT_SECTION_TITLE}</h2>
+            <h2 style={{ ...tarotSectionSubheadTypography, margin: 0 }}>{tarotSectionTitle}</h2>
             <div style={{ marginTop: '24px' }}>
               <BodyText>{tarotReading}</BodyText>
               {inPlainTerms ? (
@@ -1174,7 +1175,7 @@ const ResultPage = ({
           />
 
           <div style={{ marginTop: 'clamp(56px, 7vw, 92px)' }}>
-            <Section title={RESULT_TAROT_SECTION_TITLE}>
+            <Section title={tarotSectionTitle}>
               <BodyText>{tarotReading}</BodyText>
               {inPlainTerms ? (
                 <>

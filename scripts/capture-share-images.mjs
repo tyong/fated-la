@@ -48,13 +48,15 @@ if (process.env.VERCEL === '1' && process.env.FORCE_SHARE_CAPTURE !== '1') {
   process.exit(0)
 }
 
+const DEFAULT_TAROT_SECTION_HEADING = 'Your soul has chosen.'
+
 const PAGES = [
   { path: '/bass-the-empress/', file: 'bass-the-empress.png' },
   { path: '/huang-the-star/', file: 'huang-the-star.png' },
   { path: '/miller-the-magician/', file: 'miller-the-magician.png' },
   { path: '/pratt-the-tower/', file: 'pratt-the-tower.png' },
   { path: '/raman-the-high-priestess/', file: 'raman-the-high-priestess.png' },
-  { path: '/the-moon/', file: 'the-moon.png' },
+  { path: '/the-moon/', file: 'the-moon.png', tarotSectionHeading: "Your soul can't choose." },
 ]
 
 const VIEWPORT = { width: 390, height: 844 }
@@ -118,7 +120,7 @@ async function writeOutputs(filename, buffer) {
   }
 }
 
-async function captureOne(page, baseUrl, pathname) {
+async function captureOne(page, baseUrl, pathname, tarotSectionHeading = DEFAULT_TAROT_SECTION_HEADING) {
   const url = `${baseUrl.replace(/\/$/, '')}${pathname}`
   await page.goto(url, {
     waitUntil: 'domcontentloaded',
@@ -126,10 +128,8 @@ async function captureOne(page, baseUrl, pathname) {
     ignoreHTTPSErrors: shouldIgnoreHttpsErrors(baseUrl),
   })
 
-  await page.waitForSelector('text=Your soul has chosen.', {
-    state: 'visible',
-    timeout: 90000,
-  })
+  const tarotHeadingLoc = page.getByText(tarotSectionHeading, { exact: true }).first()
+  await tarotHeadingLoc.waitFor({ state: 'visible', timeout: 90000 })
 
   await page.evaluate(() => {
     const replaceWalk = (node) => {
@@ -154,7 +154,7 @@ async function captureOne(page, baseUrl, pathname) {
 
   await sleep(900)
 
-  const tarot = page.getByText('Your soul has chosen.', { exact: true }).first()
+  const tarot = page.getByText(tarotSectionHeading, { exact: true }).first()
   await tarot.waitFor({ state: 'visible', timeout: 30000 })
   const box = await tarot.boundingBox()
   if (!box) throw new Error(`No bounding box for Tarot section on ${pathname}`)
@@ -205,9 +205,9 @@ async function main() {
     })
     const page = await context.newPage()
 
-    for (const { path: p, file } of PAGES) {
+    for (const { path: p, file, tarotSectionHeading } of PAGES) {
       process.stdout.write(`[capture-share] ${p} → static/share/${file} … `)
-      const buf = await captureOne(page, baseUrl, p)
+      const buf = await captureOne(page, baseUrl, p, tarotSectionHeading)
       await writeOutputs(file, buf)
       console.log('ok')
     }
