@@ -194,7 +194,7 @@ export default function SpreadSection({ desktop = false }) {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
-        <section ref={candidateRef}>
+        <section ref={candidateRef} style={{ paddingTop: '24px' }}>
           <h3 style={sectionHeading}>By Candidate</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', marginTop: '24px' }}>
             {byCandidateRows.map(({ key, name, color, points }, i) => {
@@ -211,15 +211,15 @@ export default function SpreadSection({ desktop = false }) {
           </div>
         </section>
 
-          <section>
-            <h3 style={desktopSectionHeading}>By Issue</h3>
+          <section style={{ paddingTop: '24px' }}>
+            <h3 style={{ ...sectionHeading, marginBottom: '28px' }}>By Issue</h3>
           <div
             style={{
               borderBottom: `1px solid ${purple}`,
               display: 'grid',
               gridTemplateColumns: 'minmax(150px, 1fr) minmax(120px, 220px)',
               gap: '16px',
-              marginTop: '12px',
+              marginTop: 0,
               paddingBottom: '12px',
             }}
           >

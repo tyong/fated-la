@@ -23,11 +23,11 @@ export default () => (
     ]}
     question="What's the move?"
     choices={[
-      { title: 'Chase every dollar.', body: 'Especially from the state and feds. Protect what\'s working. Find waste.' },
-      { title: 'Total transparency.', body: "Every program has to show proof it's working or it gets cut or rebuilt. No more black boxes in the budget." },
-      { title: 'Tax the hell out of the rich.', body: 'Big commercial property owners. Wealthy investors. Stop letting money leave this city untaxed.' },
-      { title: 'Run City Hall like a business.', body: 'Bring in someone who actually knows how to run a large org and be profitable.' },
-      { title: 'Audit everything before cutting.', body: "Most of the waste is hiding in overhead, duplicate functions, and contracts nobody's looked at in years." },
+      { title: 'Increase taxes.', body: 'Balance the budget with property, business, sales, and utility taxes.' },
+      { title: 'Be transparent.', body: "Every program has to show proof it's working or it gets cut or rebuilt." },
+      { title: 'Survey residents.', body: "Invite thousands of Angelenos to give their input on the city's budget." },
+      { title: 'Audit everything.', body: "Most of the waste is hiding in overhead and contracts nobody's looked at in years." },
+      { title: 'Grow revenue.', body: 'Build housing. Bring in more businesses. Increase revenue without raising taxes.' },
     ]}
     nextPath="/question-04"
   />

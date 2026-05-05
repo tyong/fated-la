@@ -24,11 +24,11 @@ export default () => (
     ]}
     question="What should the mayor do?"
     choices={[
-      { title: 'Negotiate in good faith.', body: 'Cutting workers means cutting services, so we want a truce.' },
-      { title: 'Protect the people doing the actual work — the ones on the ground.', body: 'Cut the overhead and the bloated contractor deals first.' },
-      { title: 'Let them have what they need.', body: 'The workers did not cause this budget crisis. Making them pay for it is a choice. The wrong one.' },
-      { title: 'Make hard calls against the unions.', body: 'Like any business, an org has to operate within its means. Kicking the can down the road, costs more later.' },
-      { title: 'Use tech to reduce redundant functions.', body: "However, don't touch the jobs of essential workers." },
+      { title: 'Find solutions without layoffs.', body: "Cutting workers means cutting services, so labor isn't the enemy of a balanced budget." },
+      { title: 'Stop making empty promises.', body: 'Come to the table early. Bring real numbers. Workers deserve honesty as much as they deserve raises.' },
+      { title: 'Let them have what they need.', body: 'Workers did not cause this budget crisis. Making them pay for it is a choice. The wrong one.' },
+      { title: 'Get the budget under control.', body: 'Do a real audit and stop supporting labor unions as a political bargaining chip.' },
+      { title: 'Expect better results.', body: 'Set up metrics, review spending, and commit funding to what is working.' },
     ]}
     nextPath="/question-08"
   />

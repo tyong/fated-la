@@ -18,16 +18,16 @@ export default () => (
     number={9}
     title="The Mansion Tax"
     paragraphs={[
-      'Los Angeles needs affordable housing. It also just needs... housing. More of it. Any of it.',
-      "Here's the thing: every rule the city makes to help one group, ends up costing another.",
+      "Voters passed a tax to build more affordable housing. It raised over a billion dollars, but homes haven't been built.",
+      'Every rule the city makes to protect tenants, ends up costing landlords and newcomers.',
     ]}
-    question="When housing goals conflict, who should the mayor prioritize?"
+    question="When housing goals conflict, whose needs come first?"
     choices={[
-      { title: 'Everyone, somehow, at the same time.', body: "Existing residents AND future residents. It's hard but that's the job." },
-      { title: 'Whatever actually works.', body: 'Look at the data. Fund the thing that houses the most people at the lowest cost without pushing anyone out. Cut the things that don\'t.' },
-      { title: 'The most vulnerable.', body: 'Always. The market will figure out how to make money — it always does. Protect the people the market ignores.' },
-      { title: 'The builders.', body: "Can't live on good intentions. If nobody builds anything, no new housing is made." },
-      { title: 'Goals over mechanisms.', body: "If a policy is slowing down construction more than it's funding affordability, change the policy." },
+      { title: 'The person who loses everything.', body: 'We have to fix decades of underinvestment and broken permitting, not the funding.' },
+      { title: 'The most vulnerable.', body: "Private developers aren't the only answer to a public crisis. Tweak tax to invest in nonprofit affordable housing." },
+      { title: 'Tenants, always.', body: 'Renters win when developers lose. The billion dollars goes to public housing.' },
+      { title: 'Rebuilders.', body: 'Offer tax exemptions to anyone rebuilding from the wildfires.' },
+      { title: 'Whoever the system is failing most', body: 'This tax is disastrous for tenants and developers. It was broken from the start.' },
     ]}
     nextPath="/question-10"
   />
