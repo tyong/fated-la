@@ -71,7 +71,7 @@ const LargeCard = ({
           <ResultTiltCard style={{ position: 'relative', width: '100%', height: '100%' }}>
             <div style={{ backgroundColor: pink, borderRadius: '6px', boxShadow: largeCardShadow, height: '100%', outline: `1px solid ${purple}`, position: 'relative', width: '100%' }}>
               <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: '50%', letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 27, transform: 'translateX(-50%)', width: 276, zIndex: 1 }}>
-                {name}
+                {arcana}
               </div>
               {img && (
                 <div
@@ -91,7 +91,7 @@ const LargeCard = ({
                 />
               )}
               <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: '50%', letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 461, transform: 'translateX(-50%)', width: 294, zIndex: 1 }}>
-                {arcana}
+                {name}
               </div>
             </div>
           </ResultTiltCard>
@@ -150,7 +150,7 @@ const LargeCard = ({
               width: '100%',
             }}
           >
-            <div style={titleStyle}>{name}</div>
+            <div style={titleStyle}>{arcana}</div>
             {img && (
               <div
                 style={{
@@ -162,7 +162,13 @@ const LargeCard = ({
                 }}
               >
                 <img
-                  alt={name ? `${name} illustration` : 'Tarot card illustration'}
+                  alt={
+                    name && arcana
+                      ? `${arcana}, ${name} illustration`
+                      : name
+                        ? `${name} illustration`
+                        : 'Tarot card illustration'
+                  }
                   src={img}
                   style={{
                     display: 'block',
@@ -174,7 +180,7 @@ const LargeCard = ({
                 />
               </div>
             )}
-            <div style={titleStyle}>{arcana}</div>
+            <div style={titleStyle}>{name}</div>
           </div>
         </ResultTiltCard>
       </div>
@@ -239,6 +245,13 @@ const SHARE_BAR_ROW_MIN_PX = 54
 const SHARE_BAR_PADDING_BOTTOM_PX = 16
 /** Backdrop blur only reaches this far above the button row (gradient still fades higher). */
 const SHARE_BAR_BLUR_ABOVE_BUTTONS_PX = 16
+/** Tall top padding on fixed bar backdrop — gradient fades upward; must match scroll clearance calc below. */
+const SHARE_FLOATING_BACKDROP_PADDING_TOP = 'clamp(140px, 32vh, 420px)'
+/**
+ * Bottom padding on `<main>` so scrolled content (e.g. Your Charge) clears the fixed Start over / Share
+ * gradient (same vertical extent as `SHARE_FLOATING_BACKDROP_PADDING_TOP` + button row).
+ */
+const SHARE_FLOATING_BAR_SCROLL_CLEARANCE = `calc(${SHARE_FLOATING_BACKDROP_PADDING_TOP} + ${SHARE_BAR_ROW_MIN_PX}px + ${SHARE_BAR_PADDING_BOTTOM_PX}px + 24px + env(safe-area-inset-bottom, 0px))`
 
 const SHARE_BACKDROP_DEFAULTS = {
   background:
@@ -297,7 +310,7 @@ const ShareFloatingBar = ({ desktop, children }) => {
     paddingBottom: `calc(${SHARE_BAR_PADDING_BOTTOM_PX}px + env(safe-area-inset-bottom, 0px))`,
     paddingLeft: 0,
     paddingRight: 0,
-    paddingTop: 'clamp(140px, 32vh, 420px)',
+    paddingTop: SHARE_FLOATING_BACKDROP_PADDING_TOP,
     position: 'relative',
     WebkitBackdropFilter: d.WebkitBackdropFilter,
     width: '100%',
@@ -900,15 +913,16 @@ const ResultPage = ({
           <TopBar />
           <ClientOnlyDithering
             className="site-hero-dither"
+            instantReveal
             speed={0.27}
             shape="warp"
             type="4x4"
             size={0.2}
             scale={1}
-            colorBack="#00000000"
-            colorFront="#274988"
+            colorBack="#274988"
+            colorFront="#291543"
             style={{
-              backgroundColor: '#291543',
+              backgroundColor: '#274988',
               height: '1031px',
               left: '50%',
               position: 'absolute',
@@ -990,8 +1004,8 @@ const ResultPage = ({
                 type="8x8"
                 size={0.3}
                 scale={0.53}
-                colorBack="#00000000"
-                colorFront="#5E67AA"
+                colorBack="#5E67AA"
+                colorFront="#291543"
                 style={{ bottom: 0, left: 0, position: 'absolute', right: 0, top: 0, width: '100%', zIndex: 0 }}
               />
               <div style={{ position: 'relative', textAlign: 'center', zIndex: 1 }}>
@@ -1067,6 +1081,15 @@ const ResultPage = ({
             {charge}
           </div>
         </div>
+        <div
+          aria-hidden="true"
+          style={{
+            backgroundColor: '#5E67AC',
+            height: SHARE_FLOATING_BAR_SCROLL_CLEARANCE,
+            minHeight: SHARE_FLOATING_BAR_SCROLL_CLEARANCE,
+            width: '100%',
+          }}
+        />
       </main>
     )
   }
@@ -1092,14 +1115,15 @@ const ResultPage = ({
 
         <ClientOnlyDithering
           className="site-hero-dither"
+          instantReveal
           speed={0.27}
           shape="warp"
           type="4x4"
           size={0.2}
           scale={1}
-          colorBack="#00000000"
-          colorFront="#274988"
-          style={{ backgroundColor: '#291543', height: '823px', left: 0, position: 'absolute', top: 0, width: '100%', zIndex: 0 }}
+          colorBack="#274988"
+          colorFront="#291543"
+          style={{ backgroundColor: '#274988', height: '823px', left: 0, position: 'absolute', top: 0, width: '100%', zIndex: 0 }}
         />
         <ShareButton title={drew?.replace('\n', '')} text={shareText || soulCandidate} desktop={false} shareImageUrl={shareImage} />
 
@@ -1155,8 +1179,8 @@ const ResultPage = ({
                   type="8x8"
                   size={0.3}
                   scale={0.53}
-                  colorBack="#00000000"
-                  colorFront="#5E67AA"
+                  colorBack="#5E67AA"
+                  colorFront="#291543"
                   style={{ height: '696px', left: 0, position: 'absolute', top: 0, width: '100%', zIndex: 0 }}
                 />
                 <div style={{ color: pink, fontFamily: noirBold, fontSize: '24px', lineHeight: '32px', position: 'relative', textAlign: 'center', whiteSpace: 'pre-wrap', zIndex: 1 }}>
@@ -1239,6 +1263,15 @@ const ResultPage = ({
               {charge}
             </div>
           </div>
+          <div
+            aria-hidden="true"
+            style={{
+              backgroundColor: '#5E67AC',
+              height: SHARE_FLOATING_BAR_SCROLL_CLEARANCE,
+              minHeight: SHARE_FLOATING_BAR_SCROLL_CLEARANCE,
+              width: '100%',
+            }}
+          />
 
       </div>
 

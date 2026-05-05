@@ -78,9 +78,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Inline text links — former underline color becomes fill; hover matches former underline hover */
 a {
   text-decoration: none;
-  color: inherit;
+  color: rgb(111, 121, 246);
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #7b56d2;
+}
+
+a:visited {
+  color: rgb(111, 121, 246);
+}
+
+a:visited:hover {
+  color: #7b56d2;
 }
 
 .result-tilt-shell {
@@ -136,20 +150,11 @@ a {
 }
 
 /*
- * Hero “oval” CSS fallbacks — radial gradient on body/main — off at ≤640px.
- * WebGL hero dither (`.site-hero-dither`) stays visible; keep gradient off to avoid double paint.
- * (Includes 640px so responsive presets / drag resize at the breakpoint match.)
+ * Mobile-only layout tweaks at ≤640px (includes 640px for responsive tooling).
+ * Keep SSR/body radial gradients on — prod devices often block or drop WebGL; without a CSS
+ * fallback the hero reads as flat #291543. Shader paints above when WebGL is available.
  */
 @media (max-width: 640px) {
-  body {
-    background-image: none !important;
-  }
-
-  main.home-page,
-  html.page-results #main-content {
-    background-image: none !important;
-  }
-
   /* Must win over base `.city-image-block { display: flex }` later in this file */
   .city-image-block {
     display: none !important;
@@ -375,17 +380,6 @@ button.result-scroll-hint:focus-visible {
     font-size: 16px;
     line-height: 24px;
   }
-}
-
-.site-footer-link {
-  color: inherit;
-  text-decoration: none;
-  border-bottom: 1.5px solid rgba(111, 121, 246, 1);
-  transition: border-color 0.2s ease;
-}
-
-.site-footer-link:hover {
-  border-bottom-color: #7b56d2;
 }
 
 /** Tarot result routes (`ResultPage`) — extra space below legal line */

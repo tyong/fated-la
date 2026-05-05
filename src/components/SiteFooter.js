@@ -6,7 +6,7 @@ import { useDesktopLayout } from '../hooks/useDesktopLayout'
 const fig = '"FigGrotesk0.3Trial-Regular", "FigGrotesk 0.3 Trial", system-ui, sans-serif'
 const figBold = '"FigGrotesk0.3Trial-Bold", "FigGrotesk 0.3 Trial", system-ui, sans-serif'
 const pink = '#FFE4F7'
-const dark = '#2A009C'
+const dark = '#0C0420'
 
 /**
  * Global About / Methodology / legal footer. Rendered once from the root layout
@@ -38,8 +38,7 @@ const SiteFooter = ({ resultTypography = false }) => {
             <div className="site-footer__prose" style={{ color: '#C2CAF2', fontFamily: fig }}>
               {`Fated was made by Tabitha Yong, Will Peng & Yvonne Leow. We're non-clairvoyant Angelenos who wanted to create a fun, nonpartisan way to fulfill our civic duty this election.`}
             </div>
-            <div className="site-footer__prose" style={{ color: pink, fontFamily: figBold, marginBottom: '24px', marginTop: '32px' }}>Connect</div>
-            <div className="site-footer__prose" style={{ color: '#C2CAF2', fontFamily: fig }}>
+            <div className="site-footer__prose" style={{ color: '#C2CAF2', fontFamily: fig, marginTop: '32px' }}>
               Experiencing resistance? Emotional release?{' '}
               <a
                 href={getContactMailtoHref()}
@@ -59,11 +58,11 @@ const SiteFooter = ({ resultTypography = false }) => {
                 rel="noopener noreferrer"
                 className="site-footer-link"
               >
-                See the full list of candidates ➝
+                See all candidates ➝
               </a>
               {`
 
-Candidate positions are based on publicly accessible information, like their campaigns or their constituents' experiences. Like our fates, they might change in time. `}
+Candidate positions are based on publicly accessible information. Like our fates, they might change with time. `}
               {sourcesIsInternal ? (
                 <Link to={sourcesUrl} className="site-footer-link">
                   See our sources. ➝

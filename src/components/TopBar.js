@@ -48,7 +48,7 @@ const TopBar = () => {
         <Link
           to="/"
           className="top-bar__brand top-bar__brand-link"
-          aria-label="Fated LA home"
+          aria-label="FATED.VOTE home"
           onMouseEnter={() => setStarSpinDurationMs(starRef.current, STAR_SPIN_FAST_MS)}
           onMouseLeave={() => setStarSpinDurationMs(starRef.current, STAR_SPIN_SLOW_MS)}
         >
@@ -65,7 +65,7 @@ const TopBar = () => {
           >
             <path d={starPath} fill="#D2D260" />
           </svg>
-          <span className="top-bar__wordmark">Fated</span>
+          <span className="top-bar__wordmark">FATED.VOTE</span>
         </Link>
         <div className="top-bar__election-wrap">
           <span className="top-bar__divider" aria-hidden="true" />
