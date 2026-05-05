@@ -989,10 +989,9 @@ const ResultPage = ({
           <>
             <div
               style={{
-                backgroundColor: '#291543',
                 boxSizing: 'border-box',
                 overflow: 'hidden',
-                paddingBottom: '72px',
+                paddingBottom: '64px',
                 paddingTop: '72px',
                 position: 'relative',
                 width: '100%',
@@ -1004,59 +1003,64 @@ const ResultPage = ({
                 type="8x8"
                 size={0.3}
                 scale={0.53}
-                colorBack="#5E67AA"
+                colorBack="#0C021B"
                 colorFront="#291543"
-                style={{ bottom: 0, left: 0, position: 'absolute', right: 0, top: 0, width: '100%', zIndex: 0 }}
-              />
-              <div style={{ position: 'relative', textAlign: 'center', zIndex: 1 }}>
-                <div style={{ color: pink, fontFamily: noirBold, fontSize: '32px', lineHeight: '44px' }}>
-                  {shadowHeadingPrimary}
-                </div>
-                {shadowHeadingSecondary && (
-                  <div style={{ color: '#fff', fontFamily: noirBold, fontSize: '48px', lineHeight: '56px', marginTop: '16px' }}>
-                    {shadowHeadingSecondary}
-                  </div>
-                )}
-              </div>
-              <ResultTiltCard
                 style={{
-                  height: '517px',
-                  margin: shadowHeadingSecondary ? '32px auto 0' : '8px auto 0',
-                  position: 'relative',
-                  width: '294px',
-                  zIndex: 1,
+                  backgroundColor: '#0C021B',
+                  bottom: 0,
+                  left: 0,
+                  position: 'absolute',
+                  right: 0,
+                  top: 0,
+                  zIndex: 0,
                 }}
-              >
-                <div style={{ backgroundColor: pink, borderRadius: '6px', boxShadow: largeCardShadow, height: '100%', outline: `1px solid ${purple}`, position: 'relative', width: '100%', zIndex: 0 }}>
-                  <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: '50%', letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 27, transform: 'translateX(-50%)', width: '276px', zIndex: 1 }}>
-                    {shadowName}
+              />
+              <div style={{ position: 'relative', zIndex: 1 }}>
+                <div style={{ paddingBottom: '72px' }}>
+                  <div style={{ color: pink, fontFamily: noirBold, fontSize: '32px', lineHeight: '44px', textAlign: 'center' }}>
+                    {shadowHeadingPrimary}
                   </div>
-                  {shadowImg && (
-                    <div style={{ backgroundImage: `url(${shadowImg})`, backgroundPosition: 'center', backgroundSize: 'cover', height: '358px', left: 40, outline: `1px solid ${purple}`, position: 'absolute', top: 76, width: '213px', zIndex: 1 }} />
+                  {shadowHeadingSecondary && (
+                    <div style={{ color: '#fff', fontFamily: noirBold, fontSize: '48px', lineHeight: '56px', marginTop: '16px', textAlign: 'center' }}>
+                      {shadowHeadingSecondary}
+                    </div>
                   )}
-                  <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: '50%', letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 461, transform: 'translateX(-50%)', width: '294px', zIndex: 1 }}>
-                    {shadowArcana}
-                  </div>
+                  <ResultTiltCard
+                    style={{
+                      height: '517px',
+                      margin: shadowHeadingSecondary ? '32px auto 0' : '8px auto 0',
+                      position: 'relative',
+                      width: '294px',
+                    }}
+                  >
+                    <div style={{ backgroundColor: pink, borderRadius: '6px', boxShadow: largeCardShadow, height: '100%', outline: `1px solid ${purple}`, position: 'relative', width: '100%', zIndex: 0 }}>
+                      <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: '50%', letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 27, transform: 'translateX(-50%)', width: '276px', zIndex: 1 }}>
+                        {shadowName}
+                      </div>
+                      {shadowImg && (
+                        <div style={{ backgroundImage: `url(${shadowImg})`, backgroundPosition: 'center', backgroundSize: 'cover', height: '358px', left: 40, outline: `1px solid ${purple}`, position: 'absolute', top: 76, width: '213px', zIndex: 1 }} />
+                      )}
+                      <div style={{ color: purple, fontFamily: monoPro, fontSize: '20px', left: '50%', letterSpacing: '0.05em', lineHeight: '24px', position: 'absolute', textAlign: 'center', top: 461, transform: 'translateX(-50%)', width: '294px', zIndex: 1 }}>
+                        {shadowArcana}
+                      </div>
+                    </div>
+                  </ResultTiltCard>
                 </div>
-              </ResultTiltCard>
-            </div>
-
-            <div
-              className="quiz-body-prose"
-              style={{
-                backgroundColor: '#291543',
-                boxSizing: 'border-box',
-                color: pink,
-                margin: '0 auto',
-                maxWidth: '600px',
-                padding: '48px 0 64px',
-                position: 'relative',
-                whiteSpace: 'pre-wrap',
-                width: '600px',
-                zIndex: 1,
-              }}
-            >
-              {shadowText}
+                <div
+                  className="quiz-body-prose"
+                  style={{
+                    boxSizing: 'border-box',
+                    color: pink,
+                    margin: '48px auto 0',
+                    maxWidth: '600px',
+                    position: 'relative',
+                    whiteSpace: 'pre-wrap',
+                    width: '600px',
+                  }}
+                >
+                  {shadowText}
+                </div>
+              </div>
             </div>
           </>
         )}
@@ -1172,43 +1176,59 @@ const ResultPage = ({
       <div style={{ margin: '0 auto', maxWidth: '820px', position: 'relative', width: '100%' }}>
           {shadowTitle && (
             <>
-              <div style={{ overflow: 'hidden', padding: '80px var(--site-gutter-x) 32px', position: 'relative' }}>
+              <div
+                style={{
+                  boxSizing: 'border-box',
+                  overflow: 'hidden',
+                  padding: '80px var(--site-gutter-x) 48px',
+                  position: 'relative',
+                }}
+              >
                 <ClientOnlyDithering
                   speed={0.56}
                   shape="warp"
                   type="8x8"
                   size={0.3}
                   scale={0.53}
-                  colorBack="#5E67AA"
+                  colorBack="#0C021B"
                   colorFront="#291543"
-                  style={{ height: '696px', left: 0, position: 'absolute', top: 0, width: '100%', zIndex: 0 }}
+                  style={{
+                    backgroundColor: '#0C021B',
+                    bottom: 0,
+                    left: 0,
+                    position: 'absolute',
+                    right: 0,
+                    top: 0,
+                    zIndex: 0,
+                  }}
                 />
-                <div style={{ color: pink, fontFamily: noirBold, fontSize: '24px', lineHeight: '32px', position: 'relative', textAlign: 'center', whiteSpace: 'pre-wrap', zIndex: 1 }}>
-                  {shadowHeadingPrimary}
-                </div>
-                {shadowHeadingSecondary && (
-                  <div style={{ color: '#FFFFFF', fontFamily: noirBold, fontSize: '32px', lineHeight: '40px', marginTop: '8px', position: 'relative', textAlign: 'center', whiteSpace: 'pre-wrap', zIndex: 1 }}>
-                    {shadowHeadingSecondary}
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                  <div style={{ paddingBottom: '32px' }}>
+                    <div style={{ color: pink, fontFamily: noirBold, fontSize: '24px', lineHeight: '32px', textAlign: 'center', whiteSpace: 'pre-wrap' }}>
+                      {shadowHeadingPrimary}
+                    </div>
+                    {shadowHeadingSecondary && (
+                      <div style={{ color: '#FFFFFF', fontFamily: noirBold, fontSize: '32px', lineHeight: '40px', marginTop: '8px', textAlign: 'center', whiteSpace: 'pre-wrap' }}>
+                        {shadowHeadingSecondary}
+                      </div>
+                    )}
+
+                    <LargeCard name={shadowName} arcana={shadowArcana} img={shadowImg} desktop={false} />
                   </div>
-                )}
-
-                <LargeCard name={shadowName} arcana={shadowArcana} img={shadowImg} desktop={false} />
-              </div>
-
-              <div
-                className="quiz-body-prose"
-                style={{
-                  backgroundColor: '#291543',
-                  boxSizing: 'border-box',
-                  color: pink,
-                  padding: '24px var(--site-gutter-x) 48px',
-                  position: 'relative',
-                  whiteSpace: 'pre-wrap',
-                  width: '100%',
-                  zIndex: 1,
-                }}
-              >
-                {shadowText}
+                  <div
+                    className="quiz-body-prose"
+                    style={{
+                      boxSizing: 'border-box',
+                      color: pink,
+                      marginTop: '24px',
+                      position: 'relative',
+                      whiteSpace: 'pre-wrap',
+                      width: '100%',
+                    }}
+                  >
+                    {shadowText}
+                  </div>
+                </div>
               </div>
             </>
           )}

@@ -219,7 +219,7 @@ const IntroPage = () => {
         <div className="page-shell" style={{ position: 'relative', zIndex: 1 }}>
           <div className="desktop-grid-2 hero-grid" style={{ alignItems: 'start', gap: '24px' }}>
             <div className="content-column hero-content-column" style={{ maxWidth: '580px', paddingBottom: '48px' }}>
-              <h1 style={{ color: offPink, fontFamily: noirBold, fontWeight: 400, fontSize: 'calc(clamp(42px, 6vw, 76px) * 0.91)', lineHeight: 1.2, margin: '0 0 24px', letterSpacing: '-0.01em' }}>
+              <h1 style={{ color: offPink, fontFamily: noirBold, fontWeight: 400, fontSize: 'clamp(42px, calc(14px + 4.8vw), 72px)', lineHeight: 1.2, margin: '0 0 24px', letterSpacing: '-0.01em' }}>
                 Which mayoral candidate aligns with your soul?
               </h1>
               <div style={{ color: '#FFFFFF', fontFamily: fig, fontWeight: heroBodyWeight, fontSize: heroIntroFontSize, lineHeight: 'calc(1.4em + 2px)', margin: '0 0 30px', maxWidth: '430px' }}>
