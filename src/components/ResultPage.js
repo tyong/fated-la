@@ -19,9 +19,9 @@ const dark    = '#2A009C'
 const yellow  = '#D2D260'
 const offPink = '#F2CACE'
 const largeCardShadow = '0 18px 32px 8px rgba(29, 13, 50, 0.8)'
-/** Native Share API (result pages): no image attachment; funnel copy only. */
-const RESULT_NATIVE_SHARE_TITLE = 'Fated LA'
-const RESULT_NATIVE_SHARE_TEXT = 'Fated: Which LA mayoral candidate aligns with your soul?'
+/** Native Share: `{ url }` keeps OG preview; no `files` (avoids heavy MMS payloads). Result pages use funnel copy only. */
+const RESULT_NATIVE_SHARE_TITLE = 'Fated Vote'
+const RESULT_NATIVE_SHARE_TEXT = 'Which LA mayoral candidate aligns with your soul?'
 const starSpinStyle = { animation: 'spinStar 10s linear infinite', transformOrigin: '50% 50%' }
 
 const StarIcon = ({ size = 24, style = {}, className }) => (
@@ -812,6 +812,7 @@ const ResultPage = ({
   heroImgTop,
   heroImgObjectPosition,
   tarotReading,
+  tarotSectionTitle = RESULT_TAROT_SECTION_TITLE,
   inPlainTerms,
   shadowTitle,
   shadowName,
@@ -951,7 +952,7 @@ const ResultPage = ({
               width: '100%',
             }}
           >
-            <h2 style={{ ...tarotSectionSubheadTypography, margin: 0 }}>{RESULT_TAROT_SECTION_TITLE}</h2>
+            <h2 style={{ ...tarotSectionSubheadTypography, margin: 0 }}>{tarotSectionTitle}</h2>
             <div style={{ marginTop: '24px' }}>
               <BodyText>{tarotReading}</BodyText>
               {inPlainTerms ? (
@@ -1174,7 +1175,7 @@ const ResultPage = ({
           />
 
           <div style={{ marginTop: 'clamp(56px, 7vw, 92px)' }}>
-            <Section title={RESULT_TAROT_SECTION_TITLE}>
+            <Section title={tarotSectionTitle}>
               <BodyText>{tarotReading}</BodyText>
               {inPlainTerms ? (
                 <>
