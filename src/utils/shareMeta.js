@@ -2,7 +2,7 @@ import React from 'react'
 import { resolveSiteUrl } from './resolveSiteUrl'
 
 const defaultTitle = 'Fated LA'
-const defaultDescription = 'Which candidate for LA Mayor vibes best with you?'
+const defaultDescription = 'Answer 10 questions to find out.'
 
 /** Browser tab + OG title for candidate / Moon result pages. */
 export function resultPageTitle(cardName, candidateName) {

@@ -126,7 +126,7 @@ async function captureOne(page, baseUrl, pathname) {
     ignoreHTTPSErrors: shouldIgnoreHttpsErrors(baseUrl),
   })
 
-  await page.waitForSelector('text=Your Tarot Reading', {
+  await page.waitForSelector('text=Your soul has chosen.', {
     state: 'visible',
     timeout: 90000,
   })
@@ -154,7 +154,7 @@ async function captureOne(page, baseUrl, pathname) {
 
   await sleep(900)
 
-  const tarot = page.getByText('Your Tarot Reading', { exact: true }).first()
+  const tarot = page.getByText('Your soul has chosen.', { exact: true }).first()
   await tarot.waitFor({ state: 'visible', timeout: 30000 })
   const box = await tarot.boundingBox()
   if (!box) throw new Error(`No bounding box for Tarot section on ${pathname}`)

@@ -13,7 +13,7 @@ export function getFooterLegalLine() {
 export function getContactMailtoHref() {
   const email = process.env.GATSBY_CONTACT_EMAIL
   if (email && String(email).trim()) return `mailto:${String(email).trim()}`
-  return 'mailto:hello@fated.la'
+  return 'mailto:mail@fated.vote'
 }
 
 /** Official / full candidate list (Methodology link). Override with `GATSBY_CANDIDATES_LIST_URL`. */

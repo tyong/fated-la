@@ -81,6 +81,7 @@ export const onRenderBody = ({ setHeadComponents, pathname }) => {
         __html: criticalShellBackgroundCss(pathname || ''),
       }}
     />,
+    <link key="site-favicon" rel="icon" href="/favicon.svg" type="image/svg+xml" />,
     forceHttpsScript,
     ...criticalFonts.map((href) => (
       <link

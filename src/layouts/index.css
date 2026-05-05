@@ -536,6 +536,12 @@ html.page-results .site-footer {
   width: 100%;
 }
 
+/* Home hero blurb + CTA — matches “Reveal your desire” column body (Fig + --body-md). */
+.hero-intro-body {
+  font-size: var(--body-md);
+  line-height: calc(1.5em + 2px);
+}
+
 .reading-item__body {
   line-height: calc(1.5em + 2px);
   max-width: 100%;

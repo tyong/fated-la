@@ -26,7 +26,7 @@ export default () => (
     shadowArcana="THE HIGH PRIESTESS"
     shadowImg="/cards/nithya-raman-high-priestess.png"
     shadowImgLeft={-47}
-    shadowText={`Closer than it looks.\n\nMiller and Raman both want performance-based budgeting, public dashboards on homelessness spending, and a city that stops pretending LAHSA is fine as-is. Both want a mayor who runs the city more like a CEO runs a company.\n\nThe difference: Raman names what the machine should be optimizing for. She has an explicit values framework underneath the operational critique.\n\nMiller tends to treat that question as already answered — which holds until the data points somewhere uncomfortable.\n\nThe card asks you: When the data conflicts with the community, which one wins?`}
+    shadowText={`Closer than it looks.\n\nAdam Miller and Nithya Raman both want performance-based budgeting, public dashboards on homelessness spending, and a city that stops pretending Los Angeles Homeless Services Authority is fine as-is. Both want a mayor who runs the city more like a CEO runs a company.\n\nThe difference: Raman names what the machine should be optimizing for. She has an explicit values framework underneath the operational critique.\n\nMiller tends to treat that question as already answered — which holds until the data points somewhere uncomfortable.\n\nThis card asks you: When the data conflicts with the community, which one wins?`}
     charge={`You believe in doing the homework. So do the homework. Pick one broken city function — permits, potholes, 911 dispatch — and trace exactly why it's broken. Then check whether Miller's diagnosis matches what you find. That's the due diligence this candidacy needs from you.`}
   />
 )
