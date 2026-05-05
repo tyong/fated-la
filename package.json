@@ -24,6 +24,7 @@
     "build": "node scripts/run-build-capture.mjs",
     "build:gatsby": "gatsby build",
     "capture:share": "node scripts/capture-share-images.mjs",
+    "clean:gatsby-cache": "rm -rf .cache public node_modules/.cache/babel-loader node_modules/.cache/terser-webpack-plugin",
     "dev": "bash ./scripts/dev-https.sh",
     "develop": "bash ./scripts/dev-https.sh",
     "mkcert:lan": "bash ./scripts/setup-local-https.sh",

@@ -2,10 +2,23 @@ import React, { useEffect, useRef, useState } from 'react'
 import { SCORES, CANDIDATES, SPREAD_KEY, ISSUE_LABELS } from '../data/scores'
 
 const noirBold = '"NOIRetBLANCMediumBold", "NOIR et BLANC Medium Bold", "Instrument Serif", Georgia, serif'
+const monoPro =
+  '"ApercuMonoPro-Regular", "Apercu Mono Pro", "Courier New", monospace'
 const purple  = '#3F00DB'
 const dark    = '#2A009C'
 const spreadCyan = '#05B6D7'
 const spreadBody = '#C2CAF2'
+
+/** By Issue column headers: all caps, Apercu Mono Pro */
+const spreadTableHeadLabelBase = {
+  color: spreadCyan,
+  fontFamily: monoPro,
+  fontSize: '13px',
+  fontWeight: 400,
+  letterSpacing: '0.06em',
+  lineHeight: '18px',
+  textTransform: 'uppercase',
+}
 const histogramPalette = ['#D3E054', '#F0899C', '#6AAE7A', '#6F79F6', '#BE8400']
 
 function computeSpread(answers) {
@@ -159,8 +172,10 @@ export default function SpreadSection({ desktop = false }) {
             <h3 style={desktopSectionHeading}>By Issue</h3>
             <div style={{ display: 'flex', flexDirection: 'column', marginTop: '16px' }}>
               <div style={{ ...rowBase, paddingBlock: '16px' }}>
-                <div className="quiz-body-prose" style={{ ...cell, color: spreadCyan }}>Issue</div>
-                <div className="quiz-body-prose" style={{ ...cell, ...cellChoice, color: spreadCyan }}>You align with</div>
+                <div style={{ ...cell, ...spreadTableHeadLabelBase }}>Issue</div>
+                <div style={{ ...cell, ...cellChoice, ...spreadTableHeadLabelBase }}>
+                  You align with
+                </div>
               </div>
               {byIssueRows.map(({ issue, candidate }, i) => (
                 <div key={i} style={{ ...rowBase, borderBottom: i === byIssueRows.length - 1 ? 'none' : rowBase.borderBottom }}>
@@ -223,8 +238,8 @@ export default function SpreadSection({ desktop = false }) {
               paddingBottom: '12px',
             }}
           >
-            <div className="quiz-body-prose" style={{ color: spreadCyan, letterSpacing: '0.05em' }}>Issue</div>
-            <div className="quiz-body-prose" style={{ color: spreadCyan, letterSpacing: '0.05em', textAlign: 'right' }}>You align with</div>
+            <div style={spreadTableHeadLabelBase}>Issue</div>
+            <div style={{ ...spreadTableHeadLabelBase, textAlign: 'right' }}>You align with</div>
           </div>
 
           {byIssueRows.map(({ issue, candidate }, i) => (
