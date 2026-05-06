@@ -27,7 +27,7 @@ export default () => (
       { title: 'The most vulnerable.', body: "Private developers aren't the only answer to a public crisis. Tweak tax to invest in nonprofit affordable housing." },
       { title: 'Tenants, always.', body: 'Renters win when developers lose. The billion dollars goes to public housing.' },
       { title: 'Rebuilders.', body: 'Offer tax exemptions to anyone rebuilding from the wildfires.' },
-      { title: 'Whoever the system is failing most', body: 'This tax is disastrous for tenants and developers. It was broken from the start.' },
+      { title: 'Whoever the system is failing most.', body: 'This tax is disastrous for tenants and developers. It was broken from the start.' },
     ]}
     nextPath="/question-10"
   />

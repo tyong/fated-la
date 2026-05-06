@@ -65,7 +65,7 @@ const SiteFooter = ({ resultTypography = false }) => {
 Candidate positions are based on publicly accessible information. Like our fates, they might change with time. `}
               {sourcesIsInternal ? (
                 <Link to={sourcesUrl} className="site-footer-link">
-                  See our sources. ➝
+                  See our sources ➝
                 </Link>
               ) : (
                 <a
@@ -74,7 +74,7 @@ Candidate positions are based on publicly accessible information. Like our fates
                   rel="noopener noreferrer"
                   className="site-footer-link"
                 >
-                  See our sources. ➝
+                  See our sources ➝
                 </a>
               )}
             </div>
