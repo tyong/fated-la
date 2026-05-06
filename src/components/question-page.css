@@ -110,6 +110,22 @@
   padding: 0;
 }
 
+/* iOS/Safari can auto-link dates/numbers inside copy; keep question text non-interactive. */
+.question-page .question-page__intro-p a,
+.question-page .question-page__prompt a,
+.question-page .question-page__header-meta a,
+.question-page .question-page__title a,
+.question-page a[x-apple-data-detectors] {
+  color: inherit !important;
+  cursor: text !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  line-height: inherit !important;
+  pointer-events: none !important;
+  text-decoration: none !important;
+}
+
 .question-page__choice-title {
   font-size: 16px;
   line-height: 24px;

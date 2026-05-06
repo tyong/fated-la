@@ -18,12 +18,10 @@ export default () => (
     number={6}
     title="The Raid"
     paragraphs={[
-      'ICE showed up at a school in Boyle Heights on a Tuesday morning.',
-      'Nobody got taken. This time.',
-      "But kids stayed home for a week. Teachers said their students were scared to pay attention in class.",
-      "The mayor can't control what ICE does. But the mayor runs a whole city.",
+      'ICE showed up at a school in Boyle Heights on a Tuesday morning. Nobody got taken. This time.',
+      "The mayor can't control what ICE does, but they run an entire city. It's Wednesday morning.",
     ]}
-    question="What should the mayor do?"
+    question="How would you respond?"
     choices={[
       { title: 'Use every legal tool available.', body: 'Forbid city cooperation with ICE. Get lawyers out there. Make noise at the federal level.' },
       { title: 'Block LAPD from helping ICE', body: 'Review every policy to prevent data sharing between city and federal law enforcement.' },

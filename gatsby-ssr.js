@@ -75,6 +75,11 @@ export const onPreRenderHTML = ({ getHeadComponents, replaceHeadComponents }) =>
 
 export const onRenderBody = ({ setHeadComponents, pathname }) => {
   setHeadComponents([
+    <meta
+      key="format-detection"
+      name="format-detection"
+      content="telephone=no,email=no,address=no,date=no"
+    />,
     <style
       key={CRITICAL_SHELL_BG_KEY}
       dangerouslySetInnerHTML={{
