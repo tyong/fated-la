@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import ClientOnlyDithering from './ClientOnlyDithering'
 import { PrimaryCta } from './PrimaryCta'
+import SiteFooter from './SiteFooter'
 import SpreadSectionExternal from './SpreadSection'
 import { ResultTiltCard } from './ResultTiltCard'
 import TopBar, { TOP_BAR_HEIGHT_DESKTOP, TOP_BAR_HEIGHT_MOBILE } from './TopBar'
@@ -1052,7 +1053,7 @@ const ResultPage = ({
             backgroundColor: '#5E67AC',
             borderTop: `1px solid ${purple}`,
             boxSizing: 'border-box',
-            padding: '56px 96px 100px',
+            padding: '56px 96px 8px',
             width: '100%',
           }}
         >
@@ -1113,6 +1114,7 @@ const ResultPage = ({
             width: '100%',
           }}
         />
+        <SiteFooter resultTypography />
       </main>
     )
   }
@@ -1258,7 +1260,7 @@ const ResultPage = ({
               backgroundColor: '#5E67AC',
               borderTop: `1px solid ${purple}`,
               boxSizing: 'border-box',
-              padding: '48px var(--site-gutter-x) 100px',
+              padding: '48px var(--site-gutter-x) 8px',
               width: '100%',
             }}
           >
@@ -1321,6 +1323,7 @@ const ResultPage = ({
           />
 
       </div>
+      <SiteFooter resultTypography />
 
     </main>
   )
