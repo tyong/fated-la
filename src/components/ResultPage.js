@@ -934,6 +934,8 @@ const ResultPage = ({
           </div>
         </div>
 
+        <SpreadSectionExternal desktop />
+
         <div
           style={{
             backgroundColor: '#291543',
@@ -964,8 +966,6 @@ const ResultPage = ({
             </div>
           </div>
         </div>
-
-        <SpreadSectionExternal desktop />
 
         {shadowTitle && (
           <>
@@ -1174,22 +1174,23 @@ const ResultPage = ({
             desktop={false}
           />
 
-          <div style={{ marginTop: 'clamp(56px, 7vw, 92px)' }}>
-            <Section title={tarotSectionTitle}>
-              <BodyText>{tarotReading}</BodyText>
-              {inPlainTerms ? (
-                <>
-                  <h3 style={plainTermsSubheadMobile}>Okay, but really.</h3>
-                  <BodyText>{inPlainTerms}</BodyText>
-                </>
-              ) : null}
-            </Section>
-          </div>
         </div>
       </div>
 
       <div style={{ marginTop: '32px', width: '100%' }}>
         <SpreadSectionExternal desktop={false} />
+      </div>
+
+      <div style={{ marginTop: 'clamp(56px, 7vw, 92px)' }}>
+        <Section title={tarotSectionTitle}>
+          <BodyText>{tarotReading}</BodyText>
+          {inPlainTerms ? (
+            <>
+              <h3 style={plainTermsSubheadMobile}>Okay, but really.</h3>
+              <BodyText>{inPlainTerms}</BodyText>
+            </>
+          ) : null}
+        </Section>
       </div>
 
       <div style={{ margin: '0 auto', maxWidth: '820px', position: 'relative', width: '100%' }}>
