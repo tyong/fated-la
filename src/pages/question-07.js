@@ -21,7 +21,7 @@ export default () => (
       'Los Angeles runs on hundreds of thousands of workers — cops, firefighters, teachers, bus drivers, custodians.',
       "They all just won raises the city can't afford. The contracts are signed and the deficit got deeper.",
     ]}
-    question="You inherit both — what do you do?"
+    question="What do you do?"
     choices={[
       { title: 'Find solutions without layoffs.', body: "Cutting workers means cutting services, so labor isn't the enemy of a balanced budget." },
       { title: 'Stop making empty promises.', body: 'Come to the table early. Bring real numbers. Workers deserve honesty as much as they deserve raises.' },
