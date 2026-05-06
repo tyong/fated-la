@@ -956,7 +956,7 @@ const ResultPage = ({
             }}
           >
             <h2 style={{ ...tarotSectionSubheadTypography, margin: 0 }}>{tarotSectionTitle}</h2>
-            <div style={{ marginTop: '24px' }}>
+            <div style={{ marginTop: '24px', paddingBottom: '72px' }}>
               <BodyText>{tarotReading}</BodyText>
               {inPlainTerms ? (
                 <>
@@ -1036,9 +1036,12 @@ const ResultPage = ({
                     color: pink,
                     margin: '48px auto 0',
                     maxWidth: '600px',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    paddingBottom: '72px',
                     position: 'relative',
                     whiteSpace: 'pre-wrap',
-                    width: '600px',
+                    width: '100%',
                   }}
                 >
                   {shadowText}
@@ -1135,7 +1138,7 @@ const ResultPage = ({
         width: '100%',
       }}
     >
-      <div style={{ margin: '0 auto', maxWidth: '820px', position: 'relative', width: '100%' }}>
+      <div style={{ margin: '0 auto', maxWidth: '820px', overflow: 'hidden', paddingBottom: '72px', position: 'relative', width: '100%' }}>
         <TopBar />
 
         <ClientOnlyDithering
@@ -1148,7 +1151,7 @@ const ResultPage = ({
           scale={1}
           colorBack="#274988"
           colorFront="#291543"
-          style={{ backgroundColor: '#274988', height: '823px', left: 0, position: 'absolute', top: 0, width: '100%', zIndex: 0 }}
+          style={{ backgroundColor: '#274988', inset: 0, position: 'absolute', width: '100%', zIndex: 0 }}
         />
         <ShareButton title={RESULT_NATIVE_SHARE_TITLE} text={RESULT_NATIVE_SHARE_TEXT} desktop={false} />
 
@@ -1179,19 +1182,21 @@ const ResultPage = ({
         </div>
       </div>
 
-      <div style={{ marginTop: '32px', width: '100%' }}>
+      <div style={{ marginTop: '0', width: '100%' }}>
         <SpreadSectionExternal desktop={false} />
       </div>
 
       <div style={{ marginTop: 'clamp(56px, 7vw, 92px)' }}>
         <Section title={tarotSectionTitle}>
-          <BodyText>{tarotReading}</BodyText>
-          {inPlainTerms ? (
-            <>
-              <h3 style={plainTermsSubheadMobile}>Okay, but really.</h3>
-              <BodyText>{inPlainTerms}</BodyText>
-            </>
-          ) : null}
+          <div style={{ paddingBottom: '72px' }}>
+            <BodyText>{tarotReading}</BodyText>
+            {inPlainTerms ? (
+              <>
+                <h3 style={plainTermsSubheadMobile}>Okay, but really.</h3>
+                <BodyText>{inPlainTerms}</BodyText>
+              </>
+            ) : null}
+          </div>
         </Section>
       </div>
 
@@ -1243,6 +1248,10 @@ const ResultPage = ({
                       boxSizing: 'border-box',
                       color: pink,
                       marginTop: '24px',
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                      maxWidth: '600px',
+                      paddingBottom: '72px',
                       position: 'relative',
                       whiteSpace: 'pre-wrap',
                       width: '100%',
