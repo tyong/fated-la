@@ -2,8 +2,6 @@ import {
   SCORES,
   CANDIDATES,
   MOON,
-  MOON_THRESHOLD,
-  MILLER_NARROW_THRESHOLD,
 } from '../data/scores'
 
 /**
@@ -26,10 +24,8 @@ export function getQuizResultPath(answers) {
     .map((score, i) => ({ ...CANDIDATES[i], score }))
     .sort((a, b) => b.score - a.score)
 
-  const gap = ranked[0].score - ranked[1].score
-  const isTooClose = gap <= MOON_THRESHOLD
-  const isMillerNarrow = ranked[0].key === 'miller' && gap <= MILLER_NARROW_THRESHOLD
-
-  if (isTooClose || isMillerNarrow) return MOON.route
+  // Only return The Moon when there is an exact tie for first place.
+  const isTieForFirst = ranked[0].score === ranked[1].score
+  if (isTieForFirst) return MOON.route
   return ranked[0].route
 }

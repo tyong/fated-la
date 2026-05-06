@@ -85,6 +85,20 @@ const progressPercent = (questionIndex, total) => {
   return Math.min(100, Math.max(0, (questionIndex / steps) * 100))
 }
 
+/** Fisher-Yates shuffle; returns display choices with stable original index for scoring. */
+const shuffledChoiceSet = (choices) => {
+  const items = choices.map((choice, originalIndex) => ({ ...choice, originalIndex }))
+  for (let i = items.length - 1; i > 0; i--) {
+    const rand =
+      typeof window !== 'undefined' && window.crypto?.getRandomValues
+        ? window.crypto.getRandomValues(new Uint32Array(1))[0] / 4294967296
+        : Math.random()
+    const j = Math.floor(rand * (i + 1))
+    ;[items[i], items[j]] = [items[j], items[i]]
+  }
+  return items
+}
+
 const QuestionPage = ({
   number,
   total = 10,
@@ -111,6 +125,7 @@ const QuestionPage = ({
     }
     return progressPercent(number - 1, total)
   })
+  const [displayChoices, setDisplayChoices] = useState(() => shuffledChoiceSet(choices))
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -122,6 +137,10 @@ const QuestionPage = ({
     })
     return () => cancelAnimationFrame(frame)
   }, [currentProgress, number])
+
+  useEffect(() => {
+    setDisplayChoices(shuffledChoiceSet(choices))
+  }, [choices, number])
 
   return (
     <>
@@ -179,13 +198,13 @@ const QuestionPage = ({
             </div>
 
             <div className="question-page__choices" role="group" aria-labelledby="question-page-title">
-              {choices.map((c, i) => (
+              {displayChoices.map((c, i) => (
                 <ChoiceCard
                   key={i}
                   title={c.title}
                   body={c.body}
                   onChoose={() => {
-                    saveAnswer(number, i)
+                    saveAnswer(number, c.originalIndex)
                     if (replaceNextPath) {
                       let answers = {}
                       try {

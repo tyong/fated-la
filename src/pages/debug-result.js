@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { navigate } from 'gatsby'
-import { SCORES, CANDIDATES, MOON, MOON_THRESHOLD, MILLER_NARROW_THRESHOLD, STORAGE_KEY } from '../data/scores'
+import { SCORES, CANDIDATES, MOON, STORAGE_KEY } from '../data/scores'
 
 const SHADOWS = {
   bass:   { name: 'Nithya Raman',  arcana: 'The High Priestess' },
@@ -71,7 +71,7 @@ export default function DebugResult() {
   const winnerIdx = totals.indexOf(ranked[0].score)
   const maxScore = ranked[0].score
   const gap = hasAnyAnswer ? ranked[0].score - ranked[1].score : null
-  const isMoon = hasAnyAnswer && (gap <= MOON_THRESHOLD || (ranked[0].key === 'miller' && gap <= MILLER_NARROW_THRESHOLD))
+  const isMoon = hasAnyAnswer && ranked[0].score === ranked[1].score
 
   const th = { border: '1px solid #ccc', padding: '6px 10px', background: '#eee', fontWeight: 'bold', whiteSpace: 'nowrap' }
   const td = { border: '1px solid #ccc', padding: '6px 10px', textAlign: 'center' }
@@ -185,7 +185,7 @@ export default function DebugResult() {
             {!hasAnyAnswer
               ? 'No answers recorded yet.'
               : isMoon
-                ? <span style={{ color: '#3D3560', fontWeight: 'bold' }}>🌑 The Moon (gap={gap}, threshold={ranked[0].key === 'miller' ? MILLER_NARROW_THRESHOLD : MOON_THRESHOLD})</span>
+                ? <span style={{ color: '#3D3560', fontWeight: 'bold' }}>🌑 The Moon (tie for first, gap={gap})</span>
                 : <span style={{ color: '#1a7a1a' }}>{ranked[0].name} ({maxScore} pts, gap={gap})</span>
             }
             {' '}
