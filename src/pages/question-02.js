@@ -18,10 +18,10 @@ export default () => (
     number={2}
     title="The Olympics"
     paragraphs={[
-      'In 2028, Los Angeles hosts the Olympics. Construction is everywhere. Tourism stuff is getting fast-tracked.',
+      'In 2028, Los Angeles hosts the Olympics. Construction is everywhere. Permits are getting fast-tracked.',
       "But the city's climate promises keep getting pushed back.",
     ]}
-    question="What should the mayor focus on?"
+    question="What would you focus on?"
     choices={[
       { title: "All of the above, because that's the job.", body: "The Olympics is an accelerator to our climate goals, we don't have to choose." },
       { title: 'Making LA more sustainable and livable.', body: "If we're only fixing streets and planting trees where cameras will be, we've missed the point entirely." },

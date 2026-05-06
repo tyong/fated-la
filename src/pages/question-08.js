@@ -18,17 +18,17 @@ export default () => (
     number={8}
     title="The 911 Call"
     paragraphs={[
-      'In some LA neighborhoods, it takes LAPD over 10 minutes to respond to a 911 call.',
-      'The department has thousands of unfilled positions.',
-      'Crime is up in some categories. Down in others. It depends who you ask.',
+      'The city is paying $384 million to settle lawsuits against its own police department.',
+      "The LAPD still doesn't have enough police officers. Crime is down anyway.",
+      'Some say: the shortage is a crisis.\nOthers say: the shortage is an opportunity.',
     ]}
-    question="What does the city need?"
+    question="What would you do?"
     choices={[
       { title: 'Hire more officers.', body: "Close the 1,000+ officer hiring gap. We can't fix a department by hollowing it out." },
       { title: 'Audit the department.', body: 'Appoint a new police chief. Misconduct is a culture problem, not a staffing one.' },
       { title: 'Invest in community.', body: 'Public safety comes from safe housing, mental health response, and youth programs — not more cops.' },
       { title: 'Rebuild the department.', body: 'Implement zero-tolerance for theft, graffiti, and animal abuse.' },
-      { title: 'Double police patrols.', body: "Residents don't feel safe. Bring staffing levels back and focus on accountability." },
+      { title: 'Leverage automation.', body: 'Use technology to double police patrols and bring staffing levels back.' },
     ]}
     nextPath="/question-09"
   />

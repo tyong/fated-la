@@ -18,8 +18,8 @@ export default () => (
     number={3}
     title="The Deficit"
     paragraphs={[
-      'Los Angeles has a $1 billion budget hole. The city already quietly stopped fixing roads. Services are getting cut.',
-      'Whoever becomes mayor next, gets to deal with ALL of that debt. Fun!',
+      'Los Angeles has a $1 billion budget hole.\nRoads are crumbling. Services are disappearing.',
+      "The next leader inherits all of it — the debt, the silence, the decisions no one made.",
     ]}
     question="What's the move?"
     choices={[

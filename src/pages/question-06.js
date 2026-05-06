@@ -19,7 +19,7 @@ export default () => (
     title="The Raid"
     paragraphs={[
       'ICE showed up at a school in Boyle Heights on a Tuesday morning. Nobody got taken. This time.',
-      "The mayor can't control what ICE does, but they run an entire city. It's Wednesday morning.",
+      "The mayor can't control what ICE does, but they run an entire city.",
     ]}
     question="How would you respond?"
     choices={[
