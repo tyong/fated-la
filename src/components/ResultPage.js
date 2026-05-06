@@ -778,7 +778,7 @@ const ShareButton = ({ title, text, desktop }) => {
                 zIndex: 1,
               }}
             >
-              <span>Share</span>
+              <span>Share quiz</span>
               <span className="result-share-trigger__icon-wrap" aria-hidden="true">
                 <svg
                   ref={shareIconSvgRef}
