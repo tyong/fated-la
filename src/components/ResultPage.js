@@ -1182,7 +1182,11 @@ const ResultPage = ({
         </div>
       </div>
 
-      <div style={{ marginTop: '0' }}>
+      <div style={{ marginTop: '0', width: '100%' }}>
+        <SpreadSectionExternal desktop={false} />
+      </div>
+
+      <div style={{ marginTop: 'clamp(56px, 7vw, 92px)' }}>
         <Section title={tarotSectionTitle}>
           <div style={{ paddingBottom: '72px' }}>
             <BodyText>{tarotReading}</BodyText>
